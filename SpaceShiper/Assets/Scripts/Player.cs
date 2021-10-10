@@ -19,9 +19,15 @@ public class Player : MonoBehaviour
 
     private enum Direction { zero, right, up, left, down }
 
-    private IEnumerator Move(Vector3Int end)
+    public void Dead()
+    {
+        Debug.Log("Is Dead");
+    }
+
+    private IEnumerator Move(Vector3Int end, Direction direction)
     {
         isMove = true;
+        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
         while (this.transform.position != end)
         {
             // перемещаемся на 1 с определённой скоростью
@@ -31,13 +37,15 @@ public class Player : MonoBehaviour
         }
         isMove = false;
     }
-    private IEnumerator PostMove(Vector3Int end)
+
+    private IEnumerator PostMove(Vector3Int end, Direction direction)
     {
         if (!isAutoMove)
         {
             isAutoMove = true;
             while (isMove) { yield return new WaitForEndOfFrame(); }
             isMove = true;
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
             while (this.transform.position != end)
             {
                 // перемещаемся на 1 с определённой скоростью
@@ -50,8 +58,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Trap"))
+            {
+                Dead();
+            }
+        }
+    }
+
     void Start()
     {
+        Debug.Log(Direction.down.ToString());
         BoundsInt bounds = waysTilemap.cellBounds;
         tilemapScheme = new string[bounds.size.x, bounds.size.y];
         TileBase[] allTiles = waysTilemap.GetTilesBlock(bounds);
@@ -134,7 +154,7 @@ public class Player : MonoBehaviour
                     direction,
                     waysTilemap
                     );   // тайл с игроком
-                StartCoroutine(PostMove(end));
+                StartCoroutine(PostMove(end, direction));
             }
             else
             {
@@ -148,7 +168,9 @@ public class Player : MonoBehaviour
 
                 // начинаем движение с помощью корутины
                 if (!isMove)
-                    StartCoroutine(Move(end));
+                {
+                    StartCoroutine(Move(end, direction));
+                }
             }
 
             directionChosen = false;
