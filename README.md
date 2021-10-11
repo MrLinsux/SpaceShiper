@@ -18,3 +18,5 @@ Colors of Wall:
 1: #000000 - Base Wall
 2: #ff0000 - Static Thorns
 3: #ee0000 - Directions of Static Thorns
+4: #ff00ff - Bat
+5: #ee00ff - Bat Direction
