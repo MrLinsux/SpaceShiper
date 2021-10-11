@@ -172,12 +172,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d57735ac92b25694799e8060a41cd10e, type: 2}
   wallPrefabs:
   - {fileID: 6687652004437641181, guid: 2648e88bb6adc984bb7565c50e9f7f96, type: 3}
+  - {fileID: 6700764873052418858, guid: e69a6569d16426e44ad1ce25ee756876, type: 3}
   detWallTiles:
   - {r: 0, g: 0, b: 0, a: 1}
   detWallPrefabs:
   - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
   detDirectionWallPrefabs:
   - {r: 0.93333334, g: 0, b: 0, a: 1}
+  - {r: 0.93333334, g: 0, b: 1, a: 1}
 --- !u!4 &43818385
 Transform:
   m_ObjectHideFlags: 0
@@ -362,7 +365,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.1266827, g: 0.12615697, b: 0.14150941, a: 0}
+  m_BackGroundColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -489,7 +492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688669240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1657575944}
@@ -850,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813468317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 11}
+  m_LocalPosition: {x: 0, y: 0, z: 40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1261454300}

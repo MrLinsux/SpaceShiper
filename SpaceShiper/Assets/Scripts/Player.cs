@@ -203,7 +203,7 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        return new Vector3Int(cellItemX, cellItemY, 11);
+        return new Vector3Int(cellItemX, cellItemY, 0);
 
     }
 }
