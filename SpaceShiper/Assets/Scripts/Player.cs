@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public float n = 1;
     private Vector3Int end;
     Direction direction = Direction.zero;
+    public static GameController controller;
 
     private enum Direction { zero, right, up, left, down }
 
@@ -31,7 +33,7 @@ public class Player : MonoBehaviour
         while (this.transform.position != end)
         {
             // перемещаемся на 1 с определённой скоростью
-            this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1/10f);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1f);
 
             yield return new WaitForSeconds(1/moveSpeed);
         }
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
             while (this.transform.position != end)
             {
                 // перемещаемся на 1 с определённой скоростью
-                this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1 / 10f);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1f);
 
                 yield return new WaitForSeconds(1 / moveSpeed);
             }
@@ -71,7 +73,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(Direction.down.ToString());
+        controller = GameObject.Find("GameController").GetComponent<GameController>();
         BoundsInt bounds = waysTilemap.cellBounds;
         tilemapScheme = new string[bounds.size.x, bounds.size.y];
         TileBase[] allTiles = waysTilemap.GetTilesBlock(bounds);
@@ -181,29 +183,34 @@ public class Player : MonoBehaviour
 
     private static Vector3Int GetLastTileInCoridor(Vector3Int start, Direction direction, Tilemap tilemapScheme)
     {
+
         int cellItemX = start.x;
         int cellItemY = start.y;
         switch (direction)
         {
             case Direction.right:
-                while (tilemapScheme.GetTile(new Vector3Int(cellItemX + 1, cellItemY, 0)) != null)
+                while (IsThisTileFromWay(tilemapScheme, cellItemX, 1, cellItemY, 0))
                     cellItemX++;
                 break;
             case Direction.up:
-                while (tilemapScheme.GetTile(new Vector3Int(cellItemX, cellItemY + 1, 0)) != null)
+                while (IsThisTileFromWay(tilemapScheme, cellItemX, 0, cellItemY, 1))
                     cellItemY++;
                 break;
             case Direction.left:
-                while (tilemapScheme.GetTile(new Vector3Int(cellItemX - 1, cellItemY, 0)) != null)
+                while (IsThisTileFromWay(tilemapScheme, cellItemX, -1, cellItemY, 0))
                     cellItemX--;
                 break;
             case Direction.down:
-                while (tilemapScheme.GetTile(new Vector3Int(cellItemX, cellItemY - 1, 0)) != null)
+                while (IsThisTileFromWay(tilemapScheme, cellItemX, 0, cellItemY, -1))
                     cellItemY--;
                 break;
         }
 
         return new Vector3Int(cellItemX, cellItemY, 0);
 
+    }
+    private static bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
+    {
+        return Array.IndexOf(controller.tilemap.GetComponent<Map>().wayTiles, tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) > -1;
     }
 }

@@ -1,4 +1,5 @@
 -a="C:\Users\mrPlag\Documents\Projects\Games\SpaceShiper\SpaceShiper\Library\PlayerScriptAssemblies\Assembly-CSharp.dll"
+-a="C:\Users\mrPlag\Documents\Projects\Games\SpaceShiper\SpaceShiper\Library\PlayerScriptAssemblies\Unity.2D.Tilemap.Extras.dll"
 -a="C:\Users\mrPlag\Documents\Projects\Games\SpaceShiper\SpaceShiper\Library\PlayerScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll"
 -a="C:\Users\mrPlag\Documents\Projects\Games\SpaceShiper\SpaceShiper\Library\PlayerScriptAssemblies\Unity.2D.PixelPerfect.dll"
 -a="C:\Users\mrPlag\Documents\Projects\Games\SpaceShiper\SpaceShiper\Library\PlayerScriptAssemblies\UnityEngine.TestRunner.dll"
