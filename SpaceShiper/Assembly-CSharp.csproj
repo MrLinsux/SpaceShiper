@@ -55,12 +55,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\TestController.cs" />
-    <Compile Include="Assets\Scripts\Thicker.cs" />
-    <Compile Include="Assets\Scripts\Camera.cs" />
     <Compile Include="Assets\Scripts\MultySideTrap.cs" />
     <Compile Include="Assets\Scripts\SingleSideTrap.cs" />
+    <Compile Include="Assets\Scripts\TestController.cs" />
+    <Compile Include="Assets\Scripts\Thicker.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
+    <Compile Include="Assets\Scripts\Camera.cs" />
+    <Compile Include="Assets\Scripts\UIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

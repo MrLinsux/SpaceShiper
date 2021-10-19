@@ -7,8 +7,9 @@ public class MultySideTrap : MonoBehaviour
     public GameObject[] traps;
     public bool[] directions;
 
-    public void SetTrap()
+    private void Start()
     {
+        this.name = this.name.Replace("(Clone)", "");
         for (int i = 0; i < 4; i++)
         {
             traps[i].SetActive(directions[i]);

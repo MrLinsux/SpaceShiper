@@ -8,8 +8,9 @@ public class SingleSideTrap : MonoBehaviour
 
     public Direction singleDirection;
 
-    public void SetTrap()
+    private void Start()
     {
+        this.name = this.name.Replace("(Clone)", "");
         this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)singleDirection);
     }
 }

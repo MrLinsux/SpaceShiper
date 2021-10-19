@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Thicker : MonoBehaviour
 {
@@ -19,6 +21,42 @@ public class Thicker : MonoBehaviour
 
     private void Start()
     {
+        endPos = startPos = this.transform.position;
+        
+        Vector3Int direction = Vector3Int.zero;
+        var tilemap = GameObject.Find("Map").GetComponent<Tilemap>();
+
+        switch((int)this.GetComponent<SingleSideTrap>().singleDirection)
+        {
+            case 0:
+                direction = Vector3Int.right;
+                break;
+            case 1:
+                direction = Vector3Int.up;
+                break;
+            case 2:
+                direction = Vector3Int.left;
+                break;
+            case 3:
+                direction = Vector3Int.down;
+                break;
+        }
+
+        int wayLong = 0;
+
+        while(direction != Vector3Int.zero)
+        {
+            if (Array.IndexOf(tilemap.GetComponent<Map>().wallTiles, tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong))) > -1) 
+            {
+                break;
+            }
+            else
+            {
+                wayLong++;
+            }
+        }
+
+        endPos += direction * (wayLong - 1);
     }
 
 

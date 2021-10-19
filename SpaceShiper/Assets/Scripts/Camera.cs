@@ -14,7 +14,7 @@ public class Camera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         this.transform.position = Vector3.Lerp(
             this.transform.position, 

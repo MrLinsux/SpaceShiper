@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
         this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
         while (this.transform.position != end)
         {
+            yield return new WaitForSeconds(1 / moveSpeed);
             // перемещаемся на 1 с определённой скоростью
             this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1f);
 
-            yield return new WaitForSeconds(1/moveSpeed);
         }
         isMove = false;
     }
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.touchCount > 0)
         {
@@ -166,7 +166,6 @@ public class Player : MonoBehaviour
                     direction,
                     waysTilemap
                     );   // тайл с игроком
-                Debug.Log(end);
 
                 // начинаем движение с помощью корутины
                 if (!isMove)
