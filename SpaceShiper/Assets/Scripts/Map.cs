@@ -23,7 +23,7 @@ public class Map : MonoBehaviour
 
     private Vector3 zNomalizer;                 // нормализирует объект по оси z
 
-    private void BuildLevel(int world, int lvl)
+    public Vector3 BuildLevel(int world, int lvl)
     {
         zNomalizer = Vector3.forward * tilemap.transform.parent.position.z;
 
@@ -34,6 +34,8 @@ public class Map : MonoBehaviour
             // ставим дорогу
             var way = mapPlan.way[i];
             tilemap.SetTile(new Vector3Int(way.x, way.y, way.z), wayTiles[way.id]);
+            if (way.id == 1)
+                playerSpawner = new Vector3(way.x, way.y, player.transform.position.z);
         }
         for (int i = 0; i < mapPlan.wall.Count; i++)
         {
@@ -69,6 +71,8 @@ public class Map : MonoBehaviour
                 tilemap.transform
                 ).GetComponent<MultySideTrap>().directions = trap.ds;
         }
+
+        return playerSpawner;
     }
 
     public void SaveLevel()

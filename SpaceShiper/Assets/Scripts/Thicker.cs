@@ -60,7 +60,7 @@ public class Thicker : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (Vector3.Distance(this.transform.position, startPos) >= Vector3.Distance(startPos, endPos))
         {

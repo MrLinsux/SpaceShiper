@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public GameController gameController;
+
+    #region Play
+    public GameObject playerCanvas;
+    public GameObject pauseMenu;
     public Text timer;
 
     public void PauseGame()
@@ -11,15 +16,16 @@ public class UIController : MonoBehaviour
         if (Time.timeScale > 0)
         {
             Time.timeScale = 0;
+            pauseMenu.SetActive(true);
         }
         else
             StartCoroutine(ResumeGame());
     }
-
     private IEnumerator ResumeGame()
     {
         int time = 3;
         timer.transform.parent.gameObject.SetActive(true);
+        pauseMenu.SetActive(false);
         while (time >= 0)
         {
             timer.text = time.ToString();
@@ -28,5 +34,44 @@ public class UIController : MonoBehaviour
         }
         Time.timeScale = 1;
         timer.transform.parent.gameObject.SetActive(false);
+        pauseMenu.SetActive(false);
     }
+
+    public void Exit()
+    {
+        gameController.LoadLevel(world, level);
+        gameController.player.GetComponent<Player>().enabled = false;
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+        playerCanvas.SetActive(false);
+        mainCanvas.SetActive(true);
+    }
+    #endregion
+
+    #region Main
+    public GameObject mainCanvas;
+    public Text money;
+    public int world = 0; public int level = 0;
+
+    public void StartGame()
+    {
+        mainCanvas.SetActive(false);
+        playerCanvas.SetActive(true);
+
+        gameController.player.GetComponent<Player>().enabled = true;
+    }
+
+    public void Shop()
+    {
+
+    }
+    public void LevelSelector()
+    {
+
+    }
+    public void Settings()
+    {
+
+    }
+    #endregion
 }

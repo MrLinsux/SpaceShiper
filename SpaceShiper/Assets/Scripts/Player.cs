@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public Vector2 vDirection;
     public bool directionChosen;
     public Tilemap waysTilemap;
-    public string[,] tilemapScheme;
     public bool isMove = false;
     public bool isAutoMove = false;
     public float n = 1;
@@ -32,9 +31,9 @@ public class Player : MonoBehaviour
         this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
         while (this.transform.position != end)
         {
-            yield return new WaitForSeconds(1 / moveSpeed);
+            yield return new WaitForFixedUpdate();
             // перемещаемся на 1 с определённой скоростью
-            this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1f);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
 
         }
         isMove = false;
@@ -51,9 +50,9 @@ public class Player : MonoBehaviour
             while (this.transform.position != end)
             {
                 // перемещаемся на 1 с определённой скоростью
-                this.transform.position = Vector3.MoveTowards(this.transform.position, end, 1f);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
 
-                yield return new WaitForSeconds(1 / moveSpeed);
+                yield return new WaitForFixedUpdate();
             }
             isMove = false;
             isAutoMove = false;
@@ -74,21 +73,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
-        BoundsInt bounds = waysTilemap.cellBounds;
-        tilemapScheme = new string[bounds.size.x, bounds.size.y];
-        TileBase[] allTiles = waysTilemap.GetTilesBlock(bounds);
-
-        for (int x = 0; x < bounds.size.x; x++)
-        {
-            for (int y = 0; y < bounds.size.y; y++)
-            {
-                TileBase tile = allTiles[x + y * bounds.size.x];
-                if (tile != null)
-                {
-                    tilemapScheme[x, y] = tile.name;
-                }
-            }
-        }
+        Debug.Log(".");
     }
 
     void FixedUpdate()
