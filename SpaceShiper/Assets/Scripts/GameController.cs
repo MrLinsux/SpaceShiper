@@ -34,7 +34,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        player.GetComponent<Player>().enabled = false;
+        LoadLevel(0, 0);
+        //player.GetComponent<Player>().enabled = false;
         Application.targetFrameRate = 30;
     }
 }

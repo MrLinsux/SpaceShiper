@@ -3,11 +3,13 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Camera
     - GameController
+    - Laser
     - Map
     - MultySideTrap
     - Player
     - SingleSideTrap
     - Thicker
+    - Turel
     - UIController
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
@@ -18,7 +20,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -34,6 +35,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GameObjectBrush
     - UnityEditor.Tilemaps.GroupBrush
     - UnityEditor.Tilemaps.LineBrush
+    - UnityEditor.Tilemaps.PrefabBrush
     - UnityEditor.Tilemaps.RandomBrush
     - UnityEditor.Tilemaps.TintBrush
     - UnityEditor.Tilemaps.TintBrushSmooth
@@ -53,6 +55,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Text
     - UnityEngine.UI.VerticalLayoutGroup
@@ -91,35 +94,41 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1726}
     - Class: 114
-      Script: {instanceID: 1990}
+      Script: {instanceID: 1752}
     - Class: 114
-      Script: {instanceID: 2224}
+      Script: {instanceID: 1992}
     - Class: 114
-      Script: {instanceID: 2348}
+      Script: {instanceID: 2226}
     - Class: 114
-      Script: {instanceID: 2642}
+      Script: {instanceID: 2350}
     - Class: 114
-      Script: {instanceID: 2806}
+      Script: {instanceID: 2644}
     - Class: 114
-      Script: {instanceID: 3030}
+      Script: {instanceID: 2808}
     - Class: 114
-      Script: {instanceID: 3170}
+      Script: {instanceID: 3032}
     - Class: 114
-      Script: {instanceID: 3284}
+      Script: {instanceID: 3092}
     - Class: 114
-      Script: {instanceID: 3396}
+      Script: {instanceID: 3172}
     - Class: 114
-      Script: {instanceID: 3788}
+      Script: {instanceID: 3286}
     - Class: 114
-      Script: {instanceID: 3826}
+      Script: {instanceID: 3398}
     - Class: 114
-      Script: {instanceID: 3872}
+      Script: {instanceID: 3790}
     - Class: 114
-      Script: {instanceID: 4450}
+      Script: {instanceID: 3828}
     - Class: 114
-      Script: {instanceID: 4516}
+      Script: {instanceID: 3874}
     - Class: 114
-      Script: {instanceID: 4526}
+      Script: {instanceID: 4452}
+    - Class: 114
+      Script: {instanceID: 4518}
+    - Class: 114
+      Script: {instanceID: 4528}
+    - Class: 114
+      Script: {instanceID: 5688}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -249,6 +258,12 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Laser
+  - hash:
+      serializedVersion: 2
       Hash: 7ba35897a6eb27627ed456c682c34253
     assemblyName: Unity.2D.Tilemap.Extras.dll
     namespaceName: UnityEngine.Tilemaps
@@ -261,7 +276,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: f03d898f0c9f1dd0db24f95331a61d6a
+      Hash: a82fbbd844f8f3bbed0e7e6a3c629831
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -513,7 +528,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: e7763227ad537d3a100cd9b17ae88f5e
+      Hash: ec4e223349b3bb4b817ce6450e61ec31
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -645,7 +660,7 @@ ScriptsOnlyBuild:
     className: Map
   - hash:
       serializedVersion: 2
-      Hash: 04b15eb2d4321728b68c232c0e210b06
+      Hash: b53523b0ae870e1b621b4660f9d05b07
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Camera
@@ -787,6 +802,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
+  - hash:
+      serializedVersion: 2
+      Hash: 8094ffd456b403460e36374475730c55
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Turel
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity

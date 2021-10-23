@@ -19,6 +19,8 @@ public class Map : MonoBehaviour
     public GameObject[] multySideTraps;
     private string[] multySideTrapsNames;
 
+    public GameObject teleport;
+
     public int World = 0; public int Level = 0;
 
     private Vector3 zNomalizer;                 // нормализирует объект по оси z
@@ -55,7 +57,7 @@ public class Map : MonoBehaviour
             var trap = mapPlan.singleSideTraps[i];
             Instantiate(
                 singleSideTraps[trap.id], 
-                new Vector3(trap.x, trap.y, zNomalizer.z), 
+                new Vector3(trap.x, trap.y, trap.z), 
                 Quaternion.identity, 
                 tilemap.transform
                 ).GetComponent<SingleSideTrap>().singleDirection = (SingleSideTrap.Direction)trap.d;
@@ -66,10 +68,21 @@ public class Map : MonoBehaviour
             var trap = mapPlan.multySideTraps[i];       
             Instantiate(
                 multySideTraps[trap.id],
-                new Vector3(trap.x, trap.y, zNomalizer.z),
+                new Vector3(trap.x, trap.y, trap.z),
                 Quaternion.identity, 
                 tilemap.transform
                 ).GetComponent<MultySideTrap>().directions = trap.ds;
+        }
+        for(int i = 0; i < mapPlan.portals.Count; i++)
+        {
+            // ставим телепорты
+            var portal = mapPlan.portals[i];
+            Instantiate(
+                teleport, 
+                new Vector3(portal.portals[0].x, portal.portals[0].y, portal.portals[0].z), 
+                Quaternion.identity, 
+                tilemap.transform
+                ).transform.GetChild(1).position = new Vector3(portal.portals[1].x, portal.portals[1].y, portal.portals[1].z);
         }
 
         return playerSpawner;
@@ -102,24 +115,25 @@ public class Map : MonoBehaviour
                 }
             }
         }
-
-        Transform[] traps = tilemap.gameObject.GetComponentsInChildren<Transform>();
-        for (int i = 0; i < traps.Length; i++)
+        
+        Transform[] child = tilemap.gameObject.GetComponentsInChildren<Transform>();
+        for (int i = 0; i < child.Length; i++)
         {
-            if(traps[i].GetComponent<SingleSideTrap>())
+            Debug.Log(child[i].tag);
+            if(child[i].GetComponent<SingleSideTrap>())
             {
                 map.singleSideTraps.Add(
                     new MapTiles.SingleSideTrap(
-                        (int)traps[i].position.x,
-                        (int)traps[i].position.y,
-                        (int)traps[i].position.z,
-                        Array.IndexOf(singleSideTrapsNames, traps[i].name),
-                        (int)traps[i].GetComponent<SingleSideTrap>().singleDirection));
+                        (int)child[i].position.x,
+                        (int)child[i].position.y,
+                        (int)child[i].position.z,
+                        Array.IndexOf(singleSideTrapsNames, child[i].name),
+                        (int)child[i].GetComponent<SingleSideTrap>().singleDirection));
             }
-            else if(traps[i].GetComponent<MultySideTrap>())
+            else if(child[i].GetComponent<MultySideTrap>())
             {
-                var trapPos = tilemap.WorldToCell(traps[i].position - new Vector3(0, 0, traps[i].position.z));
-                var directions = traps[i].GetComponent<MultySideTrap>().directions;
+                var trapPos = tilemap.WorldToCell(child[i].position - new Vector3(0, 0, child[i].position.z));
+                var directions = child[i].GetComponent<MultySideTrap>().directions;
 
                 if (Array.IndexOf(wallTiles, tilemap.GetTile(trapPos + Vector3Int.right)) > -1) 
                     directions[0] = false;
@@ -132,11 +146,18 @@ public class Map : MonoBehaviour
 
                 map.multySideTraps.Add(
                     new MapTiles.MultySideTrap(
-                        (int)traps[i].position.x,
-                        (int)traps[i].position.y,
-                        (int)traps[i].position.z,
-                        Array.IndexOf(multySideTrapsNames, traps[i].name),
+                        (int)child[i].position.x,
+                        (int)child[i].position.y,
+                        (int)child[i].position.z,
+                        Array.IndexOf(multySideTrapsNames, child[i].name),
                         directions));
+            }
+            else if(child[i].CompareTag("Teleport"))
+            {
+                map.portals.Add(new MapTiles.Teleporter(new MapTiles.Portal[2] {
+                    new MapTiles.Portal(child[i].position.x, child[i].position.y, child[i].position.z),
+                    new MapTiles.Portal(child[i].GetChild(1).position.x, child[i].GetChild(1).position.y, child[i].GetChild(1).position.z)
+                }));
             }
         }
 
@@ -164,7 +185,7 @@ public class Map : MonoBehaviour
 
         tilemap = this.GetComponent<Tilemap>();
 
-        BuildLevel(World, Level);
+        //BuildLevel(World, Level);
     }
 
     public class MapTiles
@@ -177,6 +198,7 @@ public class Map : MonoBehaviour
         public List<RuleTiles> ruleTiles = new List<RuleTiles>();
         public List<SingleSideTrap> singleSideTraps = new List<SingleSideTrap>();
         public List<MultySideTrap> multySideTraps = new List<MultySideTrap>();
+        public List<Teleporter> portals = new List<Teleporter>();                     // из массивов по два элемента - портала
 
 
         [System.Serializable]
@@ -230,6 +252,24 @@ public class Map : MonoBehaviour
             public bool[] ds;
             public MultySideTrap(int _cellX, int _cellY, int _cellZ, int _tileID, bool[] _directions) { x = _cellX; y = _cellY; z = _cellZ; id = _tileID; ds = _directions; }
         }
+
+        [System.Serializable]
+        public class Teleporter
+        {
+            public Portal[] portals;
+            public Teleporter(Portal[] _portals) { portals = _portals; }
+        }
+
+        [System.Serializable]
+        public class Portal
+        {
+            public float x;
+            public float y;
+            public float z;
+
+            public Portal(float _cellX, float _cellY, float _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+        }
+
     }
 
 }

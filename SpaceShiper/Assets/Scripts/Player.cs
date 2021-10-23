@@ -1,55 +1,62 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed;
-    public Vector2 startPos;
-    public Vector2 vDirection;
+    public float moveSpeed = 1f;
+    public float delay = 1f;
+    public float minVDirection = 1f;
+
     public bool directionChosen;
-    public Tilemap waysTilemap;
     public bool isMove = false;
     public bool isAutoMove = false;
-    public float n = 1;
-    private Vector3Int end;
-    Direction direction = Direction.zero;
-    public static GameController controller;
+    private Vector3 end;
+    public Direction direction = Direction.zero;
+    public Direction mainDirection = Direction.zero;
+    public Direction secondDirection = Direction.zero;
+    private Vector2 startPos;
+    private Vector2 vDirection;
 
-    private enum Direction { zero, right, up, left, down }
+    public static GameController controller;
+    public Tilemap waysTilemap;
+
+    public enum Direction { zero, right, up, left, down }
 
     public void Dead()
     {
         Debug.Log("Is Dead");
     }
 
-    private IEnumerator Move(Vector3Int end, Direction direction)
+    private IEnumerator Move(Vector3 end, Direction direction)
     {
+        mainDirection = direction;
         isMove = true;
         this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
+        yield return new WaitForFixedUpdate();
         while (this.transform.position != end)
         {
             yield return new WaitForFixedUpdate();
-            // перемещаемся на 1 с определённой скоростью
             this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-
         }
         isMove = false;
     }
 
-    private IEnumerator PostMove(Vector3Int end, Direction direction)
+    private IEnumerator PostMove(Vector3 end, Direction direction)
     {
-        if (!isAutoMove)
+        if (!isAutoMove && (direction == Direction.zero))
         {
+            Debug.Log(end);
             isAutoMove = true;
+            secondDirection = direction;
             while (isMove) { yield return new WaitForEndOfFrame(); }
+            mainDirection = direction;
             isMove = true;
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
+            yield return new WaitForFixedUpdate();
             while (this.transform.position != end)
             {
-                // перемещаемся на 1 с определённой скоростью
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
 
                 yield return new WaitForFixedUpdate();
@@ -67,21 +74,29 @@ public class Player : MonoBehaviour
             {
                 Dead();
             }
+            if(collision.GetComponent<Portal>())
+            {
+                StopAllCoroutines();
+                this.transform.position = collision.GetComponent<Portal>().GetTeleportPoint(mainDirection);
+                StartCoroutine(Move(GetLastTileInCoridor(this.transform.position, mainDirection, waysTilemap), mainDirection));
+                StartCoroutine(PostMove(GetLastTileInCoridor(GetLastTileInCoridor(this.transform.position, mainDirection, waysTilemap), secondDirection, waysTilemap), secondDirection));
+            }
         }
     }
 
     void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
-        Debug.Log(".");
     }
 
     void FixedUpdate()
     {
+        float deltaThouch = 0;
+        Vector2 oldStartPos = Vector2.zero;
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            touch = Input.GetTouch(0);
             // Handle finger movements based on touch phase.
             switch (touch.phase)
             {
@@ -95,6 +110,7 @@ public class Player : MonoBehaviour
                 case TouchPhase.Moved:
                     directionChosen = true;
                     vDirection = touch.position - startPos;
+                    deltaThouch = touch.deltaPosition.magnitude;
                     break;
 
                 // убрал палец
@@ -103,7 +119,7 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        if (directionChosen && vDirection.magnitude > n)
+        if (directionChosen && (deltaThouch > delay) && (vDirection.magnitude > minVDirection))
         {
             Touch touch = Input.GetTouch(0);
             var pi = Mathf.PI;
@@ -134,6 +150,7 @@ public class Player : MonoBehaviour
                 direction = (Direction)4;
             }
             #endregion
+
             if (isMove && (secDirection != direction))
             {
                 end = GetLastTileInCoridor(
@@ -143,7 +160,7 @@ public class Player : MonoBehaviour
                     );   // тайл с игроком
                 StartCoroutine(PostMove(end, direction));
             }
-            else
+            else if(!isMove)
             {
                 // устанавливаем целевой тайл
                 end = GetLastTileInCoridor(
@@ -153,23 +170,22 @@ public class Player : MonoBehaviour
                     );   // тайл с игроком
 
                 // начинаем движение с помощью корутины
-                if (!isMove)
-                {
-                    StartCoroutine(Move(end, direction));
-                }
+                StartCoroutine(Move(end, direction));
             }
 
             directionChosen = false;
-            startPos = touch.position;
             vDirection = Vector2.zero;
+        }
+        if(Input.touchCount > 0)
+        {
+            startPos = Input.GetTouch(0).position;
         }
     }
 
-    private static Vector3Int GetLastTileInCoridor(Vector3Int start, Direction direction, Tilemap tilemapScheme)
+    private static Vector3Int GetLastTileInCoridor(Vector3 start, Direction direction, Tilemap tilemapScheme)
     {
-
-        int cellItemX = start.x;
-        int cellItemY = start.y;
+        int cellItemX = (int)start.x;
+        int cellItemY = (int)start.y;
         switch (direction)
         {
             case Direction.right:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public GameController gameController;
+    public Player player;
 
     #region Play
     public GameObject playerCanvas;
@@ -40,7 +42,7 @@ public class UIController : MonoBehaviour
     public void Exit()
     {
         gameController.LoadLevel(world, level);
-        gameController.player.GetComponent<Player>().enabled = false;
+        player.enabled = false;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         playerCanvas.SetActive(false);
@@ -58,7 +60,7 @@ public class UIController : MonoBehaviour
         mainCanvas.SetActive(false);
         playerCanvas.SetActive(true);
 
-        gameController.player.GetComponent<Player>().enabled = true;
+        player.enabled = true;
     }
 
     public void Shop()
@@ -72,6 +74,24 @@ public class UIController : MonoBehaviour
     public void Settings()
     {
 
+    }
+    #endregion
+
+    #region Dev
+    public void ChangeParam(Text playerParamValue)
+    {
+        switch (playerParamValue.name)
+        {
+            case "Speed":
+                player.moveSpeed = (float)Convert.ToDouble(playerParamValue.text);
+                break;
+            case "MinSpeed":
+                player.delay = (float)Convert.ToDouble(playerParamValue.text);
+                break;
+            case "MinVector":
+                player.minVDirection = (float)Convert.ToDouble(playerParamValue.text);
+                break;
+        }
     }
     #endregion
 }
