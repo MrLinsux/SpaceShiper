@@ -10,9 +10,13 @@ public class GameController : MonoBehaviour
 
     public void LoadLevel(int world, int level)
     {
+        // функция загрузки уровня
+        // отчищает его и строит указанный
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
+        // тут удаляем
+        // тайлы
         for (int x = 0; x < bounds.size.x; x++)
         {
             for (int y = 0; y < bounds.size.y; y++)
@@ -24,9 +28,11 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        // игровые объекты
         for(int i = 0; i < tilemap.transform.childCount; i++)
             Destroy(tilemap.transform.GetChild(i).gameObject, 0);
 
+        // точка появления игрока, которую мы получаем после построения уровня
         var playerSpawn = tilemap.GetComponent<Map>().BuildLevel(world, level);
 
         player.transform.position = playerSpawn;

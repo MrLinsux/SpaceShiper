@@ -86,7 +86,7 @@ public class UIController : MonoBehaviour
                 player.moveSpeed = (float)Convert.ToDouble(playerParamValue.text);
                 break;
             case "MinSpeed":
-                player.delay = (float)Convert.ToDouble(playerParamValue.text);
+                player.minSwipeSpeed = (float)Convert.ToDouble(playerParamValue.text);
                 break;
             case "MinVector":
                 player.minVDirection = (float)Convert.ToDouble(playerParamValue.text);

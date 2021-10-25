@@ -5,32 +5,32 @@ using UnityEngine.Tilemaps;
 
 public class Map : MonoBehaviour
 {
-    public GameObject player;
-    public Vector3 playerSpawner;
+    public GameObject player;           // объект игрока
+    public Vector3 playerSpawner;       // и точка его появления
 
-    public Tilemap tilemap;
+    public Tilemap tilemap;             // компоненит тайлмапа
 
-    public Tile[] wayTiles;
-    public Tile[] wallTiles;
-    public RuleTile[] ruleTiles;
+    // набор объектов, из которых составляется уровень
+    public Tile[] wayTiles;             // тайлы дороги
+    public Tile[] wallTiles;            // тайлы стены
+    public RuleTile[] ruleTiles;        // тайлы с правилом размещения
 
-    public GameObject[] singleSideTraps;
-    private string[] singleSideTrapsNames;
-    public GameObject[] multySideTraps;
-    private string[] multySideTrapsNames;
+    public GameObject[] singleSideTraps;        // ловушки одиночной направленности
+    private string[] singleSideTrapsNames;      // и их имена
+    public GameObject[] multySideTraps;         // ловушки множественной направленности
+    private string[] multySideTrapsNames;       // и их имена
 
-    public GameObject teleport;
-    public GameObject pusher;
+    // префабы
+    public GameObject teleport;                 // телепорт
+    public GameObject pusher;                   // толкатель
 
-    public int World = 0; public int Level = 0;
-
-    private Vector3 zNomalizer;                 // нормализирует объект по оси z
-
-    public Vector3 BuildLevel(int world, int lvl)
+    public Vector3 BuildLevel(int world, int level)
     {
-        zNomalizer = Vector3.forward * tilemap.transform.parent.position.z;
-
-        var mapPlan = JsonUtility.FromJson<MapTiles>((Resources.Load("Levels\\" + World.ToString() + "\\" + Level.ToString()) as TextAsset).text);
+        // загружаем схему карты из Ресурсов
+        var mapPlan = 
+            JsonUtility.FromJson<MapTiles>(
+                (Resources.Load("Levels\\" + world.ToString() + "\\" + level.ToString()) as TextAsset).text
+                );
 
         for(int i = 0; i < mapPlan.way.Count; i++)
         {
@@ -87,6 +87,7 @@ public class Map : MonoBehaviour
         }
         for(int i = 0; i < mapPlan.pushers.Count; i++)
         {
+            // размещаем толкатели
             var pusher = mapPlan.pushers[i];
             Instantiate(this.pusher, new Vector3(pusher.x, pusher.y, pusher.z), Quaternion.identity, tilemap.transform);
         }
@@ -94,11 +95,11 @@ public class Map : MonoBehaviour
         return playerSpawner;
     }
 
-    public void SaveLevel()
+    public void SaveLevel(int world, int level)
     {
-        //tilemap.SetTiles(new Vector3Int[] { new Vector3Int(tilemap.cellBounds.xMin, tilemap.cellBounds.yMin, 0), new Vector3Int(tilemap.cellBounds.xMax, tilemap.cellBounds.yMax, 0) }, new TileBase[] { wayTiles[1], wayTiles[1] });
         MapTiles map = new MapTiles();      // весь уровень
 
+        // сначала сохраняем тайлы
         for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax; x++)
         {
             for (int y = tilemap.cellBounds.yMin; y < tilemap.cellBounds.yMax; y++)
@@ -172,12 +173,7 @@ public class Map : MonoBehaviour
         }
 
         System.IO.File.WriteAllText(
-            Application.dataPath + 
-            @"\Resources\Levels\" + 
-            World.ToString() + 
-            "\\" + 
-            Level.ToString() + 
-            ".json", 
+            Application.dataPath + @"\Resources\Levels\" + world.ToString() + "\\" + level.ToString() + ".json", 
             JsonUtility.ToJson(map)
             );
         Debug.Log("Level saved");
@@ -194,14 +190,14 @@ public class Map : MonoBehaviour
             multySideTrapsNames[i] = multySideTraps[i].name;
 
         tilemap = this.GetComponent<Tilemap>();
-
-        //BuildLevel(World, Level);
     }
 
     public class MapTiles
     {
         // класс описывает каждый элемент карты на сцене
         // необходимо для сохранения уровня в файл Json
+
+        // подробнее про структуру уровня в Json в Концепт-документе
 
         public List<Way> way = new List<Way>();
         public List<Wall> wall = new List<Wall>();

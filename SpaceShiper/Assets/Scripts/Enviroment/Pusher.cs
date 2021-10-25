@@ -11,6 +11,7 @@ public class Pusher : MonoBehaviour
 
     void Start()
     {
+        // определям направление толкателя
         var map = GameObject.Find("Map").GetComponent<Tilemap>();
         var pos = map.WorldToCell(this.transform.position);
         this.transform.Rotate(new Vector3(0, 0, 0));

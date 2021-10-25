@@ -1491,8 +1491,6 @@ MonoBehaviour:
   - {fileID: 6687652004437641181, guid: 2648e88bb6adc984bb7565c50e9f7f96, type: 3}
   teleport: {fileID: 1041826477602911468, guid: b9e3ff0df83a73f41a2f25e1a4a7c95c, type: 3}
   pusher: {fileID: 4873849396437241778, guid: d39cb69eb7289af45a0172a506a6d617, type: 3}
-  World: 0
-  Level: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2075,7 +2073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.6
-  delay: 8
+  minSwipeSpeed: 1
   minVDirection: 25
   directionChosen: 0
   isMove: 0
@@ -2084,7 +2082,7 @@ MonoBehaviour:
   mainDirection: 0
   secondDirection: 0
   rotateMemoryOn: 0
-  waysTilemap: {fileID: 453182900}
+  tilemap: {fileID: 453182900}
 --- !u!50 &688669244
 Rigidbody2D:
   serializedVersion: 4
