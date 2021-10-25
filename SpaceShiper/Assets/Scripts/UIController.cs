@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour
 
     public void Exit()
     {
-        gameController.LoadLevel(world, level);
+        gameController.LoadLevel(gameController.world, gameController.level);
         player.enabled = false;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
@@ -53,7 +53,6 @@ public class UIController : MonoBehaviour
     #region Main
     public GameObject mainCanvas;
     public Text money;
-    public int world = 0; public int level = 0;
 
     public void StartGame()
     {
@@ -78,6 +77,11 @@ public class UIController : MonoBehaviour
     #endregion
 
     #region Dev
+    public void SaveLevel()
+    {
+        gameController.tilemap.GetComponent<Map>().SaveLevel(gameController.world, gameController.level);
+    }
+
     public void ChangeParam(Text playerParamValue)
     {
         switch (playerParamValue.name)
@@ -97,6 +101,10 @@ public class UIController : MonoBehaviour
     public void RotateMemoryChange()
     {
         player.rotateMemoryOn = !player.rotateMemoryOn;
+    }
+    public void TimeStop()
+    {
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
     }
     #endregion
 }

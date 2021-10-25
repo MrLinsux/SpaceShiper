@@ -23,6 +23,8 @@ public class Map : MonoBehaviour
     // префабы
     public GameObject teleport;                 // телепорт
     public GameObject pusher;                   // толкатель
+    public GameObject door;                     // обычная дверь
+    public GameObject timeDoor;                 // дверь с таймером
 
     public Vector3 BuildLevel(int world, int level)
     {
@@ -58,7 +60,7 @@ public class Map : MonoBehaviour
             var trap = mapPlan.singleSideTraps[i];
             Instantiate(
                 singleSideTraps[trap.id], 
-                new Vector3(trap.x, trap.y, trap.z), 
+                trap.pos, 
                 Quaternion.identity, 
                 tilemap.transform
                 ).GetComponent<SingleSideTrap>().singleDirection = (SingleSideTrap.Direction)trap.d;
@@ -69,7 +71,7 @@ public class Map : MonoBehaviour
             var trap = mapPlan.multySideTraps[i];       
             Instantiate(
                 multySideTraps[trap.id],
-                new Vector3(trap.x, trap.y, trap.z),
+                trap.pos,
                 Quaternion.identity, 
                 tilemap.transform
                 ).GetComponent<MultySideTrap>().directions = trap.ds;
@@ -79,17 +81,40 @@ public class Map : MonoBehaviour
             // ставим телепорты
             var portal = mapPlan.portals[i];
             Instantiate(
-                teleport, 
-                new Vector3(portal.portals[0].x, portal.portals[0].y, portal.portals[0].z), 
+                teleport,
+                portal.portals[0].pos, 
                 Quaternion.identity, 
                 tilemap.transform
-                ).transform.GetChild(1).position = new Vector3(portal.portals[1].x, portal.portals[1].y, portal.portals[1].z);
+                ).transform.GetChild(1).position = portal.portals[1].pos;
         }
         for(int i = 0; i < mapPlan.pushers.Count; i++)
         {
             // размещаем толкатели
             var pusher = mapPlan.pushers[i];
-            Instantiate(this.pusher, new Vector3(pusher.x, pusher.y, pusher.z), Quaternion.identity, tilemap.transform);
+            Instantiate(this.pusher, pusher.pos, Quaternion.identity, tilemap.transform);
+        }
+        for(int i = 0; i < mapPlan.doors.Count; i++)
+        {
+            var door = mapPlan.doors[i];
+            var temp = Instantiate(
+                this.door, 
+                door.pos, 
+                Quaternion.identity, 
+                this.transform
+                );
+            temp.GetComponent<Door>().switcher.position = door.switcher.pos;
+        }
+        for (int i = 0; i < mapPlan.timeDoors.Count; i++)
+        {
+            var door = mapPlan.timeDoors[i];
+            var temp = Instantiate(
+                this.timeDoor,
+                door.pos,
+                Quaternion.identity,
+                this.transform
+                );
+            temp.GetComponent<TimeDoor>().timeToClose = door.time;
+            temp.GetComponent<TimeDoor>().switcher.position = door.switcher.pos;
         }
 
         return playerSpawner;
@@ -126,14 +151,11 @@ public class Map : MonoBehaviour
         Transform[] child = tilemap.gameObject.GetComponentsInChildren<Transform>();
         for (int i = 0; i < child.Length; i++)
         {
-            Debug.Log(child[i].tag);
             if(child[i].GetComponent<SingleSideTrap>())
             {
                 map.singleSideTraps.Add(
                     new MapTiles.SingleSideTrap(
-                        (int)child[i].position.x,
-                        (int)child[i].position.y,
-                        (int)child[i].position.z,
+                        child[i].position,
                         Array.IndexOf(singleSideTrapsNames, child[i].name),
                         (int)child[i].GetComponent<SingleSideTrap>().singleDirection));
             }
@@ -153,22 +175,35 @@ public class Map : MonoBehaviour
 
                 map.multySideTraps.Add(
                     new MapTiles.MultySideTrap(
-                        (int)child[i].position.x,
-                        (int)child[i].position.y,
-                        (int)child[i].position.z,
+                        child[i].position,
                         Array.IndexOf(multySideTrapsNames, child[i].name),
                         directions));
             }
             else if(child[i].CompareTag("Teleport"))
             {
                 map.portals.Add(new MapTiles.Teleporter(new MapTiles.Portal[2] {
-                    new MapTiles.Portal(child[i].position.x, child[i].position.y, child[i].position.z),
-                    new MapTiles.Portal(child[i].GetChild(1).position.x, child[i].GetChild(1).position.y, child[i].GetChild(1).position.z)
+                    new MapTiles.Portal(child[i].position),
+                    new MapTiles.Portal(child[i].GetChild(1).position)
                 }));
             }
             else if(child[i].GetComponent<Pusher>())
             {
-                map.pushers.Add(new MapTiles.Pusher(child[i].position.x, child[i].position.y, child[i].position.z));
+                map.pushers.Add(new MapTiles.Pusher(child[i].position));
+            }
+            else if(child[i].GetComponent<Door>())
+            {
+                map.doors.Add(new MapTiles.Door(
+                    child[i].position, 
+                    new MapTiles.Switcher(child[i].GetChild(0).position)
+                    ));
+            }
+            else if(child[i].GetComponent<TimeDoor>())
+            {
+                map.timeDoors.Add(new MapTiles.TimeDoor(
+                    child[i].position, 
+                    new MapTiles.Switcher(child[i].GetChild(0).position), 
+                    child[i].GetComponent<TimeDoor>().timeToClose
+                    ));
             }
         }
 
@@ -206,6 +241,8 @@ public class Map : MonoBehaviour
         public List<MultySideTrap> multySideTraps = new List<MultySideTrap>();
         public List<Teleporter> portals = new List<Teleporter>();                     // из массивов по два элемента - портала
         public List<Pusher> pushers = new List<Pusher>();
+        public List<Door> doors = new List<Door>();
+        public List<TimeDoor> timeDoors = new List<TimeDoor>();
 
 
         [System.Serializable]
@@ -241,23 +278,37 @@ public class Map : MonoBehaviour
         [System.Serializable]
         public class SingleSideTrap
         {
-            public int x;
-            public int y;
-            public int z;
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
             public int id;
             public int d;
-            public SingleSideTrap(int _cellX, int _cellY, int _cellZ, int _tileID, int _direction) { x = _cellX; y = _cellY; z = _cellZ; id = _tileID; d = _direction; }
+            public SingleSideTrap(Vector3 pos, int _tileID, int _direction) { x = pos.x; y = pos.y; z = pos.z; id = _tileID; d = _direction; }
         }
 
         [System.Serializable]
         public class MultySideTrap
         {
-            public int x;
-            public int y;
-            public int z;
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
             public int id;
             public bool[] ds;
-            public MultySideTrap(int _cellX, int _cellY, int _cellZ, int _tileID, bool[] _directions) { x = _cellX; y = _cellY; z = _cellZ; id = _tileID; ds = _directions; }
+            public MultySideTrap(Vector3 pos, int _tileID, bool[] _directions) { x = pos.x; y = pos.y; z = pos.z; id = _tileID; ds = _directions; }
         }
 
         [System.Serializable]
@@ -273,8 +324,15 @@ public class Map : MonoBehaviour
             public float x;
             public float y;
             public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
 
-            public Portal(float _cellX, float _cellY, float _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+            public Portal(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
         }
 
         [System.Serializable]
@@ -283,8 +341,69 @@ public class Map : MonoBehaviour
             public float x;
             public float y;
             public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
 
-            public Pusher(float _cellX, float _cellY, float _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+            public Pusher(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+        }
+
+        [System.Serializable]
+        public class Door
+        {
+            public float x;
+            public float y;
+            public float z;
+            public Switcher switcher;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
+
+            public Door(Vector3 pos, Switcher _switcher) { x = pos.x; y = pos.y; z = pos.z; switcher = _switcher;  }
+        }
+
+        [System.Serializable]
+        public class TimeDoor
+        {
+            public float x;
+            public float y;
+            public float z;
+            public float time;
+            public Switcher switcher;
+            public Vector3 pos 
+            { 
+                get
+                {
+                    return new Vector3(x, y, z);
+                } 
+            }
+
+            public TimeDoor(Vector3 pos, Switcher _switcher, float _time) { x = pos.x; y = pos.y; z = pos.z; switcher = _switcher; time = _time; }
+        }
+
+        [System.Serializable]
+        public class Switcher
+        {
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
+
+            public Switcher(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
         }
 
     }

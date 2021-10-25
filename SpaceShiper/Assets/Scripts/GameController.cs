@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
     public Tilemap tilemap;     // основной холст для всех тайлов
     public GameObject player;
+    public int world = 0; public int level = 0;
 
     public void LoadLevel(int world, int level)
     {

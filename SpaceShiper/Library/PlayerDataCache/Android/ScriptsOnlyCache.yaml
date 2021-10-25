@@ -2,29 +2,33 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Camera
+    - Door
     - GameController
     - Laser
     - Map
     - MultySideTrap
     - Player
+    - Portal
+    - Pusher
     - SingleSideTrap
+    - Switcher
     - Thicker
+    - TimeDoor
     - Turel
     - UIController
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
@@ -58,6 +62,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.InputField
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/MainScene.unity:
@@ -77,6 +82,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 50
       Script: {instanceID: 0}
+    - Class: 60
+      Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
     - Class: 81
@@ -88,6 +95,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1514}
     - Class: 114
+      Script: {instanceID: 1636}
+    - Class: 114
       Script: {instanceID: 1656}
     - Class: 114
       Script: {instanceID: 1668}
@@ -96,39 +105,49 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1752}
     - Class: 114
-      Script: {instanceID: 1992}
+      Script: {instanceID: 1786}
     - Class: 114
-      Script: {instanceID: 2226}
+      Script: {instanceID: 1994}
     - Class: 114
-      Script: {instanceID: 2350}
+      Script: {instanceID: 2228}
     - Class: 114
-      Script: {instanceID: 2644}
+      Script: {instanceID: 2352}
     - Class: 114
-      Script: {instanceID: 2808}
+      Script: {instanceID: 2646}
     - Class: 114
-      Script: {instanceID: 3032}
+      Script: {instanceID: 2810}
     - Class: 114
-      Script: {instanceID: 3092}
+      Script: {instanceID: 3034}
     - Class: 114
-      Script: {instanceID: 3172}
+      Script: {instanceID: 3044}
     - Class: 114
-      Script: {instanceID: 3286}
+      Script: {instanceID: 3096}
     - Class: 114
-      Script: {instanceID: 3398}
+      Script: {instanceID: 3176}
     - Class: 114
-      Script: {instanceID: 3790}
+      Script: {instanceID: 3290}
     - Class: 114
-      Script: {instanceID: 3828}
+      Script: {instanceID: 3402}
     - Class: 114
-      Script: {instanceID: 3874}
+      Script: {instanceID: 3794}
     - Class: 114
-      Script: {instanceID: 4452}
+      Script: {instanceID: 3832}
     - Class: 114
-      Script: {instanceID: 4518}
+      Script: {instanceID: 3878}
     - Class: 114
-      Script: {instanceID: 4528}
+      Script: {instanceID: 4330}
     - Class: 114
-      Script: {instanceID: 5688}
+      Script: {instanceID: 4380}
+    - Class: 114
+      Script: {instanceID: 4460}
+    - Class: 114
+      Script: {instanceID: 4526}
+    - Class: 114
+      Script: {instanceID: 4536}
+    - Class: 114
+      Script: {instanceID: 5114}
+    - Class: 114
+      Script: {instanceID: 5698}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -228,7 +247,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: 69ef470a1dca6007bf4a394262c71567
+      Hash: f4faea5d975779191ba222d07741b817
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -264,6 +283,12 @@ ScriptsOnlyBuild:
     className: Laser
   - hash:
       serializedVersion: 2
+      Hash: 5c3b307d3d6bf2487c08eb89dd49af40
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Portal
+  - hash:
+      serializedVersion: 2
       Hash: 7ba35897a6eb27627ed456c682c34253
     assemblyName: Unity.2D.Tilemap.Extras.dll
     namespaceName: UnityEngine.Tilemaps
@@ -276,7 +301,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: a82fbbd844f8f3bbed0e7e6a3c629831
+      Hash: b1707aa3ae56036c9a3e5b660329975d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -394,6 +419,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GraphicRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: 906cb003d3bafa49ce03ef6cf30028b3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Pusher
   - hash:
       serializedVersion: 2
       Hash: f40fedccd4adbc76605bea6d67537e4b
@@ -528,7 +559,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: ec4e223349b3bb4b817ce6450e61ec31
+      Hash: 46f5857ddddfa625978f9d8b39772756
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -636,6 +667,18 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
+      Hash: 7a50565890228a451d8c535d1661f480
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TimeDoor
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Switcher
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -654,7 +697,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: 7c7f688a2c9a68de59d7afac2a20b4ef
+      Hash: 554ff0052b7f9c067b35912bd7952f31
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Map
@@ -742,6 +785,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SubMeshUI
+  - hash:
+      serializedVersion: 2
+      Hash: 38267070939b9a8b750d4c31450637ab
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Door
   - hash:
       serializedVersion: 2
       Hash: fd68d84f33fad85aac38f2739c0ee270

@@ -42,15 +42,19 @@ public class Player : MonoBehaviour
             mainDirection = direction;
             isMove = true;
             end = GetLastTileInCoridor(
-                tilemap.transform.parent.GetComponent<GridLayout>().WorldToCell(this.transform.position), 
-                direction, 
+                tilemap.WorldToCell(this.transform.position),
+                direction,
                 tilemap);           // точка, к которой летит игрок
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
             yield return new WaitForFixedUpdate();                                      // дожидаемся конца кадра для чуть большей плавности
             while (this.transform.position != end)
             {
-                // движемся, пока не достигнем целевой точки
                 yield return new WaitForFixedUpdate();
+                end = GetLastTileInCoridor(
+                    tilemap.WorldToCell(this.transform.position),
+                    direction,
+                    tilemap);
+                Debug.Log(end);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
             }
 
@@ -86,15 +90,15 @@ public class Player : MonoBehaviour
             {
                 // при столкновении с порталом
                 // останавливаем все корутины движения
-                StopAllCoroutines();
+                //StopAllCoroutines();
                 // перемещаем в точку около портала-близнеца
                 this.transform.position = collision.GetComponent<Portal>().GetTeleportPoint(mainDirection);
-                movement = StartCoroutine(Move(mainDirection));     // запускаем движение снова в том же направлении
-                if (isAutoMove)
-                {
-                    // если была запущена Память до остановки
-                    StartCoroutine(PostMove(secondDirection));
-                }
+                //movement = StartCoroutine(Move(mainDirection));     // запускаем движение снова в том же направлении
+                //if (isAutoMove)
+                //{
+                //    // если была запущена Память до остановки
+                //    StartCoroutine(PostMove(secondDirection));
+                //}
             }
             if (collision.GetComponent<Pusher>())
             {
@@ -234,5 +238,22 @@ public class Player : MonoBehaviour
     {
         // функция для лучшего понимания кода
         return Array.IndexOf(controller.tilemap.GetComponent<Map>().wayTiles, tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) > -1;
+    }
+
+    public static Vector3Int DirectionToVector(Direction direction)
+    {
+        switch((int)direction)
+        {
+            case 1:
+                return Vector3Int.right;
+            case 2:
+                return Vector3Int.up;
+            case 3:
+                return Vector3Int.left;
+            case 4:
+                return Vector3Int.down;
+            default:
+                return Vector3Int.zero;
+        }
     }
 }
