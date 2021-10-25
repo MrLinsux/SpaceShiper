@@ -20,6 +20,7 @@ public class Map : MonoBehaviour
     private string[] multySideTrapsNames;
 
     public GameObject teleport;
+    public GameObject pusher;
 
     public int World = 0; public int Level = 0;
 
@@ -83,6 +84,11 @@ public class Map : MonoBehaviour
                 Quaternion.identity, 
                 tilemap.transform
                 ).transform.GetChild(1).position = new Vector3(portal.portals[1].x, portal.portals[1].y, portal.portals[1].z);
+        }
+        for(int i = 0; i < mapPlan.pushers.Count; i++)
+        {
+            var pusher = mapPlan.pushers[i];
+            Instantiate(this.pusher, new Vector3(pusher.x, pusher.y, pusher.z), Quaternion.identity, tilemap.transform);
         }
 
         return playerSpawner;
@@ -159,6 +165,10 @@ public class Map : MonoBehaviour
                     new MapTiles.Portal(child[i].GetChild(1).position.x, child[i].GetChild(1).position.y, child[i].GetChild(1).position.z)
                 }));
             }
+            else if(child[i].GetComponent<Pusher>())
+            {
+                map.pushers.Add(new MapTiles.Pusher(child[i].position.x, child[i].position.y, child[i].position.z));
+            }
         }
 
         System.IO.File.WriteAllText(
@@ -199,6 +209,7 @@ public class Map : MonoBehaviour
         public List<SingleSideTrap> singleSideTraps = new List<SingleSideTrap>();
         public List<MultySideTrap> multySideTraps = new List<MultySideTrap>();
         public List<Teleporter> portals = new List<Teleporter>();                     // из массивов по два элемента - портала
+        public List<Pusher> pushers = new List<Pusher>();
 
 
         [System.Serializable]
@@ -268,6 +279,16 @@ public class Map : MonoBehaviour
             public float z;
 
             public Portal(float _cellX, float _cellY, float _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+        }
+
+        [System.Serializable]
+        public class Pusher
+        {
+            public float x;
+            public float y;
+            public float z;
+
+            public Pusher(float _cellX, float _cellY, float _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
         }
 
     }

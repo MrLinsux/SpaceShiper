@@ -93,5 +93,10 @@ public class UIController : MonoBehaviour
                 break;
         }
     }
+
+    public void RotateMemoryChange()
+    {
+        player.rotateMemoryOn = !player.rotateMemoryOn;
+    }
     #endregion
 }

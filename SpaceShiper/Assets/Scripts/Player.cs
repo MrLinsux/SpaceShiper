@@ -16,8 +16,11 @@ public class Player : MonoBehaviour
     public Direction direction = Direction.zero;
     public Direction mainDirection = Direction.zero;
     public Direction secondDirection = Direction.zero;
+    private Coroutine movement;
+    private Coroutine secMovement;
     private Vector2 startPos;
     private Vector2 vDirection;
+    public bool rotateMemoryOn = true;
 
     public static GameController controller;
     public Tilemap waysTilemap;
@@ -26,44 +29,54 @@ public class Player : MonoBehaviour
 
     public void Dead()
     {
-        Debug.Log("Is Dead");
+        //Debug.Log("Is Dead");
     }
 
-    private IEnumerator Move(Vector3 end, Direction direction)
+    private IEnumerator Move(Direction direction)
     {
-        mainDirection = direction;
-        isMove = true;
-        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
-        yield return new WaitForFixedUpdate();
-        while (this.transform.position != end)
+        if (movement == null)
         {
-            yield return new WaitForFixedUpdate();
-            this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-        }
-        isMove = false;
-    }
-
-    private IEnumerator PostMove(Vector3 end, Direction direction)
-    {
-        if (!isAutoMove && (direction == Direction.zero))
-        {
-            Debug.Log(end);
-            isAutoMove = true;
-            secondDirection = direction;
-            while (isMove) { yield return new WaitForEndOfFrame(); }
             mainDirection = direction;
             isMove = true;
+            end = GetLastTileInCoridor(waysTilemap.transform.parent.GetComponent<GridLayout>().WorldToCell(this.transform.position), direction, waysTilemap);
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
             yield return new WaitForFixedUpdate();
             while (this.transform.position != end)
             {
-                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-
+                isMove = true;
                 yield return new WaitForFixedUpdate();
+                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
             }
             isMove = false;
-            isAutoMove = false;
         }
+    }
+
+    private IEnumerator PostMove(Vector3 end, Direction direction)
+    {
+        if (rotateMemoryOn)
+            if (!isAutoMove)
+            {
+                isAutoMove = true;
+                secondDirection = direction;
+                var secEnd = GetLastTileInCoridor(
+                    end,
+                    direction,
+                    waysTilemap
+                    );
+                while (this.transform.position != end) { yield return new WaitForFixedUpdate(); }
+                mainDirection = direction;
+                isMove = true;
+                this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);
+                yield return new WaitForFixedUpdate();
+                while (this.transform.position != secEnd)
+                {
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, secEnd, moveSpeed);
+
+                    yield return new WaitForFixedUpdate();
+                }
+                isMove = false;
+                isAutoMove = false;
+            }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -74,12 +87,42 @@ public class Player : MonoBehaviour
             {
                 Dead();
             }
-            if(collision.GetComponent<Portal>())
+            if (collision.GetComponent<Portal>())
             {
                 StopAllCoroutines();
                 this.transform.position = collision.GetComponent<Portal>().GetTeleportPoint(mainDirection);
-                StartCoroutine(Move(GetLastTileInCoridor(this.transform.position, mainDirection, waysTilemap), mainDirection));
-                StartCoroutine(PostMove(GetLastTileInCoridor(GetLastTileInCoridor(this.transform.position, mainDirection, waysTilemap), secondDirection, waysTilemap), secondDirection));
+                isMove = false;
+                movement = StartCoroutine(Move(mainDirection));
+                if (secondDirection != Direction.zero)
+                {
+                    isAutoMove = false;
+                    StartCoroutine(PostMove(GetLastTileInCoridor(GetLastTileInCoridor(this.transform.position, mainDirection, waysTilemap), secondDirection, waysTilemap), secondDirection));
+                    secondDirection = Direction.zero;
+                }
+            }
+            if (collision.GetComponent<Pusher>())
+            {
+                StopCoroutine(secMovement);
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision != null)
+        {
+            if(collision.GetComponent<Pusher>())
+            {
+                if (!isMove && (this.transform.position.x == collision.transform.position.x) && (this.transform.position.y == collision.transform.position.y)) 
+                {
+                    if(mainDirection == collision.GetComponent<Pusher>().verticalEnter)
+                    {
+                        movement = StartCoroutine(Move((collision.GetComponent<Pusher>().horizontalEnter == Direction.right) ? Direction.left : Direction.right));
+                    }
+                    else if(mainDirection == collision.GetComponent<Pusher>().horizontalEnter)
+                    {
+                        movement = StartCoroutine(Move((collision.GetComponent<Pusher>().verticalEnter == Direction.up) ? Direction.down : Direction.up));
+                    }
+                }
             }
         }
     }
@@ -91,6 +134,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log(isMove);
         float deltaThouch = 0;
         Vector2 oldStartPos = Vector2.zero;
 
@@ -153,12 +197,10 @@ public class Player : MonoBehaviour
 
             if (isMove && (secDirection != direction))
             {
-                end = GetLastTileInCoridor(
-                    end,
-                    direction,
-                    waysTilemap
-                    );   // тайл с игроком
-                StartCoroutine(PostMove(end, direction));
+                if (!isAutoMove)
+                {
+                    secMovement = StartCoroutine(PostMove(end, direction));
+                }
             }
             else if(!isMove)
             {
@@ -170,7 +212,7 @@ public class Player : MonoBehaviour
                     );   // тайл с игроком
 
                 // начинаем движение с помощью корутины
-                StartCoroutine(Move(end, direction));
+                movement = StartCoroutine(Move(direction));
             }
 
             directionChosen = false;
