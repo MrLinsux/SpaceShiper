@@ -95,6 +95,12 @@ public class UIController : MonoBehaviour
             case "MinVector":
                 player.minVDirection = (float)Convert.ToDouble(playerParamValue.text);
                 break;
+            case "MinRMDist":
+                player.minPostMoveDistance = Convert.ToInt32(playerParamValue.text);
+                break;
+            case "FixedTime":
+                Time.fixedDeltaTime = (float)Convert.ToDouble(playerParamValue.text);
+                break;
         }
     }
 

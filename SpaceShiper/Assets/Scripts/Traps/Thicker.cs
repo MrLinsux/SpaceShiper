@@ -26,19 +26,13 @@ public class Thicker : MonoBehaviour
         Vector3Int direction = Vector3Int.zero;
         var tilemap = GameObject.Find("Map").GetComponent<Tilemap>();
 
-        switch((int)this.GetComponent<SingleSideTrap>().singleDirection)
+        switch ((int)this.GetComponent<SingleSideTrap>().singleDirection > 1 ? (int)this.GetComponent<SingleSideTrap>().singleDirection - 2 : (int)this.GetComponent<SingleSideTrap>().singleDirection)
         {
             case 0:
                 direction = Vector3Int.right;
                 break;
             case 1:
                 direction = Vector3Int.up;
-                break;
-            case 2:
-                direction = Vector3Int.left;
-                break;
-            case 3:
-                direction = Vector3Int.down;
                 break;
         }
 
@@ -54,6 +48,10 @@ public class Thicker : MonoBehaviour
             {
                 wayLong++;
             }
+        }
+        if(wayLong < 1)
+        {
+
         }
 
         endPos += direction * (wayLong - 1);

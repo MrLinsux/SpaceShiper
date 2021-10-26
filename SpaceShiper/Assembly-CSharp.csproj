@@ -62,13 +62,13 @@
     <Compile Include="Assets\Scripts\SingleSideTrap.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\TestController.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\TimeDoor.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\Switcher.cs" />
     <Compile Include="Assets\Scripts\Traps\Thicker.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
-    <Compile Include="Assets\Scripts\Camera.cs" />
-    <Compile Include="Assets\Scripts\Traps\Turel.cs" />
+    <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
-    <Compile Include="Assets\Scripts\Enviroment\Switcher.cs" />
-    <Compile Include="Assets\Scripts\Enviroment\TimeDoor.cs" />
+    <Compile Include="Assets\Scripts\Traps\Turel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

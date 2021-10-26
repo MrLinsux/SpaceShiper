@@ -1,10 +1,10 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - Camera
     - Door
     - GameController
     - Laser
+    - MainCamera
     - Map
     - MultySideTrap
     - Player
@@ -20,6 +20,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -29,6 +30,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
@@ -39,7 +41,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GameObjectBrush
     - UnityEditor.Tilemaps.GroupBrush
     - UnityEditor.Tilemaps.LineBrush
-    - UnityEditor.Tilemaps.PrefabBrush
     - UnityEditor.Tilemaps.RandomBrush
     - UnityEditor.Tilemaps.TintBrush
     - UnityEditor.Tilemaps.TintBrushSmooth
@@ -301,7 +302,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: b1707aa3ae56036c9a3e5b660329975d
+      Hash: 7b6af34d2e42e6223a6dfcff67293c58
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -703,10 +704,10 @@ ScriptsOnlyBuild:
     className: Map
   - hash:
       serializedVersion: 2
-      Hash: b53523b0ae870e1b621b4660f9d05b07
+      Hash: 0d19e09674b81ed592916461d542fe5d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Camera
+    className: MainCamera
   - hash:
       serializedVersion: 2
       Hash: b424b4eeb810aecb0ff91c62639241e9

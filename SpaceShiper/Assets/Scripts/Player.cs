@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 1f;        // скорость движени€ игрока
     public float minSwipeSpeed = 1f;    // минимальна€ скорость свайпа пальцеп дл€ надала движени€
     public float minVDirection = 1f;    // минимальна€ длина свайпа дл€ начала движени€
+    public int minPostMoveDistance = 5;
 
     public bool directionChosen;        // выбран ли вектор движени€ 
     public bool isMove = false;         // находитс€ ли игрок в движении
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     private Vector2 startPos;                               // точка начала вектора свойпа
     private Vector2 vDirection;                             // вектор свайпа
     public bool rotateMemoryOn = true;                      // тумблер ѕам€ти ѕоворота
+    private int wasTeleported;
 
     public static GameController controller;                // игровой контроллер
     public Tilemap tilemap;                                 // объект Map
@@ -54,7 +56,6 @@ public class Player : MonoBehaviour
                     tilemap.WorldToCell(this.transform.position),
                     direction,
                     tilemap);
-                Debug.Log(end);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
             }
 
@@ -88,17 +89,14 @@ public class Player : MonoBehaviour
             }
             if (collision.GetComponent<Portal>())
             {
-                // при столкновении с порталом
-                // останавливаем все корутины движени€
-                //StopAllCoroutines();
-                // перемещаем в точку около портала-близнеца
-                this.transform.position = collision.GetComponent<Portal>().GetTeleportPoint(mainDirection);
-                //movement = StartCoroutine(Move(mainDirection));     // запускаем движение снова в том же направлении
-                //if (isAutoMove)
-                //{
-                //    // если была запущена ѕам€ть до остановки
-                //    StartCoroutine(PostMove(secondDirection));
-                //}
+                if (wasTeleported == 0)
+                {
+                    // при столкновении с порталом
+                    // останавливаем все корутины движени€
+                    // перемещаем в точку около портала-близнеца
+                    this.transform.position = collision.GetComponent<Portal>().twinkPortal.transform.position - Vector3.forward * 40;
+                    this.wasTeleported = 2 - (int)Math.Truncate(moveSpeed);
+                }
             }
             if (collision.GetComponent<Pusher>())
             {
@@ -129,10 +127,28 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision != null)
+        {
+            if(collision.GetComponent<Portal>())
+            {
+                if (wasTeleported == 1)
+                {
+                    wasTeleported = 0;
+                }
+                else if (wasTeleported == 2 - (int)Math.Truncate(moveSpeed))
+                {
+                    wasTeleported = 1;
+                }
+            }
+        }
+    }
 
     void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
+        wasTeleported = 0;
     }
 
     void FixedUpdate()
@@ -191,7 +207,7 @@ public class Player : MonoBehaviour
             #endregion
 
             // если не запущена ѕам€т ѕоворота, п направление свайпа отлично от старого (который попал в Move())
-            if (!isAutoMove && isMove && (firstDirection != direction))
+            if (!isAutoMove && isMove && (firstDirection != direction) && (Vector2.Distance(this.transform.position, end) < minPostMoveDistance))
                 secMovement = StartCoroutine(PostMove(direction));
             // если не двигаемс€ вообще, то начинаем в сторону направлени€
             else if (!isMove)
