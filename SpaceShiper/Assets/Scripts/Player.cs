@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
                     tilemap);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
             }
-
+            mainDirection = secondDirection;
             isMove = false;
         }
     }
@@ -74,6 +74,7 @@ public class Player : MonoBehaviour
             while (isMove) { yield return new WaitForFixedUpdate();}
             // запускаем корутину обычного движени€ и ждЄм ей окончани€
             yield return StartCoroutine(Move(direction));
+            secondDirection = Direction.zero;
             isAutoMove = false;
         }
     }
@@ -207,8 +208,12 @@ public class Player : MonoBehaviour
             #endregion
 
             // если не запущена ѕам€т ѕоворота, п направление свайпа отлично от старого (который попал в Move())
-            if (!isAutoMove && isMove && (firstDirection != direction) && (Vector2.Distance(this.transform.position, end) < minPostMoveDistance))
+            if (isMove && (firstDirection != direction) && (Vector2.Distance(this.transform.position, end) < minPostMoveDistance))
+            {
+                if(secMovement != null)
+                    StopCoroutine(secMovement);
                 secMovement = StartCoroutine(PostMove(direction));
+            }
             // если не двигаемс€ вообще, то начинаем в сторону направлени€
             else if (!isMove)
                 movement = StartCoroutine(Move(direction));
