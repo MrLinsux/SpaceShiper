@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     public bool rotateMemoryOn = true;                      // тумблер ѕам€ти ѕоворота
     private int wasTeleported;
 
+    private TrailRenderer tailA;
+    private TrailRenderer tailB;
     public static GameController controller;                // игровой контроллер
     public Tilemap tilemap;                                 // объект Map
 
@@ -47,8 +49,10 @@ public class Player : MonoBehaviour
                 tilemap.WorldToCell(this.transform.position),
                 direction,
                 tilemap);           // точка, к которой летит игрок
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
+            //tailA.emitting = !tailA.emitting;
+            //this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
             yield return new WaitForFixedUpdate();                                      // дожидаемс€ конца кадра дл€ чуть большей плавности
+            //tailB.emitting = !tailB.emitting;
             while (this.transform.position != end)
             {
                 yield return new WaitForFixedUpdate();
@@ -58,7 +62,8 @@ public class Player : MonoBehaviour
                     tilemap);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
             }
-            mainDirection = secondDirection;
+            //mainDirection = secondDirection;
+            yield return new WaitForFixedUpdate();
             isMove = false;
         }
     }
@@ -102,7 +107,8 @@ public class Player : MonoBehaviour
             if (collision.GetComponent<Pusher>())
             {
                 // при столкновении с толкателем отключаем ѕам€ть ѕоворота
-                StopCoroutine(secMovement);
+                if(secMovement != null)
+                    StopCoroutine(secMovement);
             }
         }
     }
@@ -112,7 +118,7 @@ public class Player : MonoBehaviour
         {
             if(collision.GetComponent<Pusher>())
             {
-                if (!isMove && (this.transform.position.x == collision.transform.position.x) && (this.transform.position.y == collision.transform.position.y)) 
+                if (!isMove && (Vector2.Distance(this.transform.position, collision.transform.position) < 1f))
                 {
                     // ждЄм попадани€ в одну с толкателем точку
                     // если попали в вертикальную, то летим в горизонтальную
@@ -149,6 +155,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
+        tailA = this.GetComponent<TrailRenderer>();
+        tailB = this.transform.GetChild(0).GetComponent<TrailRenderer>();
         wasTeleported = 0;
     }
 
@@ -276,5 +284,10 @@ public class Player : MonoBehaviour
             default:
                 return Vector3Int.zero;
         }
+    }
+
+    public static Vector3 ToCellNormalazing(Tilemap tilemap, Vector3 pos)
+    {
+        return tilemap.CellToWorld(tilemap.WorldToCell(pos));
     }
 }

@@ -25,11 +25,11 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
@@ -89,6 +89,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 96
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
@@ -136,19 +138,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3878}
     - Class: 114
-      Script: {instanceID: 4330}
+      Script: {instanceID: 4332}
     - Class: 114
-      Script: {instanceID: 4380}
+      Script: {instanceID: 4382}
     - Class: 114
-      Script: {instanceID: 4460}
+      Script: {instanceID: 4462}
     - Class: 114
-      Script: {instanceID: 4526}
+      Script: {instanceID: 4528}
     - Class: 114
-      Script: {instanceID: 4536}
+      Script: {instanceID: 4538}
     - Class: 114
-      Script: {instanceID: 5114}
+      Script: {instanceID: 5116}
     - Class: 114
-      Script: {instanceID: 5698}
+      Script: {instanceID: 5700}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -248,7 +250,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: f4faea5d975779191ba222d07741b817
+      Hash: 87e7a3dccdd801e18ba01e94542c253f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -458,7 +460,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: 4ee2d75d6e52a7afee1907aa6ba3fc92
+      Hash: c089f930ad9fee1230164677c6d6e62a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SingleSideTrap
@@ -630,6 +632,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: EventTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 07fc9f0f86872d338b51db4c672a9251
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LaserTrigger
   - hash:
       serializedVersion: 2
       Hash: cd1c93a552a813159175d818a844dc09

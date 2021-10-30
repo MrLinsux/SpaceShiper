@@ -155,7 +155,7 @@ public class Map : MonoBehaviour
             {
                 map.singleSideTraps.Add(
                     new MapTiles.SingleSideTrap(
-                        child[i].position,
+                        child[i].GetComponent<SingleSideTrap>().sourcePos,
                         Array.IndexOf(singleSideTrapsNames, child[i].name),
                         (int)child[i].GetComponent<SingleSideTrap>().singleDirection));
             }

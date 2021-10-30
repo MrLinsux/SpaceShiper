@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
     public Tilemap tilemap;     // основной холст для всех тайлов
     public GameObject player;
     public int world = 0; public int level = 0;
+    public bool isEditLevel = false;
+    public float worldSpeed = 1f;
 
     public void LoadLevel(int world, int level)
     {
@@ -41,8 +43,25 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        LoadLevel(0, 0);
+        try
+        {
+            LoadLevel(world, level);
+        }
+        catch(NullReferenceException e)
+        {
+            Debug.LogWarning($"Level {world}-{level} is not found!");
+            isEditLevel = true;
+            Debug.LogWarning("Edit Mode On.");
+        }
+
+        if (isEditLevel)
+            Time.timeScale = 0;
         //player.GetComponent<Player>().enabled = false;
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 60;
+    }
+
+    private void FixedUpdate()
+    {
+        Time.timeScale = worldSpeed;
     }
 }
