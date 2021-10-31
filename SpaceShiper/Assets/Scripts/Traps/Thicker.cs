@@ -40,7 +40,7 @@ public class Thicker : MonoBehaviour
 
         while(direction != Vector3Int.zero)
         {
-            if (Array.IndexOf(tilemap.GetComponent<Map>().wallTiles, tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong))) > -1) 
+            if (tilemap.GetComponent<Map>().wallTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong))) 
             {
                 break;
             }
@@ -48,6 +48,8 @@ public class Thicker : MonoBehaviour
             {
                 wayLong++;
             }
+            if (wayLong > 100)
+                break;
         }
         if(wayLong < 1)
         {

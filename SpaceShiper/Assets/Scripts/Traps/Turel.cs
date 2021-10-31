@@ -47,7 +47,7 @@ public class Turel : MonoBehaviour
 
         while (direction != Vector3Int.zero)
         {
-            if (Array.IndexOf(tilemap.GetComponent<Map>().wallTiles, tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong))) > -1)
+            if (tilemap.GetComponent<Map>().wallTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)))
             {
                 break;
             }
@@ -56,6 +56,8 @@ public class Turel : MonoBehaviour
                 _lasers.Add(Instantiate(_lasers[0].gameObject, startPos + direction * wayLong, _lasers[0].transform.rotation, this.transform).GetComponent<Laser>());
                 wayLong++;
             }
+            if (wayLong > 100)
+                break;
         }
         lasers = _lasers.ToArray();
         StartCoroutine(Strike());

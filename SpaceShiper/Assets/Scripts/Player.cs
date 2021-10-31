@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     public bool rotateMemoryOn = true;                      // тумблер Памяти Поворота
     private int wasTeleported;
 
-    private TrailRenderer tailA;
-    private TrailRenderer tailB;
+    public TrailRenderer tailA;
+    public TrailRenderer tailB;
     public static GameController controller;                // игровой контроллер
     public Tilemap tilemap;                                 // объект Map
 
@@ -49,10 +49,10 @@ public class Player : MonoBehaviour
                 tilemap.WorldToCell(this.transform.position),
                 direction,
                 tilemap);           // точка, к которой летит игрок
-            //tailA.emitting = !tailA.emitting;
-            //this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
             yield return new WaitForFixedUpdate();                                      // дожидаемся конца кадра для чуть большей плавности
-            //tailB.emitting = !tailB.emitting;
+            tailA.gameObject.SetActive(!tailA.gameObject.activeSelf);
+            tailB.gameObject.SetActive(!tailB.gameObject.activeSelf);
             while (this.transform.position != end)
             {
                 yield return new WaitForFixedUpdate();
@@ -62,7 +62,6 @@ public class Player : MonoBehaviour
                     tilemap);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
             }
-            //mainDirection = secondDirection;
             yield return new WaitForFixedUpdate();
             isMove = false;
         }
@@ -155,8 +154,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
-        tailA = this.GetComponent<TrailRenderer>();
-        tailB = this.transform.GetChild(0).GetComponent<TrailRenderer>();
         wasTeleported = 0;
     }
 
@@ -266,7 +263,7 @@ public class Player : MonoBehaviour
     private static bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
     {
         // функция для лучшего понимания кода
-        return Array.IndexOf(controller.tilemap.GetComponent<Map>().wayTiles, tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) > -1;
+        return Array.IndexOf(controller.tilemap.GetComponent<Map>().wayTile, tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) > -1;
     }
 
     public static Vector3Int DirectionToVector(Direction direction)

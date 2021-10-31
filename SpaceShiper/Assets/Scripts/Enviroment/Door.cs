@@ -30,7 +30,7 @@ public class Door : MonoBehaviour
 
     private void SwitchState()
     {
-        tilemap.SetTile(tilemap.WorldToCell(this.transform.position), isOpen ? tilemap.GetComponent<Map>().wayTiles[0] : null);
+        tilemap.SetTile(tilemap.WorldToCell(this.transform.position), isOpen ? tilemap.GetComponent<Map>().wayTile[0] : null);
         this.GetComponent<SpriteRenderer>().enabled = !isOpen;
     }
 }

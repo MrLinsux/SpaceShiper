@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
         {
             LoadLevel(world, level);
         }
-        catch(NullReferenceException e)
+        catch(NullReferenceException)
         {
             Debug.LogWarning($"Level {world}-{level} is not found!");
             isEditLevel = true;
