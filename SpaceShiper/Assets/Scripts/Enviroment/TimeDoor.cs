@@ -23,7 +23,7 @@ public class TimeDoor : MonoBehaviour
     }
     private IEnumerator RevertState()
     {
-        tilemap.SetTile(tilemap.WorldToCell(this.transform.position), tilemap.GetComponent<Map>().wayTile[0]);
+        tilemap.SetTile(tilemap.WorldToCell(this.transform.position), tilemap.GetComponent<Map>().wayTile);
         this.GetComponent<SpriteRenderer>().enabled = false;
 
         yield return new WaitForSeconds(timeToClose);

@@ -21,8 +21,8 @@ public class Thicker : MonoBehaviour
 
     private void Start()
     {
-        endPos = startPos = this.transform.position;
-        
+        this.GetComponent<SingleSideTrap>().sourcePos = endPos = startPos = this.transform.position;
+
         Vector3Int direction = Vector3Int.zero;
         var tilemap = GameObject.Find("Map").GetComponent<Tilemap>();
 
@@ -40,23 +40,37 @@ public class Thicker : MonoBehaviour
 
         while(direction != Vector3Int.zero)
         {
-            if (tilemap.GetComponent<Map>().wallTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong))) 
-            {
-                break;
-            }
-            else
+            Debug.Log(tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)));
+            if (tilemap.GetComponent<Map>().wayTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)))
             {
                 wayLong++;
             }
-            if (wayLong > 100)
+            else
+            {
+                break;
+            }
+            if (wayLong > 20)
                 break;
         }
-        if(wayLong < 1)
-        {
-
-        }
-
         endPos += direction * (wayLong - 1);
+        if (wayLong <= 1)
+        {
+            wayLong = 0;
+            while (direction != Vector3Int.zero)
+            {
+                if (tilemap.GetComponent<Map>().wayTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)))
+                {
+                    wayLong--;
+                }
+                else
+                {
+                    break;
+                }
+                if (wayLong > 20)
+                    break;
+            }
+            endPos += direction * (wayLong + 1);
+        }
     }
 
 

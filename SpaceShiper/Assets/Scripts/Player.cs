@@ -24,10 +24,10 @@ public class Player : MonoBehaviour
     public bool rotateMemoryOn = true;                      // тумблер Памяти Поворота
     private int wasTeleported;
 
-    public TrailRenderer tailA;
-    public TrailRenderer tailB;
+    public GameObject tail;                                 // след игрока
     public static GameController controller;                // игровой контроллер
     public Tilemap tilemap;                                 // объект Map
+    private Animator animator;                              // аниматор игрока
 
     public enum Direction { zero, right, up, left, down }   // все возможные направления движения
 
@@ -45,14 +45,17 @@ public class Player : MonoBehaviour
             // если не движется
             mainDirection = direction;
             isMove = true;
+            animator.SetBool("isMove", true);
+            animator.speed = 1/Time.fixedDeltaTime;
+
             end = GetLastTileInCoridor(
                 tilemap.WorldToCell(this.transform.position),
                 direction,
                 tilemap);           // точка, к которой летит игрок
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            GameObject _tail = Instantiate(tail, this.transform.position, Quaternion.identity);
+            var startPos = this.transform.position;
+
             yield return new WaitForFixedUpdate();                                      // дожидаемся конца кадра для чуть большей плавности
-            tailA.gameObject.SetActive(!tailA.gameObject.activeSelf);
-            tailB.gameObject.SetActive(!tailB.gameObject.activeSelf);
             while (this.transform.position != end)
             {
                 yield return new WaitForFixedUpdate();
@@ -60,9 +63,15 @@ public class Player : MonoBehaviour
                     tilemap.WorldToCell(this.transform.position),
                     direction,
                     tilemap);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+                _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+                if(Vector2.Distance(this.transform.position, end) < Vector2.Distance(this.transform.position, startPos))
+                    this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
             }
             yield return new WaitForFixedUpdate();
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            Destroy(_tail, 1f);
+            animator.SetBool("isMove", false);
+            animator.speed = 1;
             isMove = false;
         }
     }
@@ -154,6 +163,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
+        animator = this.GetComponent<Animator>();
         wasTeleported = 0;
     }
 
@@ -263,7 +273,7 @@ public class Player : MonoBehaviour
     private static bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
     {
         // функция для лучшего понимания кода
-        return Array.IndexOf(controller.tilemap.GetComponent<Map>().wayTile, tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) > -1;
+        return controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0));
     }
 
     public static Vector3Int DirectionToVector(Direction direction)

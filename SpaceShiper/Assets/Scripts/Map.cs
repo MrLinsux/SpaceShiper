@@ -6,12 +6,11 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
     public GameObject player;           // объект игрока
-    public Vector3 playerSpawner;       // и точка его появления
 
     public Tilemap tilemap;             // компоненит тайлмапа
 
     // набор объектов, из которых составляется уровень
-    public TileBase[] wayTile;             // тайлы дороги
+    public TileBase wayTile;             // тайлы дороги
     public TileBase wallTile;            // тайлы стены
 
     public GameObject[] singleSideTraps;        // ловушки одиночной направленности
@@ -24,8 +23,9 @@ public class Map : MonoBehaviour
     public GameObject pusher;                   // толкатель
     public GameObject door;                     // обычная дверь
     public GameObject timeDoor;                 // дверь с таймером
+    public GameObject playerSpawner;            // объект начала уровня
 
-    public Vector3 BuildLevel(int world, int level)
+    public void BuildLevel(int world, int level)
     {
         // загружаем схему карты из Ресурсов
         var mapPlan = 
@@ -37,16 +37,8 @@ public class Map : MonoBehaviour
         {
             // ставим дорогу
             var way = mapPlan.way[i];
-            SetWayTile(way.pos, wayTile[way.id]);
-            if (way.id == 1)
-                playerSpawner = new Vector3(way.x, way.y, player.transform.position.z);
+            SetWayTile(way.pos, wayTile);
         }
-        //for (int i = 0; i < mapPlan.wall.Count; i++)
-        //{
-        //    // строим стены
-        //    var wall = mapPlan.wall[i];
-        //    tilemap.SetTile(new Vector3Int(wall.x, wall.y, wall.z), wallTile);
-        //}
         //for(int i = 0; i < mapPlan.ruleTiles.Count; i++)
         //{
         //    // для ruleTile, например для рамки у стен
@@ -116,7 +108,7 @@ public class Map : MonoBehaviour
             temp.GetComponent<TimeDoor>().switcher.position = door.switcher.pos;
         }
 
-        return playerSpawner;
+        Instantiate(playerSpawner, mapPlan.playerSpawner.pos, Quaternion.identity, this.transform).GetComponent<PlayerSpawner>().player = player;
     }
 
     public void SaveLevel(int world, int level)
@@ -131,14 +123,10 @@ public class Map : MonoBehaviour
                 for (int z = tilemap.cellBounds.zMin; z < tilemap.cellBounds.zMax; z++) 
                 {
                     var tile = tilemap.GetTile(new Vector3Int(x, y, z));
-                    if (Array.IndexOf(wayTile, tile) > -1)
+                    if (wayTile == tile)
                     {
-                        map.way.Add(new MapTiles.Way(x, y, z, Array.IndexOf(wayTile, tile)));
+                        map.way.Add(new MapTiles.Way(x, y, z));
                     }
-                    //else if (wallTile == tile)
-                    //{
-                    //    map.wall.Add(new MapTiles.Wall(x, y, z));
-                    //}
                 }
             }
         }
@@ -200,6 +188,10 @@ public class Map : MonoBehaviour
                     child[i].GetComponent<TimeDoor>().timeToClose
                     ));
             }
+            else if(child[i].GetComponent<PlayerSpawner>())
+            {
+                map.playerSpawner = new MapTiles.Spawner(child[i].position);
+            }
         }
 
         System.IO.File.WriteAllText(
@@ -228,8 +220,7 @@ public class Map : MonoBehaviour
 
         for (int i = -1; i <= 1; i++)
             for (int j = -1; j <= 1; j++)
-                if (Array.IndexOf(wayTile, tilemap.GetTile(pos + i * Vector3Int.right + j * Vector3Int.up)) == -1)
-                    tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up, wallTile);
+                tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up + Vector3Int.back, wallTile);
 
         tilemap.SetTile(pos, tile);
     }
@@ -242,7 +233,6 @@ public class Map : MonoBehaviour
         // подробнее про структуру уровня в Json в Концепт-документе
 
         public List<Way> way = new List<Way>();
-        public List<Wall> wall = new List<Wall>();
         public List<RuleTiles> ruleTiles = new List<RuleTiles>();
         public List<SingleSideTrap> singleSideTraps = new List<SingleSideTrap>();
         public List<MultySideTrap> multySideTraps = new List<MultySideTrap>();
@@ -250,6 +240,7 @@ public class Map : MonoBehaviour
         public List<Pusher> pushers = new List<Pusher>();
         public List<Door> doors = new List<Door>();
         public List<TimeDoor> timeDoors = new List<TimeDoor>();
+        public Spawner playerSpawner;
 
 
         [System.Serializable]
@@ -258,7 +249,6 @@ public class Map : MonoBehaviour
             public int x;
             public int y;
             public int z;
-            public int id;
             public Vector3Int pos
             {
                 get
@@ -266,16 +256,7 @@ public class Map : MonoBehaviour
                     return new Vector3Int(x, y, z);
                 }
             }
-            public Way(int _cellX, int _cellY, int _cellZ, int _id) { x = _cellX; y = _cellY; z = _cellZ; id = _id; }
-        }
-
-        [System.Serializable]
-        public class Wall
-        {
-            public int x;
-            public int y;
-            public int z;
-            public Wall(int _cellX, int _cellY, int _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+            public Way(int _cellX, int _cellY, int _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
         }
 
         [System.Serializable]
@@ -417,6 +398,23 @@ public class Map : MonoBehaviour
             }
 
             public Switcher(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+        }
+
+        [System.Serializable]
+        public class Spawner
+        {
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
+
+            public Spawner(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
         }
 
     }

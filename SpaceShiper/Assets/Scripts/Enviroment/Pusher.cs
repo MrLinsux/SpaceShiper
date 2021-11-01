@@ -18,24 +18,24 @@ public class Pusher : MonoBehaviour
         verticalEnter = Player.Direction.down;
         horizontalEnter = Player.Direction.left;
 
-        if (Array.IndexOf(map.GetComponent<Map>().wayTile, map.GetTile(pos + Vector3Int.right)) > -1)
+        if (map.GetComponent<Map>().wayTile == map.GetTile(pos + Vector3Int.right))
         {
-            if (Array.IndexOf(map.GetComponent<Map>().wayTile, map.GetTile(pos + Vector3Int.down)) > -1)
+            if (map.GetComponent<Map>().wayTile == map.GetTile(pos + Vector3Int.down))
             {
                 this.transform.Rotate(new Vector3(0, 0, 270));
                 verticalEnter = Player.Direction.up;
                 horizontalEnter = Player.Direction.left;
             }
         }
-        else if(Array.IndexOf(map.GetComponent<Map>().wayTile, map.GetTile(pos + Vector3Int.left)) > -1)
+        else if(map.GetComponent<Map>().wayTile == map.GetTile(pos + Vector3Int.left))
         {
-            if (Array.IndexOf(map.GetComponent<Map>().wayTile, map.GetTile(pos + Vector3Int.up)) > -1)
+            if (map.GetComponent<Map>().wayTile == map.GetTile(pos + Vector3Int.up))
             {
                 this.transform.Rotate(new Vector3(0, 0, 90));
                 verticalEnter = Player.Direction.down;
                 horizontalEnter = Player.Direction.right;
             }
-            else if (Array.IndexOf(map.GetComponent<Map>().wayTile, map.GetTile(pos + Vector3Int.down)) > -1)
+            else if (map.GetComponent<Map>().wayTile == map.GetTile(pos + Vector3Int.down))
             {
                 this.transform.Rotate(new Vector3(0, 0, 180));
                 verticalEnter = Player.Direction.up;

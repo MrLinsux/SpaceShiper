@@ -36,9 +36,7 @@ public class GameController : MonoBehaviour
             Destroy(tilemap.transform.GetChild(i).gameObject, 0);
 
         // точка появления игрока, которую мы получаем после построения уровня
-        var playerSpawn = tilemap.GetComponent<Map>().BuildLevel(world, level);
-
-        player.transform.position = playerSpawn;
+        tilemap.GetComponent<Map>().BuildLevel(world, level);
     }
 
     private void Start()
