@@ -235,7 +235,7 @@ MonoBehaviour:
   player: {fileID: 688669240}
   world: 0
   level: 0
-  isEditLevel: 1
+  isEditLevel: 0
   worldSpeed: 1
 --- !u!4 &43818385
 Transform:
@@ -2024,6 +2024,7 @@ MonoBehaviour:
   secondDirection: 0
   rotateMemoryOn: 1
   tail: {fileID: 7627940962229775760, guid: baa986abfdfea6b46a48ae4d5c0cd786, type: 3}
+  controller: {fileID: 43818384}
   tilemap: {fileID: 453182900}
 --- !u!50 &688669244
 Rigidbody2D:
@@ -94338,7 +94339,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0,03
+  m_Text: 0,02
 --- !u!222 &1328168408
 CanvasRenderer:
   m_ObjectHideFlags: 0

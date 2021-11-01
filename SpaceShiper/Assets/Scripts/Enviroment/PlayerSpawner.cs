@@ -9,5 +9,16 @@ public class PlayerSpawner : MonoBehaviour
     void Start()
     {
         player.transform.position = this.transform.position;
+        StartCoroutine(WaitStart());
+    }
+
+    private IEnumerator WaitStart()
+    {
+        player.GetComponent<Player>().enabled = false;
+
+        while(this.transform.GetChild(0).localPosition.y != -1)
+            yield return new WaitForEndOfFrame();
+
+        player.GetComponent<Player>().enabled = true;
     }
 }

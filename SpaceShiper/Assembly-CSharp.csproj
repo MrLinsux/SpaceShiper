@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +53,9 @@
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Traps\Laser.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Portal.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\TestController.cs" />
     <Compile Include="Assets\Scripts\LaserTrigger.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Enviroment\TimeDoor.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Switcher.cs" />
     <Compile Include="Assets\Scripts\Traps\Thicker.cs" />
@@ -70,7 +74,6 @@
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\Enviroment\PlayerSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

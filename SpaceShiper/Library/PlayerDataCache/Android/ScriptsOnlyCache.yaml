@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - Map
     - MultySideTrap
     - Player
+    - PlayerSpawner
     - Portal
     - Pusher
     - SingleSideTrap
@@ -20,16 +21,15 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
@@ -48,6 +48,12 @@ ScriptsOnlyBuild:
     - UnityEngine.RuleTile
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -87,7 +93,13 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 96
       Script: {instanceID: 0}
@@ -138,19 +150,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3878}
     - Class: 114
-      Script: {instanceID: 4332}
+      Script: {instanceID: 4330}
     - Class: 114
-      Script: {instanceID: 4382}
+      Script: {instanceID: 4334}
     - Class: 114
-      Script: {instanceID: 4462}
+      Script: {instanceID: 4384}
     - Class: 114
-      Script: {instanceID: 4528}
+      Script: {instanceID: 4464}
     - Class: 114
-      Script: {instanceID: 4538}
+      Script: {instanceID: 4530}
     - Class: 114
-      Script: {instanceID: 5116}
+      Script: {instanceID: 4540}
     - Class: 114
-      Script: {instanceID: 5700}
+      Script: {instanceID: 5118}
+    - Class: 114
+      Script: {instanceID: 5702}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -250,7 +264,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: 87e7a3dccdd801e18ba01e94542c253f
+      Hash: cc4c31360c7e94085a5d3ce41aedee54
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -304,7 +318,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 7b6af34d2e42e6223a6dfcff67293c58
+      Hash: 31ccda52aa3e88f452ad2c70ca50f277
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -676,6 +690,12 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
+      Hash: 83e769eee07fc231384c812eedbb8224
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerSpawner
+  - hash:
+      serializedVersion: 2
       Hash: 7a50565890228a451d8c535d1661f480
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -706,7 +726,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: 554ff0052b7f9c067b35912bd7952f31
+      Hash: f50549f7a14a91834a1b68e24ea3b43b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Map

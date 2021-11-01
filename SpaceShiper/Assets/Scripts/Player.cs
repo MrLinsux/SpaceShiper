@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     private int wasTeleported;
 
     public GameObject tail;                                 // след игрока
-    public static GameController controller;                // игровой контроллер
+    public GameController controller;                // игровой контроллер
     public Tilemap tilemap;                                 // объект Map
     private Animator animator;                              // аниматор игрока
 
@@ -67,7 +67,9 @@ public class Player : MonoBehaviour
                 if(Vector2.Distance(this.transform.position, end) < Vector2.Distance(this.transform.position, startPos))
                     this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
             }
-            yield return new WaitForFixedUpdate();
+            //yield return new WaitForFixedUpdate();
+            //yield return new WaitForFixedUpdate();
+            //yield return new WaitForFixedUpdate();
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
             Destroy(_tail, 1f);
             animator.SetBool("isMove", false);
@@ -162,7 +164,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        controller = GameObject.Find("GameController").GetComponent<GameController>();
+        Debug.Log((Direction)2);
         animator = this.GetComponent<Animator>();
         wasTeleported = 0;
     }
@@ -223,9 +225,9 @@ public class Player : MonoBehaviour
             #endregion
 
             // если не запущена Памят Поворота, п направление свайпа отлично от старого (который попал в Move())
-            if (isMove && (firstDirection != direction) && (Vector2.Distance(this.transform.position, end) < minPostMoveDistance))
+            if (isMove && (firstDirection != direction) && (Vector2.Distance(this.transform.position, end) < minPostMoveDistance) && ((int)direction % 2 != (int)firstDirection % 2)) 
             {
-                if(secMovement != null)
+                if (secMovement != null)
                     StopCoroutine(secMovement);
                 secMovement = StartCoroutine(PostMove(direction));
             }
@@ -270,7 +272,7 @@ public class Player : MonoBehaviour
         return new Vector3Int(cellItemX, cellItemY, 0);
 
     }
-    private static bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
+    private bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
     {
         // функция для лучшего понимания кода
         return controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0));

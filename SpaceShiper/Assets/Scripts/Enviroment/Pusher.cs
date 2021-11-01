@@ -12,6 +12,8 @@ public class Pusher : MonoBehaviour
     void Start()
     {
         // определям направление толкателя
+        var anim = this.transform.GetChild(0).GetComponent<Animator>();
+        anim.speed = 1 / Time.fixedDeltaTime;
         var map = GameObject.Find("Map").GetComponent<Tilemap>();
         var pos = map.WorldToCell(this.transform.position);
         this.transform.Rotate(new Vector3(0, 0, 0));
@@ -40,6 +42,27 @@ public class Pusher : MonoBehaviour
                 this.transform.Rotate(new Vector3(0, 0, 180));
                 verticalEnter = Player.Direction.up;
                 horizontalEnter = Player.Direction.right;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision != null)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                this.transform.GetChild(0).GetComponent<Animator>().SetBool("isPushing", true);
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                this.transform.GetChild(0).GetComponent<Animator>().SetBool("isPushing", false);
             }
         }
     }
