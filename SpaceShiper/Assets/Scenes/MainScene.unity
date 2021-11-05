@@ -411,7 +411,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &114324159
 RectTransform:
@@ -1336,39 +1336,111 @@ Tilemap:
   - m_RefCount: 0
     m_Data:
       e00: 4e-45
-      e01: -8.419186e+27
+      e01: -4.8840444e+16
       e02: 0
-      e03: -3.813593
-      e10: 1e-45
-      e11: 9.23e-43
-      e12: 9.22e-43
-      e13: 9.2e-43
-      e20: 1.0235003e-20
+      e03: -8.29731
+      e10: 6.53e-43
+      e11: 6.53e-43
+      e12: 6.52e-43
+      e13: 6.5e-43
+      e20: 4.0277434e-12
       e21: 0
-      e22: -4.6625767e+20
+      e22: -0.00084383786
       e23: 0
-      e30: 9.23e-43
+      e30: 6.53e-43
       e31: 0
-      e32: 4.5904e-41
+      e32: 4.5905e-41
       e33: 0
   - m_RefCount: 0
     m_Data:
-      e00: -1.084227e-19
-      e01: 3.9607023e-15
-      e02: 3.9603127e-15
-      e03: 3.9603127e-15
-      e10: 7.37e-43
-      e11: 1.53e-43
-      e12: 1.53e-43
-      e13: 1.53e-43
-      e20: 8.379019e-17
-      e21: 2.5926195e-29
-      e22: 6.998905
-      e23: 2.5926195e-29
-      e30: 4.5904e-41
-      e31: 7.4e-43
-      e32: 7.37e-43
-      e33: 7.4e-43
+      e00: 4e-45
+      e01: -4.8840444e+16
+      e02: 0
+      e03: -7.7331886
+      e10: 6.53e-43
+      e11: 6.53e-43
+      e12: 6.52e-43
+      e13: 6.5e-43
+      e20: 4.0277434e-12
+      e21: 0
+      e22: -0.00084383786
+      e23: 0
+      e30: 6.53e-43
+      e31: 0
+      e32: 4.5905e-41
+      e33: 0
+  - m_RefCount: 0
+    m_Data:
+      e00: 1.084227e-19
+      e01: -2.3606619e+29
+      e02: -2.3604881e+29
+      e03: -2.3604881e+29
+      e10: 6.52e-43
+      e11: 2.54e-43
+      e12: 2.54e-43
+      e13: 2.54e-43
+      e20: -0.00084383786
+      e21: -1.0942276e-19
+      e22: -8.802345
+      e23: -1.0942276e-19
+      e30: 4.5905e-41
+      e31: 6.53e-43
+      e32: 6.5e-43
+      e33: 6.53e-43
+  - m_RefCount: 0
+    m_Data:
+      e00: 4e-45
+      e01: -4.8840444e+16
+      e02: 0
+      e03: -8.793037
+      e10: 4e-45
+      e11: 6.53e-43
+      e12: 6.52e-43
+      e13: 6.5e-43
+      e20: 4.0277434e-12
+      e21: 0
+      e22: -0.00084383786
+      e23: 0
+      e30: 6.53e-43
+      e31: 0
+      e32: 4.5905e-41
+      e33: 0
+  - m_RefCount: 0
+    m_Data:
+      e00: 1.084227e-19
+      e01: -2.3606619e+29
+      e02: -2.3604881e+29
+      e03: -2.3604881e+29
+      e10: 6.52e-43
+      e11: 2.54e-43
+      e12: 2.54e-43
+      e13: 2.54e-43
+      e20: -0.00084383786
+      e21: -1.0942276e-19
+      e22: -8.793037
+      e23: -1.0942276e-19
+      e30: 4.5905e-41
+      e31: 6.53e-43
+      e32: 6.5e-43
+      e33: 6.53e-43
+  - m_RefCount: 0
+    m_Data:
+      e00: 1.084227e-19
+      e01: -2.3606619e+29
+      e02: -2.3604881e+29
+      e03: -2.3604881e+29
+      e10: 6.52e-43
+      e11: 2.54e-43
+      e12: 2.54e-43
+      e13: 2.54e-43
+      e20: -0.00084383786
+      e21: -1.0942276e-19
+      e22: -8.7367325
+      e23: -1.0942276e-19
+      e30: 4.5905e-41
+      e31: 6.53e-43
+      e32: 6.5e-43
+      e33: 6.53e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}
@@ -1377,7 +1449,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}
   - m_RefCount: 0
-    m_Data: {r: 2.5324486e-29, g: 2.5324486e-29, b: 2.5324486e-29, a: 2.5324486e-29}
+    m_Data: {r: -1.114204e-19, g: -1.114204e-19, b: -1.114204e-19, a: -1.114204e-19}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1416,7 +1488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 688669240}
   tilemap: {fileID: 453182900}
-  wayTile: {fileID: 11400000, guid: 9748d562d19e64243b445d646fae9e5d, type: 2}
+  wayTile: {fileID: 11400000, guid: 0bf204a0f4186ec40a62236c86efdf5d, type: 2}
   wallTile: {fileID: 11400000, guid: d57735ac92b25694799e8060a41cd10e, type: 2}
   singleSideTraps:
   - {fileID: 6700764873052418858, guid: e69a6569d16426e44ad1ce25ee756876, type: 3}
@@ -2012,7 +2084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2950f6ce3a6efe43bc5f052b2012494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 0.2
   minSwipeSpeed: 8
   minVDirection: 25
   minPostMoveDistance: 5
@@ -2023,6 +2095,8 @@ MonoBehaviour:
   mainDirection: 0
   secondDirection: 0
   rotateMemoryOn: 1
+  delayBeforeMove: 1
+  timeSpeed: 0.006
   tail: {fileID: 7627940962229775760, guid: baa986abfdfea6b46a48ae4d5c0cd786, type: 3}
   controller: {fileID: 43818384}
   tilemap: {fileID: 453182900}
@@ -2968,7 +3042,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &944611249
 RectTransform:
@@ -95733,7 +95807,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1806824229
 RectTransform:

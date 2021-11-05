@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private Vector2 vDirection;                             // вектор свайпа
     public bool rotateMemoryOn = true;                      // тумблер Памяти Поворота
     private int wasTeleported;
+    public int delayBeforeMove = 0;
+    public float timeSpeed = 0.01f;
 
     public GameObject tail;                                 // след игрока
     public GameController controller;                // игровой контроллер
@@ -46,16 +48,18 @@ public class Player : MonoBehaviour
             mainDirection = direction;
             isMove = true;
             animator.SetBool("isMove", true);
-            animator.speed = 1/Time.fixedDeltaTime;
+            animator.speed = moveSpeed / Time.fixedDeltaTime;
 
             end = GetLastTileInCoridor(
                 tilemap.WorldToCell(this.transform.position),
                 direction,
                 tilemap);           // точка, к которой летит игрок
-            GameObject _tail = Instantiate(tail, this.transform.position, Quaternion.identity);
             var startPos = this.transform.position;
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            for (int i = 0; i < delayBeforeMove; i++)
+                yield return new WaitForFixedUpdate();                                      // дожидаемся конца кадра для чуть большей плавности
 
-            yield return new WaitForFixedUpdate();                                      // дожидаемся конца кадра для чуть большей плавности
+            var _tail = Instantiate(tail, this.transform.position + DirectionToVector(direction) / 2, Quaternion.identity).GetComponent<TrailRenderer>();
             while (this.transform.position != end)
             {
                 yield return new WaitForFixedUpdate();
@@ -63,15 +67,17 @@ public class Player : MonoBehaviour
                     tilemap.WorldToCell(this.transform.position),
                     direction,
                     tilemap);
-                _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-                if(Vector2.Distance(this.transform.position, end) < Vector2.Distance(this.transform.position, startPos))
-                    this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+                _tail.transform.position = this.transform.position + DirectionToVector(direction)/2;
+                if (Vector2.Distance(this.transform.position, end) < Vector2.Distance(this.transform.position, startPos))
+                {
+                    if (Vector2.Distance(this.transform.position, end) <= 2)
+                        animator.SetBool("isMove", false);
+                }
             }
-            //yield return new WaitForFixedUpdate();
-            //yield return new WaitForFixedUpdate();
-            //yield return new WaitForFixedUpdate();
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
-            Destroy(_tail, 1f);
+            Destroy(_tail.gameObject, 1f);
+            this.transform.position = end;
+
             animator.SetBool("isMove", false);
             animator.speed = 1;
             isMove = false;
@@ -164,8 +170,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Debug.Log((Direction)2);
         animator = this.GetComponent<Animator>();
+        Time.fixedDeltaTime = timeSpeed;
         wasTeleported = 0;
     }
 
