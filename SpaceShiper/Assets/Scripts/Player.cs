@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
         isMove = true;
         animator.SetBool("isMove", true);
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Start"));
 
         end = GetLastTileInCoridor(
             tilemap.WorldToCell(this.transform.position),
@@ -62,10 +61,10 @@ public class Player : MonoBehaviour
                 direction,
                 tilemap);
             _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+            Debug.Log(end);
         }
         Destroy(_tail, 1f);
         animator.SetBool("isMove", false);
-        animator.speed = 1;
         isMove = false;
     }
 
@@ -119,12 +118,11 @@ public class Player : MonoBehaviour
         // если выбрано направление, скорость больше минимальной и длина свайпа больше минимальной
         if (directionChosen && (deltaThouch > minSwipeSpeed) && (vDirection.magnitude > minVDirection))
         {
-            var pi = Mathf.PI;
             var xAxis = Vector2.right;
             float dirAngle = (
                 vDirection.y > 0 ?
                 Mathf.Acos(Vector2.Dot(vDirection.normalized, xAxis)) :
-                2 * pi - Mathf.Acos(Vector2.Dot(vDirection.normalized, xAxis))
+                2 * Mathf.PI - Mathf.Acos(Vector2.Dot(vDirection.normalized, xAxis))
                 );          // угол в колесе управления из концепт-документа
             // как и любой натурал, использовал радианы
 
@@ -132,14 +130,45 @@ public class Player : MonoBehaviour
             var firstDirection = direction;     // сохранили направление предыдущего свайпа
 
             // определяем направление свайпа по колесу управления
-            if ((dirAngle < pi / 4) || (dirAngle >= 7 * pi / 4))
-                direction = (Direction)1;
-            else if ((dirAngle < 3 * pi / 4) && (dirAngle >= pi / 4))
-                direction = (Direction)2;
-            else if ((dirAngle < 5 * pi / 4) && (dirAngle >= 3 * pi / 4))
-                direction = (Direction)3;
-            else if ((dirAngle < 7 * pi / 4) && (dirAngle >= 5 * pi / 4))
-                direction = (Direction)4;
+
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                var step = Mathf.PI / 4;
+                if ((dirAngle < step) || (dirAngle >= 7 * step))
+                    direction = (Direction)1;
+                else if ((dirAngle < 3 * step) && (dirAngle >= step))
+                    direction = (Direction)2;
+                else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
+                    direction = (Direction)3;
+                else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
+                    direction = (Direction)4;
+            }
+            else
+            {
+                var step = Mathf.PI / 8;
+                if ((int)firstDirection % 2 == 1)
+                {
+                    if ((dirAngle < step) || (dirAngle >= 15 * step))
+                        direction = (Direction)1;
+                    else if ((dirAngle < 7 * step) && (dirAngle >= step))
+                        direction = (Direction)2;
+                    else if ((dirAngle < 9 * step) && (dirAngle >= 7 * step))
+                        direction = (Direction)3;
+                    else if ((dirAngle < 15 * step) && (dirAngle >= 9 * step))
+                        direction = (Direction)4;
+                }
+                else
+                {
+                    if ((dirAngle < 3 * step) || (dirAngle >= 13 * step))
+                        direction = (Direction)1;
+                    else if ((dirAngle < 5 * step) && (dirAngle >= 3*step))
+                        direction = (Direction)2;
+                    else if ((dirAngle < 11 * step) && (dirAngle >= 5 * step))
+                        direction = (Direction)3;
+                    else if ((dirAngle < 13 * step) && (dirAngle >= 11 * step))
+                        direction = (Direction)4;
+                }
+            }
             #endregion
 
             // если не запущена Памят Поворота, п направление свайпа отлично от старого (который попал в Move())
