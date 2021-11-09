@@ -12,13 +12,11 @@ public class Player : MonoBehaviour
 
     public bool directionChosen;        // выбран ли вектор движения 
     public bool isMove = false;         // находится ли игрок в движении
-    public bool isAutoMove = false;     // активна ли корутина помяти поворота
     private Vector3 end;                // точка у которой движется игрок
     public Direction direction = Direction.zero;            // текущее направление
     public Direction mainDirection = Direction.zero;        // направление в корутине Move()
     public Direction secondDirection = Direction.zero;      // направление в корутине PostMove()
     private Coroutine movement;                             // переменная для корутины Move()
-    private Coroutine secMovement;                          // переменная для корутины PostMove()
     private Vector2 startPos;                               // точка начала вектора свойпа
     private Vector2 vDirection;                             // вектор свайпа
     public bool rotateMemoryOn = true;                      // тумблер Памяти Поворота
@@ -40,44 +38,67 @@ public class Player : MonoBehaviour
     private IEnumerator Move(Direction direction)
     {
         // функция основного движения
+        Debug.Log("11");
         mainDirection = direction;
         isMove = true;
         animator.SetBool("isMove", true);
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
+        animator.SetBool("isStep", false);
 
         end = GetLastTileInCoridor(
             tilemap.WorldToCell(this.transform.position),
             direction,
             tilemap);           // точка, к которой летит игрок
-        GameObject _tail = Instantiate(tail, this.transform.position, Quaternion.identity);
-        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
 
-        yield return new WaitForFixedUpdate();                                      // дожидаемся конца кадра для чуть большей плавности
-        while (this.transform.position != end)
+        Debug.Log(Vector2.Distance(this.transform.position, end));
+        Debug.Log("12");
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Move") || Vector2.Distance(this.transform.position, end) > 1)
         {
-            yield return new WaitForFixedUpdate();
-            end = GetLastTileInCoridor(
-                tilemap.WorldToCell(this.transform.position),
-                direction,
-                tilemap);
-            _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-            Debug.Log(end);
-        }
-        Destroy(_tail, 1f);
-        animator.SetBool("isMove", false);
-        isMove = false;
-    }
+            Debug.Log("131");
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            GameObject _tail = Instantiate(tail, this.transform.position, Quaternion.identity);
 
-    private IEnumerator PostMove(Direction direction)
-    {
-        isAutoMove = true;
-        secondDirection = direction;
-        // ждём окончания движения
-        yield return new WaitWhile(() => isMove);
-        // запускаем корутину обычного движения и ждём ей окончания
-        yield return StartCoroutine(Move(direction));
-        secondDirection = Direction.zero;
-        isAutoMove = false;
+            yield return new WaitForFixedUpdate();          // дожидаемся конца кадра для чуть большей плавности      
+            while (this.transform.position != end)
+            {
+                yield return new WaitForFixedUpdate();
+                end = GetLastTileInCoridor(
+                    tilemap.WorldToCell(this.transform.position),
+                    direction,
+                    tilemap);
+                _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+            }
+            Destroy(_tail, 1f);
+        }
+        else if(Vector2.Distance(this.transform.position, end) > 0)
+        {
+            animator.SetBool("isStep", true);
+            Debug.Log("132");
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            while (this.transform.position != end)
+            {
+                yield return new WaitForFixedUpdate();
+                end = GetLastTileInCoridor(
+                    tilemap.WorldToCell(this.transform.position),
+                    direction,
+                    tilemap);
+                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+            }
+        }
+        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+        this.transform.position = end;
+        if(secondDirection != Direction.zero)
+        {
+            StartCoroutine(Move(secondDirection));
+            secondDirection = Direction.zero;
+        }
+        else
+        {
+            animator.SetBool("isMove", false);
+            animator.SetBool("isStep", false);
+            isMove = false;
+        }
+        Debug.Log("14");
     }
 
     void Start()
@@ -146,7 +167,7 @@ public class Player : MonoBehaviour
             else
             {
                 var step = Mathf.PI / 8;
-                if ((int)firstDirection % 2 == 1)
+                if ((int)mainDirection % 2 == 1)
                 {
                     if ((dirAngle < step) || (dirAngle >= 15 * step))
                         direction = (Direction)1;
@@ -174,16 +195,17 @@ public class Player : MonoBehaviour
             // если не запущена Памят Поворота, п направление свайпа отлично от старого (который попал в Move())
             if (
                 isMove && 
-                (firstDirection != direction) && 
                 (Vector2.Distance(this.transform.position, end) < minPostMoveDistance) && 
-                ((int)direction % 2 != (int)firstDirection % 2)) 
+                ((int)direction % 2 != (int)mainDirection % 2)
+                ) 
             {
-                if (secMovement != null)
-                    StopCoroutine(secMovement);
-                secMovement = StartCoroutine(PostMove(direction));
+                //if (secMovement != null)
+                //    StopCoroutine(secMovement);
+                //secMovement = StartCoroutine(PostMove(direction));
+                secondDirection = direction;
             }
             // если не двигаемся вообще, то начинаем в сторону направления
-            else if (!isMove)
+            else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isMove)
                 movement = StartCoroutine(Move(direction));
 
             // сбрасываем значения
@@ -218,8 +240,7 @@ public class Player : MonoBehaviour
             if (collision.GetComponent<Pusher>())
             {
                 // при столкновении с толкателем отключаем Память Поворота
-                if (secMovement != null)
-                    StopCoroutine(secMovement);
+                secondDirection = Direction.zero;
             }
         }
     }
