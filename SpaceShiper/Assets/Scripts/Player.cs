@@ -23,8 +23,6 @@ public class Player : MonoBehaviour
     private Vector2 vDirection;                             // вектор свайпа
     public bool rotateMemoryOn = true;                      // тумблер ѕам€ти ѕоворота
     private int wasTeleported;
-    public int delayBeforeMove = 0;
-    public float timeSpeed = 0.01f;
 
     public GameObject tail;                                 // след игрока
     public GameController controller;                // игровой контроллер
@@ -42,136 +40,50 @@ public class Player : MonoBehaviour
     private IEnumerator Move(Direction direction)
     {
         // функци€ основного движени€
-        if (!isMove)
-        {
-            // если не движетс€
-            mainDirection = direction;
-            isMove = true;
-            animator.SetBool("isMove", true);
-            animator.speed = moveSpeed / Time.fixedDeltaTime;
+        mainDirection = direction;
+        isMove = true;
+        animator.SetBool("isMove", true);
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Start"));
 
+        end = GetLastTileInCoridor(
+            tilemap.WorldToCell(this.transform.position),
+            direction,
+            tilemap);           // точка, к которой летит игрок
+        GameObject _tail = Instantiate(tail, this.transform.position, Quaternion.identity);
+        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
+
+        yield return new WaitForFixedUpdate();                                      // дожидаемс€ конца кадра дл€ чуть большей плавности
+        while (this.transform.position != end)
+        {
+            yield return new WaitForFixedUpdate();
             end = GetLastTileInCoridor(
                 tilemap.WorldToCell(this.transform.position),
                 direction,
-                tilemap);           // точка, к которой летит игрок
-            var startPos = this.transform.position;
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
-            for (int i = 0; i < delayBeforeMove; i++)
-                yield return new WaitForFixedUpdate();                                      // дожидаемс€ конца кадра дл€ чуть большей плавности
-
-            var _tail = Instantiate(tail, this.transform.position + DirectionToVector(direction) / 2, Quaternion.identity).GetComponent<TrailRenderer>();
-            while (this.transform.position != end)
-            {
-                yield return new WaitForFixedUpdate();
-                end = GetLastTileInCoridor(
-                    tilemap.WorldToCell(this.transform.position),
-                    direction,
-                    tilemap);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-                _tail.transform.position = this.transform.position + DirectionToVector(direction)/2;
-                if (Vector2.Distance(this.transform.position, end) < Vector2.Distance(this.transform.position, startPos))
-                {
-                    if (Vector2.Distance(this.transform.position, end) <= 2)
-                        animator.SetBool("isMove", false);
-                }
-            }
-            Destroy(_tail.gameObject, 1f);
-            this.transform.position = end;
-
-            animator.SetBool("isMove", false);
-            animator.speed = 1;
-            isMove = false;
+                tilemap);
+            _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
         }
+        Destroy(_tail, 1f);
+        animator.SetBool("isMove", false);
+        animator.speed = 1;
+        isMove = false;
     }
 
     private IEnumerator PostMove(Direction direction)
     {
-        if (rotateMemoryOn)
-        {
-            // если включена ѕам€ть ѕоворота
-            isAutoMove = true;
-            secondDirection = direction;
-            // ждЄм окончани€ движени€
-            while (isMove) { yield return new WaitForFixedUpdate();}
-            // запускаем корутину обычного движени€ и ждЄм ей окончани€
-            yield return StartCoroutine(Move(direction));
-            secondDirection = Direction.zero;
-            isAutoMove = false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision != null)
-        {
-            if (collision.gameObject.CompareTag("Trap"))
-            {
-                // при столкновении с ловушками - смерт
-                Dead();
-            }
-            if (collision.GetComponent<Portal>())
-            {
-                if (wasTeleported == 0)
-                {
-                    // при столкновении с порталом
-                    // останавливаем все корутины движени€
-                    // перемещаем в точку около портала-близнеца
-                    this.transform.position = collision.GetComponent<Portal>().twinkPortal.transform.position - Vector3.forward * 40;
-                    this.wasTeleported = 2 - (int)Math.Truncate(moveSpeed);
-                }
-            }
-            if (collision.GetComponent<Pusher>())
-            {
-                // при столкновении с толкателем отключаем ѕам€ть ѕоворота
-                if(secMovement != null)
-                    StopCoroutine(secMovement);
-            }
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision != null)
-        {
-            if(collision.GetComponent<Pusher>())
-            {
-                if (!isMove && (Vector2.Distance(this.transform.position, collision.transform.position) < 1f))
-                {
-                    // ждЄм попадани€ в одну с толкателем точку
-                    // если попали в вертикальную, то летим в горизонтальную
-                    if(mainDirection == collision.GetComponent<Pusher>().verticalEnter)
-                    {
-                        movement = StartCoroutine(Move((collision.GetComponent<Pusher>().horizontalEnter == Direction.right) ? Direction.left : Direction.right));
-                    }
-                    else if(mainDirection == collision.GetComponent<Pusher>().horizontalEnter)
-                    {
-                        movement = StartCoroutine(Move((collision.GetComponent<Pusher>().verticalEnter == Direction.up) ? Direction.down : Direction.up));
-                    }
-                }
-            }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision != null)
-        {
-            if(collision.GetComponent<Portal>())
-            {
-                if (wasTeleported == 1)
-                {
-                    wasTeleported = 0;
-                }
-                else if (wasTeleported == 2 - (int)Math.Truncate(moveSpeed))
-                {
-                    wasTeleported = 1;
-                }
-            }
-        }
+        isAutoMove = true;
+        secondDirection = direction;
+        // ждЄм окончани€ движени€
+        yield return new WaitWhile(() => isMove);
+        // запускаем корутину обычного движени€ и ждЄм ей окончани€
+        yield return StartCoroutine(Move(direction));
+        secondDirection = Direction.zero;
+        isAutoMove = false;
     }
 
     void Start()
     {
         animator = this.GetComponent<Animator>();
-        Time.fixedDeltaTime = timeSpeed;
         wasTeleported = 0;
     }
 
@@ -231,7 +143,11 @@ public class Player : MonoBehaviour
             #endregion
 
             // если не запущена ѕам€т ѕоворота, п направление свайпа отлично от старого (который попал в Move())
-            if (isMove && (firstDirection != direction) && (Vector2.Distance(this.transform.position, end) < minPostMoveDistance) && ((int)direction % 2 != (int)firstDirection % 2)) 
+            if (
+                isMove && 
+                (firstDirection != direction) && 
+                (Vector2.Distance(this.transform.position, end) < minPostMoveDistance) && 
+                ((int)direction % 2 != (int)firstDirection % 2)) 
             {
                 if (secMovement != null)
                     StopCoroutine(secMovement);
@@ -248,6 +164,74 @@ public class Player : MonoBehaviour
         // всегда надо сбрасывать точку нажати€
         if(Input.touchCount > 0)
             startPos = Input.GetTouch(0).position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Trap"))
+            {
+                // при столкновении с ловушками - смерт
+                Dead();
+            }
+            if (collision.GetComponent<Portal>())
+            {
+                if (wasTeleported == 0)
+                {
+                    // при столкновении с порталом
+                    // останавливаем все корутины движени€
+                    // перемещаем в точку около портала-близнеца
+                    this.transform.position = collision.GetComponent<Portal>().twinkPortal.transform.position - Vector3.forward * 40;
+                    this.wasTeleported = 2 - (int)Math.Truncate(moveSpeed);
+                }
+            }
+            if (collision.GetComponent<Pusher>())
+            {
+                // при столкновении с толкателем отключаем ѕам€ть ѕоворота
+                if (secMovement != null)
+                    StopCoroutine(secMovement);
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.GetComponent<Pusher>())
+            {
+                if (!isMove && (Vector2.Distance(this.transform.position, collision.transform.position) < 1f))
+                {
+                    // ждЄм попадани€ в одну с толкателем точку
+                    // если попали в вертикальную, то летим в горизонтальную
+                    if (mainDirection == collision.GetComponent<Pusher>().verticalEnter)
+                    {
+                        movement = StartCoroutine(Move((collision.GetComponent<Pusher>().horizontalEnter == Direction.right) ? Direction.left : Direction.right));
+                    }
+                    else if (mainDirection == collision.GetComponent<Pusher>().horizontalEnter)
+                    {
+                        movement = StartCoroutine(Move((collision.GetComponent<Pusher>().verticalEnter == Direction.up) ? Direction.down : Direction.up));
+                    }
+                }
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.GetComponent<Portal>())
+            {
+                if (wasTeleported == 1)
+                {
+                    wasTeleported = 0;
+                }
+                else if (wasTeleported == 2 - (int)Math.Truncate(moveSpeed))
+                {
+                    wasTeleported = 1;
+                }
+            }
+        }
     }
 
     private Vector3Int GetLastTileInCoridor(Vector3 start, Direction direction, Tilemap tilemapScheme)
