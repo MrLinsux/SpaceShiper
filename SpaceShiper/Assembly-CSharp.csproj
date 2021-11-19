@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
+    <Compile Include="Assets\Scripts\Flash.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

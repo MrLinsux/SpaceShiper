@@ -8,21 +8,20 @@ public class Player : MonoBehaviour
     public float moveSpeed = 1f;        // скорость движени€ игрока
     public float minSwipeSpeed = 1f;    // минимальна€ скорость свайпа пальцеп дл€ надала движени€
     public float minVDirection = 1f;    // минимальна€ длина свайпа дл€ начала движени€
-    public int minPostMoveDistance = 5;
+    public int minDistanceForMR = 5;
 
     public bool directionChosen;        // выбран ли вектор движени€ 
     public bool isMove = false;         // находитс€ ли игрок в движении
     private Vector3 end;                // точка у которой движетс€ игрок
     public Direction direction = Direction.zero;            // текущее направление
-    public Direction mainDirection = Direction.zero;        // направление в корутине Move()
-    public Direction secondDirection = Direction.zero;      // направление в корутине PostMove()
+    public Direction mainDirection = Direction.zero;        // основное направление
+    public Direction secondDirection = Direction.zero;      // направление в ѕам€ти поврота
     private Coroutine movement;                             // переменна€ дл€ корутины Move()
     private Vector2 startPos;                               // точка начала вектора свойпа
     private Vector2 vDirection;                             // вектор свайпа
-    public bool rotateMemoryOn = true;                      // тумблер ѕам€ти ѕоворота
     private int wasTeleported;
 
-    public GameObject tail;                                 // след игрока
+    public GameObject flash;                                // вспышка в начале движени€
     public GameController controller;                // игровой контроллер
     public Tilemap tilemap;                                 // объект Map
     private Animator animator;                              // аниматор игрока
@@ -40,65 +39,62 @@ public class Player : MonoBehaviour
         // функци€ основного движени€
         Debug.Log("11");
         mainDirection = direction;
-        isMove = true;
-        animator.SetBool("isMove", true);
-        animator.SetBool("isStep", false);
-
         end = GetLastTileInCoridor(
             tilemap.WorldToCell(this.transform.position),
             direction,
             tilemap);           // точка, к которой летит игрок
+        // на тот случай, если уже в нужной клетке стоим
+        if (this.transform.position == end)
+        {
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
+            yield break;
+        }
 
-        Debug.Log(Vector2.Distance(this.transform.position, end));
         Debug.Log("12");
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Move") || Vector2.Distance(this.transform.position, end) > 1)
-        {
-            Debug.Log("131");
-            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
-            GameObject _tail = Instantiate(tail, this.transform.position, Quaternion.identity);
+        var dist = (int)Vector2.Distance(this.transform.position, end);
+        isMove = true;
+        animator.SetBool("isMove", true);
+        animator.SetInteger("Dist", dist);
 
-            yield return new WaitForFixedUpdate();          // дожидаемс€ конца кадра дл€ чуть большей плавности      
-            while (this.transform.position != end)
-            {
-                yield return new WaitForFixedUpdate();
-                end = GetLastTileInCoridor(
-                    tilemap.WorldToCell(this.transform.position),
-                    direction,
-                    tilemap);
-                _tail.transform.position = this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-            }
-            Destroy(_tail, 1f);
-        }
-        else if(Vector2.Distance(this.transform.position, end) > 0)
-        {
-            animator.SetBool("isStep", true);
-            Debug.Log("132");
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
-            while (this.transform.position != end)
-            {
-                yield return new WaitForFixedUpdate();
-                end = GetLastTileInCoridor(
-                    tilemap.WorldToCell(this.transform.position),
-                    direction,
-                    tilemap);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
-            }
-        }
-        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движени€
-        this.transform.position = end;
-        if(secondDirection != Direction.zero)
-        {
-            StartCoroutine(Move(secondDirection));
-            secondDirection = Direction.zero;
-        }
+        Debug.Log("13 - " + dist);
+        if (dist == 1)
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step"));
+        else if (dist == 2)
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"));
+        else if (dist >= 3)
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
         else
         {
+            Debug.LogError("Distantion is less or equals 0");
             animator.SetBool("isMove", false);
-            animator.SetBool("isStep", false);
             isMove = false;
+            yield break;
         }
+        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движени€
+        Instantiate(flash, this.transform.position, Quaternion.identity);
+
         Debug.Log("14");
+        while (this.transform.position != end)
+        {
+            yield return new WaitForFixedUpdate();
+            end = GetLastTileInCoridor(
+                tilemap.WorldToCell(this.transform.position),
+                direction,
+                tilemap);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
+        }
+        Debug.Log("15");
+        this.transform.position = end;                                              // нормализаци€ положени€
+        animator.SetBool("isMove", false);
+        animator.SetInteger("Dist", 0);
+        isMove = false;
+        if (secondDirection != Direction.zero)
+        {
+            StartCoroutine(Move(secondDirection));
+            Debug.Log("16");
+            secondDirection = Direction.zero;
+        }
+        Debug.Log("17");
     }
 
     void Start()
@@ -152,7 +148,7 @@ public class Player : MonoBehaviour
 
             // определ€ем направление свайпа по колесу управлени€
 
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
             {
                 var step = Mathf.PI / 4;
                 if ((dirAngle < step) || (dirAngle >= 7 * step))
@@ -194,18 +190,21 @@ public class Player : MonoBehaviour
 
             // если не запущена ѕам€т ѕоворота, п направление свайпа отлично от старого (который попал в Move())
             if (
-                isMove && 
-                (Vector2.Distance(this.transform.position, end) < minPostMoveDistance) && 
-                ((int)direction % 2 != (int)mainDirection % 2)
-                ) 
+                isMove &&
+                (Vector2.Distance(this.transform.position, end) <= minDistanceForMR)
+                )
             {
-                //if (secMovement != null)
-                //    StopCoroutine(secMovement);
-                //secMovement = StartCoroutine(PostMove(direction));
                 secondDirection = direction;
             }
             // если не двигаемс€ вообще, то начинаем в сторону направлени€
-            else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !isMove)
+            else if (
+                (
+                animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") ||
+                animator.GetCurrentAnimatorStateInfo(0).IsName("End")
+                )
+                && !isMove
+                && secondDirection == Direction.zero
+                )
                 movement = StartCoroutine(Move(direction));
 
             // сбрасываем значени€
@@ -317,7 +316,6 @@ public class Player : MonoBehaviour
         // функци€ дл€ лучшего понимани€ кода
         return controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0));
     }
-
     public static Vector3Int DirectionToVector(Direction direction)
     {
         switch((int)direction)
@@ -334,9 +332,11 @@ public class Player : MonoBehaviour
                 return Vector3Int.zero;
         }
     }
-
     public static Vector3 ToCellNormalazing(Tilemap tilemap, Vector3 pos)
     {
         return tilemap.CellToWorld(tilemap.WorldToCell(pos));
+    }
+    public void StartMoveAnim()
+    {
     }
 }
