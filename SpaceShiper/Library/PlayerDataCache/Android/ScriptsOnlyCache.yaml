@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Door
+    - Flash
     - GameController
     - Laser
     - MainCamera
@@ -21,7 +22,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -31,7 +31,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
@@ -42,6 +41,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GameObjectBrush
     - UnityEditor.Tilemaps.GroupBrush
     - UnityEditor.Tilemaps.LineBrush
+    - UnityEditor.Tilemaps.PrefabBrush
     - UnityEditor.Tilemaps.RandomBrush
     - UnityEditor.Tilemaps.TintBrush
     - UnityEditor.Tilemaps.TintBrushSmooth
@@ -104,8 +104,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
-    - Class: 96
-      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
@@ -153,21 +151,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3878}
     - Class: 114
-      Script: {instanceID: 4330}
+      Script: {instanceID: 4170}
     - Class: 114
-      Script: {instanceID: 4334}
+      Script: {instanceID: 4332}
     - Class: 114
-      Script: {instanceID: 4384}
+      Script: {instanceID: 4336}
     - Class: 114
-      Script: {instanceID: 4464}
+      Script: {instanceID: 4386}
     - Class: 114
-      Script: {instanceID: 4530}
+      Script: {instanceID: 4466}
     - Class: 114
-      Script: {instanceID: 4540}
+      Script: {instanceID: 4532}
     - Class: 114
-      Script: {instanceID: 5118}
+      Script: {instanceID: 4542}
     - Class: 114
-      Script: {instanceID: 5702}
+      Script: {instanceID: 5120}
+    - Class: 114
+      Script: {instanceID: 5704}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -321,7 +321,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 07cdcd91c3e0147b9b74e3e09ba8d73d
+      Hash: 9ee35aaac06596dff4baa5b047673809
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -649,6 +649,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: EventTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Flash
   - hash:
       serializedVersion: 2
       Hash: 07fc9f0f86872d338b51db4c672a9251
