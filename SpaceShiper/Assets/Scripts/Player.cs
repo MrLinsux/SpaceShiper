@@ -71,7 +71,8 @@ public class Player : MonoBehaviour
             yield break;
         }
         this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
-        Instantiate(flash, this.transform.position, Quaternion.identity);
+        if (dist > 1)
+            Instantiate(flash, this.transform.position, Quaternion.identity);
 
         Debug.Log("14");
         while (this.transform.position != end)
@@ -85,12 +86,12 @@ public class Player : MonoBehaviour
         }
         Debug.Log("15");
         this.transform.position = end;                                              // нормализация положения
-        animator.SetBool("isMove", false);
         animator.SetInteger("Dist", 0);
+        animator.SetBool("isMove", false);
         isMove = false;
         if (secondDirection != Direction.zero)
         {
-            StartCoroutine(Move(secondDirection));
+            movement = StartCoroutine(Move(secondDirection));
             Debug.Log("16");
             secondDirection = Direction.zero;
         }
@@ -199,8 +200,7 @@ public class Player : MonoBehaviour
             // если не двигаемся вообще, то начинаем в сторону направления
             else if (
                 (
-                animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") ||
-                animator.GetCurrentAnimatorStateInfo(0).IsName("End")
+                animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")
                 )
                 && !isMove
                 && secondDirection == Direction.zero
@@ -335,8 +335,5 @@ public class Player : MonoBehaviour
     public static Vector3 ToCellNormalazing(Tilemap tilemap, Vector3 pos)
     {
         return tilemap.CellToWorld(tilemap.WorldToCell(pos));
-    }
-    public void StartMoveAnim()
-    {
     }
 }

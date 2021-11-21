@@ -2003,7 +2003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.2
-  minSwipeSpeed: 8
+  minSwipeSpeed: 40
   minVDirection: 2
   minDistanceForMR: 4
   directionChosen: 0
