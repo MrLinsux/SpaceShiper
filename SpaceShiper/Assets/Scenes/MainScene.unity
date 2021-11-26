@@ -238,7 +238,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 346.98, y: 40.340027}
+  m_SizeDelta: {x: 284.49, y: 40.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18081937
 MonoBehaviour:
@@ -1656,7 +1656,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 346.99, y: 81.06}
+  m_SizeDelta: {x: 226.17, y: 81.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &639644230
 MonoBehaviour:
@@ -2101,9 +2101,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.2
-  minSwipeSpeed: 40
+  minSwipeSpeed: 10
   minVDirection: 2
-  minDistanceForMR: 4
+  minDistanceForMR: 2
   directionChosen: 0
   isMove: 0
   newWheelOn: 1
@@ -2112,6 +2112,8 @@ MonoBehaviour:
   secondDirection: 0
   flash: {fileID: 6822846243423567256, guid: ce594bc332ca180478429d773bf19d5b, type: 3}
   controller: {fileID: 43818384}
+  vectorTester: {fileID: 7790707820011410945, guid: 08ef064ee77fc274ebad3ffd416d5fc7, type: 3}
+  camera: {fileID: 968613392}
   tilemap: {fileID: 453182900}
   dirToVector2:
   - {x: 0, y: 0}
@@ -2493,7 +2495,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 346.99, y: 81.06}
+  m_SizeDelta: {x: 226.17, y: 81.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822843895
 MonoBehaviour:
@@ -3157,6 +3159,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955459675}
   m_CullTransparentMesh: 1
+--- !u!1 &968613390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968613393}
+  - component: {fileID: 968613392}
+  m_Layer: 0
+  m_Name: CameraController
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &968613392
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968613390}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 11
+  m_Depth: -2
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 0
+  m_HDR: 1
+  m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 0
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &968613393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968613390}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &982161840
 GameObject:
   m_ObjectHideFlags: 0
@@ -94462,7 +94538,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 346.98, y: 40.340027}
+  m_SizeDelta: {x: 284.49, y: 40.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1363240086
 MonoBehaviour:
@@ -94642,7 +94718,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 346.99, y: 81.06}
+  m_SizeDelta: {x: 226.17, y: 81.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1392312763
 MonoBehaviour:
@@ -94879,8 +94955,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 201.45502, y: -484.3}
-  m_SizeDelta: {x: 402.91, y: 968.6}
+  m_AnchoredPosition: {x: 185.38, y: -381.94}
+  m_SizeDelta: {x: 370.76, y: 763.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1577741793
 MonoBehaviour:
@@ -95790,7 +95866,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 346.99, y: 81.06}
+  m_SizeDelta: {x: 226.17, y: 81.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1935049184
 MonoBehaviour:

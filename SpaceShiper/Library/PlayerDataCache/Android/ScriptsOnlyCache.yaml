@@ -105,6 +105,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
+    - Class: 96
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
@@ -190,6 +192,8 @@ ScriptsOnlyBuild:
     - Class: 156049354
       Script: {instanceID: 0}
     - Class: 483693784
+      Script: {instanceID: 0}
+    - Class: 687078895
       Script: {instanceID: 0}
     - Class: 1839735485
       Script: {instanceID: 0}
@@ -322,7 +326,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 331944a9509267d23ec76f2e4238968d
+      Hash: 0afe654bfd8313f94e3f77a3fab3f97c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player

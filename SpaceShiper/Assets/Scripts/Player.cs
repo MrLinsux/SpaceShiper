@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
 
     public GameObject flash;                                // вспышка в начале движения
     public GameController controller;                // игровой контроллер
+    public GameObject vectorTester;
+    public Camera camera;
     public Tilemap tilemap;                                 // объект Map
     private Animator animator;                              // аниматор игрока
 
@@ -62,13 +64,8 @@ public class Player : MonoBehaviour
         if (dist == 1)
         {
             this.GetComponent<SpriteRenderer>().flipX = 
-                (
-                ((int)this.transform.eulerAngles.z > 0 ? (int)this.transform.eulerAngles.z : (int)this.transform.eulerAngles.z + 360) / 90
-                ) 
-                == 
-                (
-                ((int)mainDirection + 1) % 4
-                );
+                (((int)this.transform.eulerAngles.z > 0 ? (int)this.transform.eulerAngles.z : (int)this.transform.eulerAngles.z + 360) / 90) 
+                == (((int)mainDirection + 1) % 4);
             yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
         }
@@ -110,6 +107,10 @@ public class Player : MonoBehaviour
             Debug.Log("16");
             secondDirection = Direction.zero;
         }
+        else
+        {
+            movement = null;
+        }
         Debug.Log("17");
     }
 
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour
         wasTeleported = 0;
     }
 
+    GameObject vTest;
     void FixedUpdate()
     {
         // скорость свайпа
@@ -131,20 +133,26 @@ public class Player : MonoBehaviour
             {
                 // нажал пальцем
                 case TouchPhase.Began:
-                    startPos = touch.position;
+                    startPos = camera.ScreenToWorldPoint(touch.position);
                     directionChosen = false;
+                    vTest = Instantiate(vectorTester, camera.ScreenToWorldPoint(startPos), Quaternion.identity);
                     break;
 
                 // провёл пальцем
                 case TouchPhase.Moved:
                     directionChosen = true;
-                    vDirection = touch.position - startPos;
-                    deltaThouch = touch.deltaPosition.magnitude;
+                    vDirection = (Vector2)camera.ScreenToWorldPoint(touch.position) - startPos;
+                    deltaThouch = camera.ScreenToWorldPoint(touch.deltaPosition).magnitude;
+                    if(vTest != null)
+                        vTest.transform.position = camera.ScreenToWorldPoint(touch.position);
                     break;
 
                 // убрал палец
                 case TouchPhase.Ended:
                     directionChosen = false;
+                    vDirection = Vector2.zero;
+                    if(vTest != null)
+                        Destroy(vTest);
                     break;
             }
         }
@@ -185,20 +193,20 @@ public class Player : MonoBehaviour
                     {
                         if ((dirAngle < step) || (dirAngle >= 15 * step))
                             direction = (Direction)1;
-                        else if ((dirAngle < 7 * step) && (dirAngle >= step))
+                        else if ((dirAngle < 6 * step) && (dirAngle >= 2*step))
                             direction = (Direction)2;
                         else if ((dirAngle < 9 * step) && (dirAngle >= 7 * step))
                             direction = (Direction)3;
-                        else if ((dirAngle < 15 * step) && (dirAngle >= 9 * step))
+                        else if ((dirAngle < 14 * step) && (dirAngle >= 10 * step))
                             direction = (Direction)4;
                     }
                     else
                     {
-                        if ((dirAngle < 3 * step) || (dirAngle >= 13 * step))
+                        if ((dirAngle < 2 * step) || (dirAngle >= 14 * step))
                             direction = (Direction)1;
                         else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
                             direction = (Direction)2;
-                        else if ((dirAngle < 11 * step) && (dirAngle >= 5 * step))
+                        else if ((dirAngle < 10 * step) && (dirAngle >= 6 * step))
                             direction = (Direction)3;
                         else if ((dirAngle < 13 * step) && (dirAngle >= 11 * step))
                             direction = (Direction)4;
@@ -231,23 +239,25 @@ public class Player : MonoBehaviour
                 )
             {
                 secondDirection = direction;
+                startPos = camera.ScreenToWorldPoint(Input.GetTouch(0).position);
             }
             // если не двигаемся вообще, то начинаем в сторону направления
             else if (
                 //(
                 //animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")
                 //) && 
-                !isMove
+                !isMove &&
+                (movement == null)
                 )
+            {
                 movement = StartCoroutine(Move(direction));
+                startPos = camera.ScreenToWorldPoint(Input.GetTouch(0).position);
+            }
 
             // сбрасываем значения
             directionChosen = false;
             vDirection = Vector2.zero;
         }
-        // всегда надо сбрасывать точку нажатия
-        if(Input.touchCount > 0)
-            startPos = Input.GetTouch(0).position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
