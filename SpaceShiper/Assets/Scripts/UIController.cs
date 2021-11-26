@@ -96,17 +96,12 @@ public class UIController : MonoBehaviour
                 player.minVDirection = (float)Convert.ToDouble(playerParamValue.text);
                 break;
             case "MinRMDist":
-                player.minPostMoveDistance = Convert.ToInt32(playerParamValue.text);
+                player.minDistanceForMR = Convert.ToInt32(playerParamValue.text);
                 break;
             case "FixedTime":
                 Time.fixedDeltaTime = (float)Convert.ToDouble(playerParamValue.text);
                 break;
         }
-    }
-
-    public void RotateMemoryChange()
-    {
-        player.rotateMemoryOn = !player.rotateMemoryOn;
     }
     public void TimeStop()
     {

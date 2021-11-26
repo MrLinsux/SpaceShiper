@@ -765,7 +765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 25,0
+  m_Text: 1,0
 --- !u!222 &271441362
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2004,20 +2004,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.2
   minSwipeSpeed: 8
-  minVDirection: 25
-  minPostMoveDistance: 5
+  minVDirection: 2
+  minDistanceForMR: 4
   directionChosen: 0
-  end: {x: 0, y: 0, z: 0}
+  isMove: 0
   direction: 0
   mainDirection: 0
   secondDirection: 0
-  rotateMemoryOn: 1
-  delayBeforeMove: 3
-  timeSpeed: 0.006
-  tail: {fileID: 7627940962229775760, guid: baa986abfdfea6b46a48ae4d5c0cd786, type: 3}
+  flash: {fileID: 6822846243423567256, guid: ce594bc332ca180478429d773bf19d5b, type: 3}
   controller: {fileID: 43818384}
   tilemap: {fileID: 453182900}
-  animator: {fileID: 688669245}
 --- !u!50 &688669244
 Rigidbody2D:
   serializedVersion: 4
@@ -94167,7 +94163,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0,02
+  m_Text: 0,006
 --- !u!222 &1328168408
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -95127,7 +95123,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1,0
+  m_Text: 0,2
 --- !u!222 &1704655355
 CanvasRenderer:
   m_ObjectHideFlags: 0
