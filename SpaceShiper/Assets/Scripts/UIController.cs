@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     public GameController gameController;
     public Player player;
+    public GameObject controlPanel;
 
     #region Play
     public GameObject playerCanvas;
@@ -107,5 +109,37 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
     }
+    public void OnNewWheel()
+    {
+        player.newWheelOn = !player.newWheelOn;
+    }
     #endregion
+
+    private void Start()
+    {
+        var gameParamsNames = new string[] 
+        {
+            "TimeStopToggle",
+            "PlayerSpeedInput",
+            "MinSpeedForStartInput",
+            "MinVectorForStartInput",
+            "Min Rotate Memory Distance",
+            "OnNewWheelToggle" 
+        };
+        var gameParams = new Transform[gameParamsNames.Length];
+
+        for (int i = 0; i < gameParams.Length; i++)
+        {
+            gameParams[i] = GameObject.Find(gameParamsNames[i]).transform;
+        }
+
+
+        gameParams[0].GetComponent<Toggle>().isOn = Time.timeScale != 0;
+        gameParams[1].GetChild(0).GetComponent<Text>().text = player.moveSpeed.ToString();
+        gameParams[2].GetChild(0).GetComponent<Text>().text = player.minSwipeSpeed.ToString();
+        gameParams[3].GetChild(0).GetComponent<Text>().text = player.minVDirection.ToString();
+        gameParams[4].GetChild(0).GetComponent<Text>().text = player.minDistanceForMR.ToString();
+        gameParams[5].GetComponent<Toggle>().isOn = player.newWheelOn;
+
+    }
 }

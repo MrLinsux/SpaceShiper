@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     public bool directionChosen;        // выбран ли вектор движения 
     public bool isMove = false;         // находится ли игрок в движении
+    public bool newWheelOn = true;
     private Vector3 end;                // точка у которой движется игрок
     public Direction direction = Direction.zero;            // текущее направление
     public Direction mainDirection = Direction.zero;        // основное направление
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     private Animator animator;                              // аниматор игрока
 
     public enum Direction { zero, right, up, left, down }   // все возможные направления движения
+    public Vector2[] dirToVector2 = new Vector2[5] { Vector2.zero, Vector2.right, Vector2.up, Vector2.left, Vector2.down };
 
     public void Dead()
     {
@@ -46,7 +48,7 @@ public class Player : MonoBehaviour
         // на тот случай, если уже в нужной клетке стоим
         if (this.transform.position == end)
         {
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)direction);        // поворот в направлении движения
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
             yield break;
         }
 
@@ -58,11 +60,24 @@ public class Player : MonoBehaviour
 
         Debug.Log("13 - " + dist);
         if (dist == 1)
-            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step"));
-        else if (dist == 2)
-            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"));
-        else if (dist >= 3)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = 
+                (
+                ((int)this.transform.eulerAngles.z > 0 ? (int)this.transform.eulerAngles.z : (int)this.transform.eulerAngles.z + 360) / 90
+                ) 
+                == 
+                (
+                ((int)mainDirection + 1) % 4
+                );
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
+        }
+        else if (dist > 1)
+        {
+            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
             yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
+            Instantiate(flash, this.transform.position, Quaternion.identity);
+        }
         else
         {
             Debug.LogError("Distantion is less or equals 0");
@@ -70,9 +85,6 @@ public class Player : MonoBehaviour
             isMove = false;
             yield break;
         }
-        this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
-        if (dist > 1)
-            Instantiate(flash, this.transform.position, Quaternion.identity);
 
         Debug.Log("14");
         while (this.transform.position != end)
@@ -89,6 +101,9 @@ public class Player : MonoBehaviour
         animator.SetInteger("Dist", 0);
         animator.SetBool("isMove", false);
         isMove = false;
+        mainDirection = Direction.zero;
+        yield return new WaitUntil(() => (animator.GetCurrentAnimatorStateInfo(0).IsName("End")));
+
         if (secondDirection != Direction.zero)
         {
             movement = StartCoroutine(Move(secondDirection));
@@ -149,41 +164,59 @@ public class Player : MonoBehaviour
 
             // определяем направление свайпа по колесу управления
 
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
+            if (newWheelOn)
             {
-                var step = Mathf.PI / 4;
-                if ((dirAngle < step) || (dirAngle >= 7 * step))
-                    direction = (Direction)1;
-                else if ((dirAngle < 3 * step) && (dirAngle >= step))
-                    direction = (Direction)2;
-                else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
-                    direction = (Direction)3;
-                else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
-                    direction = (Direction)4;
-            }
-            else
-            {
-                var step = Mathf.PI / 8;
-                if ((int)mainDirection % 2 == 1)
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
                 {
-                    if ((dirAngle < step) || (dirAngle >= 15 * step))
+                    var step = Mathf.PI / 4;
+                    if ((dirAngle < step) || (dirAngle >= 7 * step))
                         direction = (Direction)1;
-                    else if ((dirAngle < 7 * step) && (dirAngle >= step))
+                    else if ((dirAngle < 3 * step) && (dirAngle >= step))
                         direction = (Direction)2;
-                    else if ((dirAngle < 9 * step) && (dirAngle >= 7 * step))
+                    else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
                         direction = (Direction)3;
-                    else if ((dirAngle < 15 * step) && (dirAngle >= 9 * step))
+                    else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
                         direction = (Direction)4;
                 }
                 else
                 {
-                    if ((dirAngle < 3 * step) || (dirAngle >= 13 * step))
+                    var step = Mathf.PI / 8;
+                    if ((int)mainDirection % 2 == 1)
+                    {
+                        if ((dirAngle < step) || (dirAngle >= 15 * step))
+                            direction = (Direction)1;
+                        else if ((dirAngle < 7 * step) && (dirAngle >= step))
+                            direction = (Direction)2;
+                        else if ((dirAngle < 9 * step) && (dirAngle >= 7 * step))
+                            direction = (Direction)3;
+                        else if ((dirAngle < 15 * step) && (dirAngle >= 9 * step))
+                            direction = (Direction)4;
+                    }
+                    else
+                    {
+                        if ((dirAngle < 3 * step) || (dirAngle >= 13 * step))
+                            direction = (Direction)1;
+                        else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
+                            direction = (Direction)2;
+                        else if ((dirAngle < 11 * step) && (dirAngle >= 5 * step))
+                            direction = (Direction)3;
+                        else if ((dirAngle < 13 * step) && (dirAngle >= 11 * step))
+                            direction = (Direction)4;
+                    }
+                }
+            }
+            else
+            {
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
+                {
+                    var step = Mathf.PI / 4;
+                    if ((dirAngle < step) || (dirAngle >= 7 * step))
                         direction = (Direction)1;
-                    else if ((dirAngle < 5 * step) && (dirAngle >= 3*step))
+                    else if ((dirAngle < 3 * step) && (dirAngle >= step))
                         direction = (Direction)2;
-                    else if ((dirAngle < 11 * step) && (dirAngle >= 5 * step))
+                    else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
                         direction = (Direction)3;
-                    else if ((dirAngle < 13 * step) && (dirAngle >= 11 * step))
+                    else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
                         direction = (Direction)4;
                 }
             }
@@ -192,6 +225,8 @@ public class Player : MonoBehaviour
             // если не запущена Памят Поворота, п направление свайпа отлично от старого (который попал в Move())
             if (
                 isMove &&
+                !animator.GetCurrentAnimatorStateInfo(0).IsName("End") &&
+                ((int)mainDirection % 2 != (int)direction % 2) &&
                 (Vector2.Distance(this.transform.position, end) <= minDistanceForMR)
                 )
             {
@@ -199,11 +234,10 @@ public class Player : MonoBehaviour
             }
             // если не двигаемся вообще, то начинаем в сторону направления
             else if (
-                (
-                animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")
-                )
-                && !isMove
-                && secondDirection == Direction.zero
+                //(
+                //animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")
+                //) && 
+                !isMove
                 )
                 movement = StartCoroutine(Move(direction));
 
