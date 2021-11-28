@@ -26,26 +26,13 @@ ScriptsOnlyBuild:
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
-    - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
-    - UnityEditor.Tilemaps.GridPaintPaletteClipboard
-    - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
-    - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
-    Unity.2D.Tilemap.Extras.Editor.dll:
-    - UnityEditor.Tilemaps.CoordinateBrush
-    - UnityEditor.Tilemaps.GameObjectBrush
-    - UnityEditor.Tilemaps.GroupBrush
-    - UnityEditor.Tilemaps.LineBrush
-    - UnityEditor.Tilemaps.RandomBrush
-    - UnityEditor.Tilemaps.TintBrush
-    - UnityEditor.Tilemaps.TintBrushSmooth
     Unity.2D.Tilemap.Extras.dll:
     - UnityEngine.RuleTile
     Unity.Rider.Editor.dll:
@@ -903,4 +890,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/mrPlag/Documents/Projects/Games/SpaceShiper/Builds/TestBuild_1.apk
+  playerPath: C:/Users/haker/Desktop/BB/TestB.apk

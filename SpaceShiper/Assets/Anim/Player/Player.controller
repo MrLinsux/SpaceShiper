@@ -121,7 +121,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Idle
-  m_Speed: 2
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5861880287625084849}
@@ -357,7 +357,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: End
-  m_Speed: 5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3876479913171750891}
