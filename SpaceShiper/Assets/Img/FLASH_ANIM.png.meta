@@ -61,7 +61,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 18
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,7 +121,7 @@ TextureImporter:
       name: FLASH_ANIM_0
       rect:
         serializedVersion: 2
-        x: 60
+        x: 0
         y: 0
         width: 60
         height: 60
@@ -142,7 +142,7 @@ TextureImporter:
       name: FLASH_ANIM_1
       rect:
         serializedVersion: 2
-        x: 120
+        x: 60
         y: 0
         width: 60
         height: 60
@@ -163,7 +163,7 @@ TextureImporter:
       name: FLASH_ANIM_2
       rect:
         serializedVersion: 2
-        x: 180
+        x: 120
         y: 0
         width: 60
         height: 60
@@ -184,7 +184,7 @@ TextureImporter:
       name: FLASH_ANIM_3
       rect:
         serializedVersion: 2
-        x: 240
+        x: 180
         y: 0
         width: 60
         height: 60

@@ -110,9 +110,26 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
     }
-    public void OnNewWheel()
+    public void ToggleSwitch(Toggle toggle)
     {
-        player.newWheelOn = !player.newWheelOn;
+        switch (toggle.name)
+        {
+            case "OnNewWheelToggle":
+                player.newWheelOn = toggle.isOn;
+                break;
+            case "OnStartAnimToggle":
+                player.animator.SetBool("onStart", toggle.isOn);
+                break;
+            case "OnStep1AnimToggle":
+                player.animator.SetBool("onStep1", toggle.isOn);
+                break;
+            case "OnStartDelayToggle":
+                player.onStartDelay = toggle.isOn;
+                break;
+            case "OnStep1DelayToggle":
+                player.onStep1Delay = toggle.isOn;
+                break;
+        }
     }
     #endregion
 
@@ -125,7 +142,11 @@ public class UIController : MonoBehaviour
             "MinSpeedForStartInput",
             "MinVectorForStartInput",
             "Min Rotate Memory Distance",
-            "OnNewWheelToggle" 
+            "OnNewWheelToggle",
+            "OnStartAnimToggle",
+            "OnStep1AnimToggle",
+            "OnStep1DelayToggle",
+            "OnStartDelayToggle"
         };
         var gameParams = new Transform[gameParamsNames.Length];
 
@@ -141,6 +162,10 @@ public class UIController : MonoBehaviour
         gameParams[3].GetChild(0).GetComponent<Text>().text = player.minVDirection.ToString();
         gameParams[4].GetChild(0).GetComponent<Text>().text = player.minDistanceForMR.ToString();
         gameParams[5].GetComponent<Toggle>().isOn = player.newWheelOn;
+        gameParams[6].GetComponent<Toggle>().isOn = player.onStartDelay;
+        gameParams[7].GetComponent<Toggle>().isOn = player.onStep1Delay;
+        gameParams[8].GetComponent<Toggle>().isOn = player.animator.GetBool("onStep1");
+        gameParams[9].GetComponent<Toggle>().isOn = player.animator.GetBool("onStart");
 
     }
 }

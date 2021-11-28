@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public bool directionChosen;        // выбран ли вектор движения 
     public bool isMove = false;         // находится ли игрок в движении
     public bool newWheelOn = true;
+    public bool onStartDelay = true;
+    public bool onStep1Delay = true;
     private Vector3 end;                // точка у которой движется игрок
     public Direction direction = Direction.zero;            // текущее направление
     public Direction mainDirection = Direction.zero;        // основное направление
@@ -27,7 +29,7 @@ public class Player : MonoBehaviour
     public GameObject vectorTester;
     public Camera camera;
     public Tilemap tilemap;                                 // объект Map
-    private Animator animator;                              // аниматор игрока
+    public Animator animator;                              // аниматор игрока
 
     public enum Direction { zero, right, up, left, down }   // все возможные направления движения
     public Vector2[] dirToVector2 = new Vector2[5] { Vector2.zero, Vector2.right, Vector2.up, Vector2.left, Vector2.down };
@@ -66,13 +68,15 @@ public class Player : MonoBehaviour
             this.GetComponent<SpriteRenderer>().flipX = 
                 (((int)this.transform.eulerAngles.z > 0 ? (int)this.transform.eulerAngles.z : (int)this.transform.eulerAngles.z + 360) / 90) 
                 == (((int)mainDirection + 1) % 4);
-            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
+            if(onStep1Delay)
+                yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
         }
         else if (dist > 1)
         {
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
-            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
+            if(onStartDelay)
+                yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
             Instantiate(flash, this.transform.position, Quaternion.identity);
         }
         else
@@ -99,7 +103,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isMove", false);
         isMove = false;
         mainDirection = Direction.zero;
-        yield return new WaitUntil(() => (animator.GetCurrentAnimatorStateInfo(0).IsName("End")));
+        yield return new WaitUntil(() => (animator.GetCurrentAnimatorStateInfo(0).IsName("End") || animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")));
 
         if (secondDirection != Direction.zero)
         {
@@ -185,32 +189,6 @@ public class Player : MonoBehaviour
                         direction = (Direction)3;
                     else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
                         direction = (Direction)4;
-                }
-                else
-                {
-                    var step = Mathf.PI / 8;
-                    if ((int)mainDirection % 2 == 1)
-                    {
-                        if ((dirAngle < step) || (dirAngle >= 15 * step))
-                            direction = (Direction)1;
-                        else if ((dirAngle < 6 * step) && (dirAngle >= 2*step))
-                            direction = (Direction)2;
-                        else if ((dirAngle < 9 * step) && (dirAngle >= 7 * step))
-                            direction = (Direction)3;
-                        else if ((dirAngle < 14 * step) && (dirAngle >= 10 * step))
-                            direction = (Direction)4;
-                    }
-                    else
-                    {
-                        if ((dirAngle < 2 * step) || (dirAngle >= 14 * step))
-                            direction = (Direction)1;
-                        else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
-                            direction = (Direction)2;
-                        else if ((dirAngle < 10 * step) && (dirAngle >= 6 * step))
-                            direction = (Direction)3;
-                        else if ((dirAngle < 13 * step) && (dirAngle >= 11 * step))
-                            direction = (Direction)4;
-                    }
                 }
             }
             else
