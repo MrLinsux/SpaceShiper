@@ -22,29 +22,17 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
-    - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
-    - UnityEditor.Tilemaps.GridPaintPaletteClipboard
-    - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.PaintableSceneViewGrid
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
-    Unity.2D.Tilemap.Extras.Editor.dll:
-    - UnityEditor.Tilemaps.CoordinateBrush
-    - UnityEditor.Tilemaps.GameObjectBrush
-    - UnityEditor.Tilemaps.GroupBrush
-    - UnityEditor.Tilemaps.LineBrush
-    - UnityEditor.Tilemaps.PrefabBrush
-    - UnityEditor.Tilemaps.RandomBrush
-    - UnityEditor.Tilemaps.TintBrush
-    - UnityEditor.Tilemaps.TintBrushSmooth
     Unity.2D.Tilemap.Extras.dll:
     - UnityEngine.RuleTile
     Unity.Rider.Editor.dll:
@@ -104,70 +92,72 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
+    - Class: 96
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 622}
+      Script: {instanceID: 624}
     - Class: 114
-      Script: {instanceID: 1514}
+      Script: {instanceID: 1516}
     - Class: 114
-      Script: {instanceID: 1636}
+      Script: {instanceID: 1638}
     - Class: 114
-      Script: {instanceID: 1656}
+      Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1668}
+      Script: {instanceID: 1670}
     - Class: 114
-      Script: {instanceID: 1726}
+      Script: {instanceID: 1728}
     - Class: 114
-      Script: {instanceID: 1752}
+      Script: {instanceID: 1754}
     - Class: 114
-      Script: {instanceID: 1786}
+      Script: {instanceID: 1788}
     - Class: 114
-      Script: {instanceID: 1994}
+      Script: {instanceID: 1996}
     - Class: 114
-      Script: {instanceID: 2228}
+      Script: {instanceID: 2230}
     - Class: 114
-      Script: {instanceID: 2352}
+      Script: {instanceID: 2354}
     - Class: 114
-      Script: {instanceID: 2646}
+      Script: {instanceID: 2648}
     - Class: 114
-      Script: {instanceID: 2810}
+      Script: {instanceID: 2812}
     - Class: 114
-      Script: {instanceID: 3034}
+      Script: {instanceID: 3036}
     - Class: 114
-      Script: {instanceID: 3044}
+      Script: {instanceID: 3046}
     - Class: 114
-      Script: {instanceID: 3096}
+      Script: {instanceID: 3098}
     - Class: 114
-      Script: {instanceID: 3176}
+      Script: {instanceID: 3178}
     - Class: 114
-      Script: {instanceID: 3290}
+      Script: {instanceID: 3292}
     - Class: 114
-      Script: {instanceID: 3402}
+      Script: {instanceID: 3404}
     - Class: 114
-      Script: {instanceID: 3794}
+      Script: {instanceID: 3796}
     - Class: 114
-      Script: {instanceID: 3832}
+      Script: {instanceID: 3834}
     - Class: 114
-      Script: {instanceID: 3878}
+      Script: {instanceID: 3880}
     - Class: 114
-      Script: {instanceID: 4170}
+      Script: {instanceID: 4172}
     - Class: 114
-      Script: {instanceID: 4332}
+      Script: {instanceID: 4334}
     - Class: 114
-      Script: {instanceID: 4336}
+      Script: {instanceID: 4338}
     - Class: 114
-      Script: {instanceID: 4386}
+      Script: {instanceID: 4388}
     - Class: 114
-      Script: {instanceID: 4466}
+      Script: {instanceID: 4468}
     - Class: 114
-      Script: {instanceID: 4532}
+      Script: {instanceID: 4534}
     - Class: 114
-      Script: {instanceID: 4542}
+      Script: {instanceID: 4544}
     - Class: 114
-      Script: {instanceID: 5120}
+      Script: {instanceID: 5122}
     - Class: 114
-      Script: {instanceID: 5704}
+      Script: {instanceID: 5706}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -189,6 +179,8 @@ ScriptsOnlyBuild:
     - Class: 156049354
       Script: {instanceID: 0}
     - Class: 483693784
+      Script: {instanceID: 0}
+    - Class: 687078895
       Script: {instanceID: 0}
     - Class: 1839735485
       Script: {instanceID: 0}
@@ -321,7 +313,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 9ee35aaac06596dff4baa5b047673809
+      Hash: 0afe654bfd8313f94e3f77a3fab3f97c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -579,7 +571,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: 46f5857ddddfa625978f9d8b39772756
+      Hash: fa4b983e0830bf5c0ebd55ec2dec0019
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -898,4 +890,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/mrPlag/Documents/Projects/Games/SpaceShiper/Builds/TestBuild_1.apk
+  playerPath: C:/Users/haker/Desktop/BB/TestB.apk

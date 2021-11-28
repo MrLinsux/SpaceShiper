@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: 7950225997628022847
     second: FLASH_ANIM_3
+  - first:
+      213: 1527061540427707303
+    second: FLASH_ANIM_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,7 +121,7 @@ TextureImporter:
       name: FLASH_ANIM_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 60
         y: 0
         width: 60
         height: 60
@@ -139,7 +142,7 @@ TextureImporter:
       name: FLASH_ANIM_1
       rect:
         serializedVersion: 2
-        x: 60
+        x: 120
         y: 0
         width: 60
         height: 60
@@ -160,7 +163,7 @@ TextureImporter:
       name: FLASH_ANIM_2
       rect:
         serializedVersion: 2
-        x: 120
+        x: 180
         y: 0
         width: 60
         height: 60
@@ -181,7 +184,7 @@ TextureImporter:
       name: FLASH_ANIM_3
       rect:
         serializedVersion: 2
-        x: 180
+        x: 240
         y: 0
         width: 60
         height: 60
