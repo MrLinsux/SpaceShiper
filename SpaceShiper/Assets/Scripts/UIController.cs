@@ -146,7 +146,8 @@ public class UIController : MonoBehaviour
             "OnStartAnimToggle",
             "OnStep1AnimToggle",
             "OnStep1DelayToggle",
-            "OnStartDelayToggle"
+            "OnStartDelayToggle",
+            "WheelDeltaAngleInput"
         };
         var gameParams = new Transform[gameParamsNames.Length];
 
@@ -166,6 +167,7 @@ public class UIController : MonoBehaviour
         gameParams[7].GetComponent<Toggle>().isOn = player.onStep1Delay;
         gameParams[8].GetComponent<Toggle>().isOn = player.animator.GetBool("onStep1");
         gameParams[9].GetComponent<Toggle>().isOn = player.animator.GetBool("onStart");
+        gameParams[4].GetChild(0).GetComponent<Text>().text = player.minDistanceForMR.ToString();
 
     }
 }

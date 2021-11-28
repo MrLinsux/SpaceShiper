@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private int wasTeleported;
 
     public GameObject flash;                                // вспышка в начале движени€
+    public LineRenderer vDirectionLine;
     public GameController controller;                // игровой контроллер
     public GameObject vectorTester;
     public Camera camera;
@@ -146,6 +147,8 @@ public class Player : MonoBehaviour
                 case TouchPhase.Moved:
                     directionChosen = true;
                     vDirection = (Vector2)camera.ScreenToWorldPoint(touch.position) - startPos;
+                    vDirectionLine.positionCount = 2;
+                    vDirectionLine.SetPositions(new Vector3[] { Vector2.zero, vDirection });
                     deltaThouch = camera.ScreenToWorldPoint(touch.deltaPosition).magnitude;
                     if(vTest != null)
                         vTest.transform.position = camera.ScreenToWorldPoint(touch.position);
@@ -154,7 +157,8 @@ public class Player : MonoBehaviour
                 // убрал палец
                 case TouchPhase.Ended:
                     directionChosen = false;
-                    vDirection = Vector2.zero;
+                    //vDirection = Vector2.zero;
+                    vDirectionLine.positionCount = 0;
                     if(vTest != null)
                         Destroy(vTest);
                     break;
@@ -176,19 +180,32 @@ public class Player : MonoBehaviour
 
             // определ€ем направление свайпа по колесу управлени€
 
+            var _minVDirection = minVDirection;
+
             if (newWheelOn)
             {
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
                 {
                     var step = Mathf.PI / 4;
-                    if ((dirAngle < step) || (dirAngle >= 7 * step))
+                    var pi = Mathf.PI;
+                    if ((dirAngle < step) || (dirAngle >= 2 * pi - step))
                         direction = (Direction)1;
-                    else if ((dirAngle < 3 * step) && (dirAngle >= step))
+                    else if ((dirAngle < pi / 2 + step) && (dirAngle >= pi / 2 - step))
                         direction = (Direction)2;
-                    else if ((dirAngle < 5 * step) && (dirAngle >= 3 * step))
+                    else if ((dirAngle < pi + step) && (dirAngle >= pi - step))
                         direction = (Direction)3;
-                    else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
+                    else if ((dirAngle < (3 * pi / 2) + step) && (dirAngle >= (3 * pi / 2) - step))
                         direction = (Direction)4;
+
+                    _minVDirection *= 2 * Mathf.Sqrt(2) * new Vector2(Mathf.Pow(Mathf.Cos(dirAngle + pi / 4), 3), Mathf.Pow(Mathf.Sin(dirAngle + pi / 4), 3)).magnitude;
+
+                    if(vDirection.magnitude < minVDirection)
+                    {
+                        // сбрасываем значени€
+                        directionChosen = false;
+                        vDirection = Vector2.zero;
+                        return;
+                    }
                 }
             }
             else
@@ -234,7 +251,7 @@ public class Player : MonoBehaviour
 
             // сбрасываем значени€
             directionChosen = false;
-            vDirection = Vector2.zero;
+            //vDirection = Vector2.zero;
         }
     }
 
