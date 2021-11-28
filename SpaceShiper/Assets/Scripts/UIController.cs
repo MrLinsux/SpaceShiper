@@ -90,6 +90,7 @@ public class UIController : MonoBehaviour
         {
             case "Speed":
                 player.moveSpeed = (float)Convert.ToDouble(playerParamValue.text);
+                playerParamValue.transform.parent.GetChild(playerParamValue.transform.parent.childCount - 1).GetComponent<Text>().text = "Speed = " + player.moveSpeed;
                 break;
             case "MinSpeed":
                 player.minSwipeSpeed = (float)Convert.ToDouble(playerParamValue.text);
