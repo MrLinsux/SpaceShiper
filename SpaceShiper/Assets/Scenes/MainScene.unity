@@ -2100,10 +2100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2950f6ce3a6efe43bc5f052b2012494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.2
+  moveSpeed: 0.8
   minSwipeSpeed: 10
   minVDirection: 2
-  minDistanceForMR: 2
+  minDistanceForMR: 4
   directionChosen: 0
   isMove: 0
   newWheelOn: 1
