@@ -28,7 +28,8 @@ public class Player : MonoBehaviour
     public LineRenderer vDirectionLine;
     public GameController controller;                // игровой контроллер
     public GameObject vectorTester;
-    public Camera camera;
+    public Camera cameraController;
+    public Camera spectrator;
     public Tilemap tilemap;                                 // объект Map
     public Animator animator;                              // аниматор игрока
 
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour
         Debug.Log("14");
         while (this.transform.position != end)
         {
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
             end = GetLastTileInCoridor(
                 tilemap.WorldToCell(this.transform.position),
                 direction,
@@ -126,7 +127,7 @@ public class Player : MonoBehaviour
     }
 
     GameObject vTest;
-    void FixedUpdate()
+    void Update()
     {
         // скорость свайпа
         float deltaThouch = 0;
@@ -138,26 +139,26 @@ public class Player : MonoBehaviour
             {
                 // нажал пальцем
                 case TouchPhase.Began:
-                    startPos = camera.ScreenToWorldPoint(touch.position);
+                    startPos = cameraController.ScreenToWorldPoint(touch.position);
                     directionChosen = false;
-                    vTest = Instantiate(vectorTester, camera.ScreenToWorldPoint(startPos), Quaternion.identity);
+                    vTest = Instantiate(vectorTester, spectrator.ScreenToWorldPoint(touch.position), Quaternion.identity);
                     break;
 
                 // провёл пальцем
                 case TouchPhase.Moved:
                     directionChosen = true;
-                    vDirection = (Vector2)camera.ScreenToWorldPoint(touch.position) - startPos;
+                    vDirection = (Vector2)cameraController.ScreenToWorldPoint(touch.position) - startPos;
                     vDirectionLine.positionCount = 2;
-                    vDirectionLine.SetPositions(new Vector3[] { Vector2.zero, vDirection });
-                    deltaThouch = camera.ScreenToWorldPoint(touch.deltaPosition).magnitude;
+                    vDirectionLine.SetPositions(new Vector3[] { spectrator.transform.position, vDirection + (Vector2)spectrator.transform.position });
+                    deltaThouch = cameraController.ScreenToWorldPoint(touch.deltaPosition).magnitude;
                     if(vTest != null)
-                        vTest.transform.position = camera.ScreenToWorldPoint(touch.position);
+                        vTest.transform.position = spectrator.ScreenToWorldPoint(touch.position) + Vector3.forward * 15;
                     break;
 
                 // убрал палец
                 case TouchPhase.Ended:
                     directionChosen = false;
-                    //vDirection = Vector2.zero;
+                    vDirection = Vector2.zero;
                     vDirectionLine.positionCount = 0;
                     if(vTest != null)
                         Destroy(vTest);
@@ -234,7 +235,7 @@ public class Player : MonoBehaviour
                 )
             {
                 secondDirection = direction;
-                startPos = camera.ScreenToWorldPoint(Input.GetTouch(0).position);
+                startPos = cameraController.ScreenToWorldPoint(Input.GetTouch(0).position);
             }
             // если не двигаемся вообще, то начинаем в сторону направления
             else if (
@@ -246,12 +247,12 @@ public class Player : MonoBehaviour
                 )
             {
                 movement = StartCoroutine(Move(direction));
-                startPos = camera.ScreenToWorldPoint(Input.GetTouch(0).position);
+                startPos = cameraController.ScreenToWorldPoint(Input.GetTouch(0).position);
             }
 
             // сбрасываем значения
             directionChosen = false;
-            //vDirection = Vector2.zero;
+            vDirection = Vector2.zero;
         }
     }
 

@@ -2933,7 +2933,8 @@ MonoBehaviour:
   vDirectionLine: {fileID: 853969236}
   controller: {fileID: 43818384}
   vectorTester: {fileID: 7790707820011410945, guid: 08ef064ee77fc274ebad3ffd416d5fc7, type: 3}
-  camera: {fileID: 968613392}
+  cameraController: {fileID: 968613392}
+  spectrator: {fileID: 519420031}
   tilemap: {fileID: 453182900}
   animator: {fileID: 688669245}
   dirToVector2:
