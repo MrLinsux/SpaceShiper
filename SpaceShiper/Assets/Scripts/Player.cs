@@ -42,6 +42,21 @@ public class Player : MonoBehaviour
         //Debug.Log("Is Dead");
     }
 
+    private IEnumerator MovementChecker()
+    {
+        var firstPos = this.transform.position;
+        yield return new WaitForSeconds(3f);
+        if(this.transform.position == firstPos)
+        {
+            animator.SetInteger("Dist", 0);
+            animator.SetBool("isMove", false);
+            isMove = false;
+            mainDirection = Direction.zero;
+            StopCoroutine(movement);
+            movement = null;
+        }
+    }
+
     private IEnumerator Move(Direction direction)
     {
         // функция основного движения
@@ -57,6 +72,7 @@ public class Player : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
             yield break;
         }
+        StartCoroutine(MovementChecker());
 
         Debug.Log("12");
         var dist = (int)Vector2.Distance(this.transform.position, end);
@@ -92,7 +108,7 @@ public class Player : MonoBehaviour
         Debug.Log("14");
         while (this.transform.position != end)
         {
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
             end = GetLastTileInCoridor(
                 tilemap.WorldToCell(this.transform.position),
                 direction,
