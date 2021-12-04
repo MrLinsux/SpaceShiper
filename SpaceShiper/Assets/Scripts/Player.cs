@@ -127,12 +127,16 @@ public class Player : MonoBehaviour
     }
 
     GameObject vTest;
+    bool moreOneThouch = false;
     void Update()
     {
         // скорость свайпа
         float deltaThouch = 0;
 
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 0)
+            moreOneThouch = false;
+
+        if ((Input.touchCount > 0) && !moreOneThouch)
         {
             Touch touch = Input.GetTouch(0);
             switch (touch.phase)
@@ -160,6 +164,8 @@ public class Player : MonoBehaviour
                     directionChosen = false;
                     vDirection = Vector2.zero;
                     vDirectionLine.positionCount = 0;
+                    if (Input.touchCount > 1)
+                        moreOneThouch = true;
                     if(vTest != null)
                         Destroy(vTest);
                     break;
