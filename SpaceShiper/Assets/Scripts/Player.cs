@@ -39,7 +39,18 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         // функция смерти игрока
-        //Debug.Log("Is Dead");
+        animator.SetInteger("Dist", 0);
+        animator.SetBool("isMove", false);
+        isMove = false;
+        mainDirection = Direction.zero;
+        this.transform.eulerAngles = Vector3.zero;
+        if (movement != null)
+        {
+            StopCoroutine(movement);
+            movement = null;
+        }
+        controller.LoadLevel();
+
     }
 
     private IEnumerator MovementChecker()

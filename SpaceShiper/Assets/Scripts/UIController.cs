@@ -146,8 +146,7 @@ public class UIController : MonoBehaviour
             "OnStartAnimToggle",
             "OnStep1AnimToggle",
             "OnStep1DelayToggle",
-            "OnStartDelayToggle",
-            "WheelDeltaAngleInput"
+            "OnStartDelayToggle"
         };
         var gameParams = new Transform[gameParamsNames.Length];
 

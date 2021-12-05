@@ -39,6 +39,11 @@ public class GameController : MonoBehaviour
         tilemap.GetComponent<Map>().BuildLevel(world, level);
     }
 
+    public void LoadLevel()
+    {
+        LoadLevel(world, level);
+    }
+
     private void Start()
     {
         try
