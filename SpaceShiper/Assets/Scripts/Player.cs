@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     public Tilemap tilemap;                                 // объект Map
     public Animator animator;                              // аниматор игрока
     public GameObject pGrave;
+    public GameObject pGraveCircle;
 
     public enum Direction { zero, right, up, left, down }   // все возможные направления движения
     public Vector2[] dirToVector2 = new Vector2[5] { Vector2.zero, Vector2.right, Vector2.up, Vector2.left, Vector2.down };
@@ -44,6 +45,17 @@ public class Player : MonoBehaviour
         // функция смерти игрока
         if (onDeath)
         {
+            if (mainDirection != Direction.zero)
+            {
+                Destroy(Instantiate(pGrave, this.transform.position, Quaternion.Euler(0, 0, 90 * (int)mainDirection)), 5f);
+            }
+            else
+            {
+                var grave = Instantiate(pGrave, this.transform.position, Quaternion.Euler(0, 0, 90 * (int)mainDirection)).GetComponent<ParticleSystem>();
+                var _shape = grave.shape;
+                _shape.shapeType = ParticleSystemShapeType.Circle;
+                Destroy(grave, 5f);
+            }
             animator.SetInteger("Dist", 0);
             animator.SetBool("isMove", false);
             isMove = false;
@@ -56,8 +68,13 @@ public class Player : MonoBehaviour
             }
             this.gameObject.SetActive(false);
 
-            uIController.restartPanel.SetActive(true);
+            Invoke("OnRestartPanel", 2f);
         }
+    }
+
+    private void OnRestartPanel()
+    {
+        uIController.restartPanel.SetActive(true);
     }
 
     private IEnumerator MovementChecker()
