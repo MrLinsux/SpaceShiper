@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
 
     public void LoadLevel()
     {
+        player.SetActive(true);
         LoadLevel(world, level);
     }
 

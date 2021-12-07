@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public bool newWheelOn = true;
     public bool onStartDelay = true;
     public bool onStep1Delay = true;
+    public bool onDeath = true;
     private Vector3 end;                // точка у которой движется игрок
     public Direction direction = Direction.zero;            // текущее направление
     public Direction mainDirection = Direction.zero;        // основное направление
@@ -27,11 +28,13 @@ public class Player : MonoBehaviour
     public GameObject flash;                                // вспышка в начале движения
     public LineRenderer vDirectionLine;
     public GameController controller;                // игровой контроллер
+    public UIController uIController;
     public GameObject vectorTester;
     public Camera cameraController;
     public Camera spectrator;
     public Tilemap tilemap;                                 // объект Map
     public Animator animator;                              // аниматор игрока
+    public GameObject pGrave;
 
     public enum Direction { zero, right, up, left, down }   // все возможные направления движения
     public Vector2[] dirToVector2 = new Vector2[5] { Vector2.zero, Vector2.right, Vector2.up, Vector2.left, Vector2.down };
@@ -39,18 +42,22 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         // функция смерти игрока
-        animator.SetInteger("Dist", 0);
-        animator.SetBool("isMove", false);
-        isMove = false;
-        mainDirection = Direction.zero;
-        this.transform.eulerAngles = Vector3.zero;
-        if (movement != null)
+        if (onDeath)
         {
-            StopCoroutine(movement);
-            movement = null;
-        }
-        controller.LoadLevel();
+            animator.SetInteger("Dist", 0);
+            animator.SetBool("isMove", false);
+            isMove = false;
+            mainDirection = Direction.zero;
+            this.transform.eulerAngles = Vector3.zero;
+            if (movement != null)
+            {
+                StopCoroutine(movement);
+                movement = null;
+            }
+            this.gameObject.SetActive(false);
 
+            uIController.restartPanel.SetActive(true);
+        }
     }
 
     private IEnumerator MovementChecker()
