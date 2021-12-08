@@ -6,85 +6,53 @@ using UnityEngine.Tilemaps;
 
 public class Thicker : MonoBehaviour
 {
-    public Vector3 startPos;
-    public Vector3 endPos;
+    public GameObject A;
+    public GameObject B;
+    public GameObject disk;
     public float speed;
     public float pause;
+    private Coroutine waiter;
 
     IEnumerator SlowDown()
     {
         var temp = speed;
         speed = 0;
+        B.GetComponent<Animator>().SetBool("HaveDisk", true);
         yield return new WaitForSeconds(pause);
+        B.GetComponent<Animator>().SetBool("HaveDisk", false);
+        yield return new WaitUntil(() => B.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Out"));
+        var _temp = B;
+        B = A;
+        A = _temp;
         speed = temp;
+        waiter = null;
+    }
+
+    public void SetPoints(Vector3 _A, Vector3 _B)
+    {
+        A.transform.position = _A; B.transform.position = _B;
     }
 
     private void Start()
     {
-        this.GetComponent<SingleSideTrap>().sourcePos = endPos = startPos = this.transform.position;
-
-        Vector3Int direction = Vector3Int.zero;
-        var tilemap = GameObject.Find("Map").GetComponent<Tilemap>();
-
-        switch ((int)this.GetComponent<SingleSideTrap>().singleDirection > 1 ? (int)this.GetComponent<SingleSideTrap>().singleDirection - 2 : (int)this.GetComponent<SingleSideTrap>().singleDirection)
-        {
-            case 0:
-                direction = Vector3Int.right;
-                break;
-            case 1:
-                direction = Vector3Int.up;
-                break;
-        }
-
-        int wayLong = 0;
-
-        while(direction != Vector3Int.zero)
-        {
-            if (tilemap.GetComponent<Map>().wayTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)))
-            {
-                wayLong++;
-            }
-            else
-            {
-                break;
-            }
-            if (wayLong > 20)
-                break;
-        }
-        endPos += direction * (wayLong - 1);
-        if (wayLong <= 1)
-        {
-            wayLong = 0;
-            while (direction != Vector3Int.zero)
-            {
-                if (tilemap.GetComponent<Map>().wayTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)))
-                {
-                    wayLong--;
-                }
-                else
-                {
-                    break;
-                }
-                if (wayLong > 20)
-                    break;
-            }
-            endPos += direction * (wayLong + 1);
-        }
+        disk.transform.position = A.transform.position;
+        A.GetComponent<Animator>().SetBool("HaveDisk", false);
+        B.GetComponent<Animator>().SetBool("HaveDisk", false);
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
-        if (Vector3.Distance(this.transform.position, startPos) >= Vector3.Distance(startPos, endPos))
+        if (waiter == null)
         {
-            StartCoroutine(SlowDown());
-            startPos = startPos + endPos;
-            endPos = startPos - endPos;
-            startPos = startPos - endPos;
-        }
-        else
-        {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, endPos, speed/100);
+            if (disk.transform.position == B.transform.position)
+            {
+                waiter = StartCoroutine(SlowDown());
+            }
+            else
+            {
+                disk.transform.position = Vector3.MoveTowards(disk.transform.position, B.transform.position, speed / 100);
+            }
         }
     }
 }

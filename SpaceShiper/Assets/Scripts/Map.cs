@@ -24,6 +24,7 @@ public class Map : MonoBehaviour
     public GameObject door;                     // обычная дверь
     public GameObject timeDoor;                 // дверь с таймером
     public GameObject playerSpawner;            // объект начала уровня
+    public GameObject thicker;                  // ловушка-бумеранг
 
     public void BuildLevel(int world, int level)
     {
@@ -39,12 +40,6 @@ public class Map : MonoBehaviour
             var way = mapPlan.way[i];
             SetWayTile(way.pos, wayTile);
         }
-        //for(int i = 0; i < mapPlan.ruleTiles.Count; i++)
-        //{
-        //    // для ruleTile, например для рамки у стен
-        //    var rTile = mapPlan.ruleTiles[i];
-        //    tilemap.SetTile(new Vector3Int(rTile.x, rTile.y, rTile.z), ruleTiles[rTile.id]);
-        //}
         for(int i = 0; i < mapPlan.singleSideTraps.Count; i++)
         {
             // расставляем однонаправленные ловушки
@@ -106,6 +101,26 @@ public class Map : MonoBehaviour
                 );
             temp.GetComponent<TimeDoor>().timeToClose = door.time;
             temp.GetComponent<TimeDoor>().switcher.position = door.switcher.pos;
+        }
+        for(int i = 0; i < mapPlan.thickers.Count; i++)
+        {
+            var thicker = mapPlan.thickers[i];
+            var rotate = 45;
+
+            if(thicker.posA.x == thicker.posB.x)
+            {
+                rotate = 0;
+            }
+            else if(thicker.posA.y == thicker.posB.y)
+            {
+                rotate = 90;
+            }
+            else
+            {
+                Debug.LogError("Rotate of thicker is not straight: " + thicker);
+            }
+
+            Instantiate(this.thicker, thicker.pos, Quaternion.Euler(0, 0, rotate), this.transform).GetComponent<Thicker>().SetPoints(thicker.posA, thicker.posB);
         }
 
         Instantiate(playerSpawner, mapPlan.playerSpawner.pos, Quaternion.identity, this.transform).GetComponent<PlayerSpawner>().player = player;
@@ -192,6 +207,10 @@ public class Map : MonoBehaviour
             {
                 map.playerSpawner = new MapTiles.Spawner(child[i].position);
             }
+            else if(child[i].GetComponent<Thicker>())
+            {
+                map.thickers.Add(new MapTiles.Thicker(child[i].position, child[i].GetChild(1).position, child[i].GetChild(2).position));
+            }
         }
 
         System.IO.File.WriteAllText(
@@ -240,6 +259,7 @@ public class Map : MonoBehaviour
         public List<Pusher> pushers = new List<Pusher>();
         public List<Door> doors = new List<Door>();
         public List<TimeDoor> timeDoors = new List<TimeDoor>();
+        public List<Thicker> thickers = new List<Thicker>();
         public Spawner playerSpawner;
 
 
@@ -415,6 +435,35 @@ public class Map : MonoBehaviour
             }
 
             public Spawner(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+        }
+
+        [System.Serializable]
+        public class Thicker
+        {
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
+
+            public float xA;
+            public float yA;
+            public float zA;
+            public Vector3 posA
+            { get { return new Vector3(xA, yA, zA); } }
+
+            public float xB;
+            public float yB;
+            public float zB;
+            public Vector3 posB
+            { get { return new Vector3(xB, yB, zB); } }
+
+            public Thicker(Vector3 pos, Vector3 _posA, Vector3 _posB) { x = pos.x; y = pos.y; z = pos.z; xA = _posA.x; yA = _posA.y; zA = _posA.z; xB = _posB.x; yB = _posB.y; zB = _posB.z; }
         }
 
     }
