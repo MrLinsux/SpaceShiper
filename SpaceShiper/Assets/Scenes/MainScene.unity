@@ -3093,15 +3093,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.8
-  minSwipeSpeed: 1
-  minVDirection: 0.5
+  minSwipeSpeed: 2
+  minVDirection: 1
   minDistanceForMR: 4
   directionChosen: 0
   isMove: 0
   newWheelOn: 1
-  onStartDelay: 1
-  onStep1Delay: 1
-  onDeath: 1
+  onStartDelay: 0
+  onStep1Delay: 0
+  onDeath: 0
   direction: 0
   mainDirection: 0
   secondDirection: 0

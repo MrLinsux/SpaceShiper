@@ -26,13 +26,26 @@ ScriptsOnlyBuild:
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
+    - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
+    - UnityEditor.Tilemaps.GridPaintPaletteClipboard
+    - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
+    - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
+    Unity.2D.Tilemap.Extras.Editor.dll:
+    - UnityEditor.Tilemaps.CoordinateBrush
+    - UnityEditor.Tilemaps.GameObjectBrush
+    - UnityEditor.Tilemaps.GroupBrush
+    - UnityEditor.Tilemaps.LineBrush
+    - UnityEditor.Tilemaps.RandomBrush
+    - UnityEditor.Tilemaps.TintBrush
+    - UnityEditor.Tilemaps.TintBrushSmooth
     Unity.2D.Tilemap.Extras.dll:
     - UnityEngine.RuleTile
     Unity.Rider.Editor.dll:
@@ -43,6 +56,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateMachineInspector
     - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
@@ -73,6 +87,8 @@ ScriptsOnlyBuild:
     - Class: 21
       Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
@@ -167,6 +183,10 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
@@ -315,7 +335,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: abf7284663c7984a225a7693c48930aa
+      Hash: 58ac7f8065b5dbd22010a7f31aee2a3e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -573,7 +593,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: fa4b983e0830bf5c0ebd55ec2dec0019
+      Hash: 79891c9a341ec2bcbd51b011065a4efb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -717,7 +737,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 13c2825b455cd998674b3555af174277
+      Hash: 51c52b9126b4ccc7d84392feea7adf08
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Thicker
@@ -729,7 +749,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: f50549f7a14a91834a1b68e24ea3b43b
+      Hash: 6d2a9219e2534cadfeac92119e6317ef
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Map

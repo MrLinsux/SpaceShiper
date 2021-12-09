@@ -80,15 +80,18 @@ public class Player : MonoBehaviour
     private IEnumerator MovementChecker()
     {
         var firstPos = this.transform.position;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         if(this.transform.position == firstPos)
         {
             animator.SetInteger("Dist", 0);
             animator.SetBool("isMove", false);
             isMove = false;
             mainDirection = Direction.zero;
-            StopCoroutine(movement);
-            movement = null;
+            if (movement != null)
+            {
+                StopCoroutine(movement);
+                movement = null;
+            }
         }
     }
 
@@ -105,6 +108,11 @@ public class Player : MonoBehaviour
         if (this.transform.position == end)
         {
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
+            animator.SetInteger("Dist", 0);
+            animator.SetBool("isMove", false);
+            isMove = false;
+            mainDirection = Direction.zero;
+            movement = null;
             yield break;
         }
         StartCoroutine(MovementChecker());
@@ -121,8 +129,8 @@ public class Player : MonoBehaviour
             this.GetComponent<SpriteRenderer>().flipX = 
                 (((int)this.transform.eulerAngles.z > 0 ? (int)this.transform.eulerAngles.z : (int)this.transform.eulerAngles.z + 360) / 90) 
                 == (((int)mainDirection + 1) % 4);
-            if(onStep1Delay)
-                yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
+            if (onStep1Delay)
+                yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
         }
         else if (dist > 1)
@@ -143,32 +151,32 @@ public class Player : MonoBehaviour
         Debug.Log("14");
         while (this.transform.position != end)
         {
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
             end = GetLastTileInCoridor(
                 tilemap.WorldToCell(this.transform.position),
                 direction,
                 tilemap);
             this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed);
         }
-        Debug.Log("15");
-        this.transform.position = end;                                              // нормализация положения
-        animator.SetInteger("Dist", 0);
-        animator.SetBool("isMove", false);
-        isMove = false;
-        mainDirection = Direction.zero;
-        yield return new WaitUntil(() => (animator.GetCurrentAnimatorStateInfo(0).IsName("End") || animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")));
+        this.transform.position = end;
+        //yield return new WaitUntil(() => (animator.GetCurrentAnimatorStateInfo(0).IsName("End") || animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")));
 
         if (secondDirection != Direction.zero)
         {
             movement = StartCoroutine(Move(secondDirection));
-            Debug.Log("16");
+            Debug.Log("15 - 1");
             secondDirection = Direction.zero;
         }
         else
         {
+            Debug.Log("15 - 2");                        // нормализация положения
+            animator.SetInteger("Dist", 0);
+            animator.SetBool("isMove", false);
+            isMove = false;
+            mainDirection = Direction.zero;
             movement = null;
         }
-        Debug.Log("17");
+        Debug.Log("16");
     }
 
     void Start()
@@ -242,34 +250,30 @@ public class Player : MonoBehaviour
 
             if (newWheelOn)
             {
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
+                var pi = Mathf.PI;
+                var step = mainDirection != Direction.zero ? pi / 8 + pi * (1 - ((int)mainDirection % 2)) : pi / 4;
+
+                if ((2 * pi - step <= dirAngle) || (dirAngle < step))
+                    direction = (Direction)1;
+                else if ((step <= dirAngle) && (dirAngle < pi - step))
+                    direction = (Direction)2;
+                else if ((pi - step <= dirAngle) && (dirAngle < pi + step))
+                    direction = (Direction)3;
+                else if ((pi + step <= dirAngle) && (dirAngle < 2 * pi - step))
+                    direction = (Direction)4;
+
+                _minVDirection *= 4 * Mathf.Sqrt(2) * new Vector2(Mathf.Pow(Mathf.Cos(dirAngle + pi / 4), 5), Mathf.Pow(Mathf.Sin(dirAngle + pi / 4), 5)).magnitude;
+
+                if (vDirection.magnitude < _minVDirection)
                 {
-                    var step = Mathf.PI / 4;
-                    var pi = Mathf.PI;
-                    if ((dirAngle < step) || (dirAngle >= 2 * pi - step))
-                        direction = (Direction)1;
-                    else if ((dirAngle < pi / 2 + step) && (dirAngle >= pi / 2 - step))
-                        direction = (Direction)2;
-                    else if ((dirAngle < pi + step) && (dirAngle >= pi - step))
-                        direction = (Direction)3;
-                    else if ((dirAngle < (3 * pi / 2) + step) && (dirAngle >= (3 * pi / 2) - step))
-                        direction = (Direction)4;
-
-                    _minVDirection *= 2 * Mathf.Sqrt(2) * new Vector2(Mathf.Pow(Mathf.Cos(dirAngle + pi / 4), 3), Mathf.Pow(Mathf.Sin(dirAngle + pi / 4), 3)).magnitude;
-
-                    if(vDirection.magnitude < minVDirection)
-                    {
-                        // сбрасываем значения
-                        directionChosen = false;
-                        vDirection = Vector2.zero;
-                        return;
-                    }
+                    // сбрасываем значения
+                    directionChosen = false;
+                    vDirection = Vector2.zero;
+                    return;
                 }
             }
             else
             {
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
-                {
                     var step = Mathf.PI / 4;
                     if ((dirAngle < step) || (dirAngle >= 7 * step))
                         direction = (Direction)1;
@@ -279,7 +283,6 @@ public class Player : MonoBehaviour
                         direction = (Direction)3;
                     else if ((dirAngle < 7 * step) && (dirAngle >= 5 * step))
                         direction = (Direction)4;
-                }
             }
             #endregion
 
@@ -299,10 +302,11 @@ public class Player : MonoBehaviour
                 //(
                 //animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")
                 //) && 
-                !isMove &&
-                (movement == null)
+                !isMove
                 )
             {
+                if (movement != null)
+                    StopCoroutine(movement);
                 movement = StartCoroutine(Move(direction));
                 startPos = cameraController.ScreenToWorldPoint(Input.GetTouch(0).position);
             }
@@ -412,25 +416,5 @@ public class Player : MonoBehaviour
     {
         // функция для лучшего понимания кода
         return controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0));
-    }
-    public static Vector3Int DirectionToVector(Direction direction)
-    {
-        switch((int)direction)
-        {
-            case 1:
-                return Vector3Int.right;
-            case 2:
-                return Vector3Int.up;
-            case 3:
-                return Vector3Int.left;
-            case 4:
-                return Vector3Int.down;
-            default:
-                return Vector3Int.zero;
-        }
-    }
-    public static Vector3 ToCellNormalazing(Tilemap tilemap, Vector3 pos)
-    {
-        return tilemap.CellToWorld(tilemap.WorldToCell(pos));
     }
 }

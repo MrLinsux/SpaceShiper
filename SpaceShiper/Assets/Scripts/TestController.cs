@@ -12,16 +12,16 @@ public class TestController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int x = 0; x < 10; x++)
+        var pi = Mathf.PI;
+        var n = 1024;
+        for (int x = 0; x < 2 * n; x++)
         {
-            for (int y = 0; y < 10; y++)
-            {
-                Vector3Int p = new Vector3Int(x, y, 0);
-                bool odd = (x + y) % 2 == 1;
-                Tile tile = odd ? way : wall;
-                tilemap.SetTile(p, tile);
-            }
+            var obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            obj.transform.localScale = Vector3.one * 0.1f;
+            obj.name = x.ToString();
+            obj.transform.position = (2 * Mathf.Sqrt(2) * new Vector2(Mathf.Pow(Mathf.Cos(x * pi / n + pi / 4), 4), Mathf.Pow(Mathf.Sin(x * pi / n + pi / 4), 4)));
         }
+
     }
 
     // Update is called once per frame
