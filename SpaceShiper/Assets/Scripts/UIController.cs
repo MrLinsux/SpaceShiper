@@ -145,7 +145,7 @@ public class UIController : MonoBehaviour
             "PlayerSpeedInput",
             "MinSpeedForStartInput",
             "MinVectorForStartInput",
-            "Min Rotate Memory Distance",
+            "MinRotateMemoryDistance",
             "OnNewWheelToggle",
             "OnStartAnimToggle",
             "OnStep1AnimToggle",
