@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - Laser
     - MainCamera
     - Map
+    - MenuSlider
     - MultySideTrap
     - Player
     - PlayerSpawner
@@ -22,12 +23,10 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
-    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -50,14 +49,16 @@ ScriptsOnlyBuild:
     - UnityEngine.RuleTile
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.TextMeshPro.dll:
+    - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateMachineInspector
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -68,11 +69,15 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
     - UnityEngine.UI.LayoutElement
+    - UnityEngine.UI.Mask
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
@@ -113,67 +118,85 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 624}
+      Script: {instanceID: 650}
     - Class: 114
-      Script: {instanceID: 1516}
+      Script: {instanceID: 1482}
     - Class: 114
-      Script: {instanceID: 1638}
+      Script: {instanceID: 1664}
     - Class: 114
-      Script: {instanceID: 1658}
+      Script: {instanceID: 1684}
     - Class: 114
-      Script: {instanceID: 1670}
-    - Class: 114
-      Script: {instanceID: 1728}
+      Script: {instanceID: 1696}
     - Class: 114
       Script: {instanceID: 1754}
     - Class: 114
-      Script: {instanceID: 1788}
+      Script: {instanceID: 1780}
     - Class: 114
-      Script: {instanceID: 1996}
+      Script: {instanceID: 1814}
     - Class: 114
-      Script: {instanceID: 2230}
+      Script: {instanceID: 1860}
     - Class: 114
-      Script: {instanceID: 2354}
+      Script: {instanceID: 2014}
     - Class: 114
-      Script: {instanceID: 2648}
+      Script: {instanceID: 2024}
     - Class: 114
-      Script: {instanceID: 2812}
+      Script: {instanceID: 2250}
     - Class: 114
-      Script: {instanceID: 3036}
+      Script: {instanceID: 2258}
     - Class: 114
-      Script: {instanceID: 3046}
+      Script: {instanceID: 2382}
     - Class: 114
-      Script: {instanceID: 3098}
+      Script: {instanceID: 2676}
     - Class: 114
-      Script: {instanceID: 3178}
+      Script: {instanceID: 2840}
     - Class: 114
-      Script: {instanceID: 3292}
+      Script: {instanceID: 3064}
     - Class: 114
-      Script: {instanceID: 3404}
+      Script: {instanceID: 3074}
     - Class: 114
-      Script: {instanceID: 3796}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3834}
+      Script: {instanceID: 3206}
     - Class: 114
-      Script: {instanceID: 3880}
+      Script: {instanceID: 3320}
     - Class: 114
-      Script: {instanceID: 4172}
+      Script: {instanceID: 3330}
     - Class: 114
-      Script: {instanceID: 4334}
+      Script: {instanceID: 3432}
     - Class: 114
-      Script: {instanceID: 4338}
+      Script: {instanceID: 3662}
     - Class: 114
-      Script: {instanceID: 4388}
+      Script: {instanceID: 3824}
     - Class: 114
-      Script: {instanceID: 4468}
+      Script: {instanceID: 3862}
     - Class: 114
-      Script: {instanceID: 4534}
+      Script: {instanceID: 3908}
     - Class: 114
-      Script: {instanceID: 4544}
+      Script: {instanceID: 4200}
     - Class: 114
-      Script: {instanceID: 5122}
+      Script: {instanceID: 4362}
     - Class: 114
-      Script: {instanceID: 5706}
+      Script: {instanceID: 4366}
+    - Class: 114
+      Script: {instanceID: 4416}
+    - Class: 114
+      Script: {instanceID: 4470}
+    - Class: 114
+      Script: {instanceID: 4496}
+    - Class: 114
+      Script: {instanceID: 4562}
+    - Class: 114
+      Script: {instanceID: 4572}
+    - Class: 114
+      Script: {instanceID: 4674}
+    - Class: 114
+      Script: {instanceID: 4810}
+    - Class: 114
+      Script: {instanceID: 5150}
+    - Class: 114
+      Script: {instanceID: 5188}
+    - Class: 114
+      Script: {instanceID: 5734}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -209,16 +232,16 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
-      Hash: 5ab533713adae59372fb3e10a585c186
-    assemblyName: Unity.Timeline.dll
-    namespaceName: UnityEngine.Timeline
-    className: AnimationPlayableAsset
-  - hash:
-      serializedVersion: 2
       Hash: a6e561615949734e9f12f9b61661f43e
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 5ab533713adae59372fb3e10a585c186
+    assemblyName: Unity.Timeline.dll
+    namespaceName: UnityEngine.Timeline
+    className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
       Hash: 77aaaaa51f7a8d8ff333a879741e47d2
@@ -333,6 +356,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_FontAsset
+  - hash:
+      serializedVersion: 2
+      Hash: eeada4f3f879474a79ee0417aab9f61c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MenuSlider
   - hash:
       serializedVersion: 2
       Hash: 58ac7f8065b5dbd22010a7f31aee2a3e
@@ -912,4 +941,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/mrPlag/Documents/Projects/Games/SpaceShiper/Builds/TestBuild_1.apk
+  playerPath: C:/Users/mrPlag/Documents/Projects/Games/SpaceShiper/Builds/UI_Build.apk

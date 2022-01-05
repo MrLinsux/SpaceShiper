@@ -56,12 +56,12 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Traps\Laser.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Portal.cs" />
-    <Compile Include="Assets\Scripts\MenuSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuSlider.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\MultySideTrap.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Pusher.cs" />
     <Compile Include="Assets\Scripts\SingleSideTrap.cs" />
-    <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\TestController.cs" />
     <Compile Include="Assets\Scripts\Flash.cs" />
     <Compile Include="Assets\Scripts\LaserTrigger.cs" />
@@ -73,6 +73,8 @@
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
+    <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
+    <Compile Include="Assets\Scripts\UI\Energy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
