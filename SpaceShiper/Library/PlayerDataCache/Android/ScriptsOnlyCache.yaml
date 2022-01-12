@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Door
+    - Energy
     - Flash
     - GameController
     - Laser
@@ -23,10 +24,12 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -78,6 +81,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Mask
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
@@ -128,6 +132,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1696}
     - Class: 114
+      Script: {instanceID: 1742}
+    - Class: 114
       Script: {instanceID: 1754}
     - Class: 114
       Script: {instanceID: 1780}
@@ -174,29 +180,31 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4200}
     - Class: 114
-      Script: {instanceID: 4362}
+      Script: {instanceID: 4298}
     - Class: 114
       Script: {instanceID: 4366}
     - Class: 114
-      Script: {instanceID: 4416}
+      Script: {instanceID: 4370}
     - Class: 114
-      Script: {instanceID: 4470}
+      Script: {instanceID: 4420}
     - Class: 114
-      Script: {instanceID: 4496}
+      Script: {instanceID: 4474}
     - Class: 114
-      Script: {instanceID: 4562}
+      Script: {instanceID: 4500}
     - Class: 114
-      Script: {instanceID: 4572}
+      Script: {instanceID: 4566}
     - Class: 114
-      Script: {instanceID: 4674}
+      Script: {instanceID: 4576}
     - Class: 114
-      Script: {instanceID: 4810}
+      Script: {instanceID: 4678}
     - Class: 114
-      Script: {instanceID: 5150}
+      Script: {instanceID: 4814}
     - Class: 114
-      Script: {instanceID: 5188}
+      Script: {instanceID: 5154}
     - Class: 114
-      Script: {instanceID: 5734}
+      Script: {instanceID: 5192}
+    - Class: 114
+      Script: {instanceID: 5738}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -728,6 +736,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Energy
+  - hash:
+      serializedVersion: 2
+      Hash: 0638cdc9d050b07fcf83c36274100f65
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LevelButton
   - hash:
       serializedVersion: 2
       Hash: 0edeba255bdbade25edc357f1412ba38
