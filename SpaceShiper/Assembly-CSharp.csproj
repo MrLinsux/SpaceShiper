@@ -65,6 +65,8 @@
     <Compile Include="Assets\Scripts\TestController.cs" />
     <Compile Include="Assets\Scripts\Flash.cs" />
     <Compile Include="Assets\Scripts\LaserTrigger.cs" />
+    <Compile Include="Assets\Scripts\UI\Energy.cs" />
+    <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
     <Compile Include="Assets\Scripts\Enviroment\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Enviroment\TimeDoor.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Switcher.cs" />
@@ -73,8 +75,7 @@
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
-    <Compile Include="Assets\Scripts\UI\Energy.cs" />
+    <Compile Include="Assets\Scripts\MotherController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
