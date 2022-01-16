@@ -155,7 +155,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.5
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!114 &8617182482407922831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   stars: 0
   world: 0
   level: 0
-  isComplete: 0
+  isComplete: 1
   controller: {fileID: 0}
 --- !u!114 &5748337922004433133
 MonoBehaviour:
@@ -267,8 +267,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.25, y: 0}
-  m_SizeDelta: {x: -12.5, y: 0}
+  m_AnchoredPosition: {x: 2.1959, y: 0.000015258789}
+  m_SizeDelta: {x: -53.6264, y: -33.5252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8306316257496333155
 CanvasRenderer:
@@ -302,10 +302,10 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 0d1271d2de68fa94cacc2f0631591094, type: 3}
     m_FontSize: 80
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 300
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
