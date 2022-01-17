@@ -27,7 +27,7 @@ public class MenuSlider : MonoBehaviour
         {
             for(int i = 0; i < pos.Length; i++)
             {
-                if ((scrollPos < pos[i] + dist / 2) && (scrollPos > pos[i] - (dist / 2))) 
+                if ((scrollPos < pos[i] + (dist / 2)) && (scrollPos > pos[i] - (dist / 2))) 
                 {
                     scrollbar.GetComponent<Scrollbar>().value = Mathf.Lerp(scrollbar.GetComponent<Scrollbar>().value, pos[i], 0.1f);
                 }

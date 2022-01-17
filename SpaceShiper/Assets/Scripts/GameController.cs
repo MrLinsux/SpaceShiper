@@ -34,9 +34,17 @@ public class GameController : MonoBehaviour
         // игровые объекты
         for(int i = 0; i < tilemap.transform.childCount; i++)
             Destroy(tilemap.transform.GetChild(i).gameObject, 0);
-
-        // точка появления игрока, которую мы получаем после построения уровня
-        tilemap.GetComponent<Map>().BuildLevel(world, level);
+        try
+        {
+            // точка появления игрока, которую мы получаем после построения уровня
+            tilemap.GetComponent<Map>().BuildLevel(world, level);
+        }
+        catch (NullReferenceException)
+        {
+            Debug.LogError($"Level {world}-{level} is not found!");
+            isEditLevel = true;
+            Debug.LogWarning("Edit Mode On.");
+        }
     }
 
     public void LoadLevel()
@@ -47,21 +55,12 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        try
-        {
-            LoadLevel(world, level);
-        }
-        catch(NullReferenceException)
-        {
-            Debug.LogWarning($"Level {world}-{level} is not found!");
-            isEditLevel = true;
-            Debug.LogWarning("Edit Mode On.");
-        }
+        //LoadLevel(world, level);
 
-        if (isEditLevel)
-            Time.timeScale = 0;
-        //player.GetComponent<Player>().enabled = false;
-        Application.targetFrameRate = 60;
+        //if (isEditLevel)
+        //    Time.timeScale = 0;
+        ////player.GetComponent<Player>().enabled = false;
+        //Application.targetFrameRate = 60;
     }
 
     private void FixedUpdate()
