@@ -6,18 +6,19 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    public enum LevelStatus { complete, active, close };
-    public GameObject[] s;
-    public int stars = 0;
-    public int world = 0;
-    public int level = 0;
+    public enum LevelStatus { complete, active, close };        // все возможные состояния кнопеи уровня: завершён, активен (незавершённый, но доступный) и закрытый соответственно
+    public GameObject[] s;  // тут хранятся ссылки на иконки звёзд кнопки
+    public int stars = 0;   // число звёзд
+    public int world = 0;   // номер мира
+    public int level = 0;   // номер уровня в мире
     public GameController controller;
     public MotherController motherController;
-    public Image line;
+    public Image line;          // каждая кнопка имеет свою линию, которая полупрозрачная, если уровень не пройден
     
 
     public void SetButton(int _world, LevelStatus status, int stars)
     {
+        // устанавливает параметры кнопки
         world = _world;
         level = Convert.ToInt32(this.name);
         for (int i = 0; i < 3; i++)
@@ -26,6 +27,7 @@ public class LevelButton : MonoBehaviour
         }
         line.color = new Color(0.8745099f, 0.8980393f, 0.9058824f, 0.5f);
 
+        // тут раскрашиваем кнопку соответственно её статусу
         if (status == LevelStatus.active)
         {
             this.GetComponent<Image>().color = Color.yellow;
