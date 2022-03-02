@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    public enum LevelStatus { complete, active, close };        // все возможные состояния кнопеи уровня: завершён, активен (незавершённый, но доступный) и закрытый соответственно
+    public enum LevelStatus { complete, active, close };        // все возможные состояния кнопки уровня: завершён, активен (незавершённый, но доступный) и закрытый соответственно
     public GameObject[] s;  // тут хранятся ссылки на иконки звёзд кнопки
     public int stars = 0;   // число звёзд
     public int world = 0;   // номер мира
@@ -16,16 +16,17 @@ public class LevelButton : MonoBehaviour
     public Image line;          // каждая кнопка имеет свою линию, которая полупрозрачная, если уровень не пройден
     
 
-    public void SetButton(int _world, LevelStatus status, int stars)
+    public void SetButton(int _world, LevelStatus status, int stars, int _level)
     {
         // устанавливает параметры кнопки
         world = _world;
-        level = Convert.ToInt32(this.name);
+        level = _level;
+        this.name = level.ToString();
         for (int i = 0; i < 3; i++)
         {
             s[i].SetActive(false);
         }
-        line.color = new Color(0.8745099f, 0.8980393f, 0.9058824f, 0.5f);
+        line.color = motherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
 
         // тут раскрашиваем кнопку соответственно её статусу
         if (status == LevelStatus.active)
@@ -41,16 +42,15 @@ public class LevelButton : MonoBehaviour
             var text = this.transform.GetChild(0).GetComponent<Text>();
             this.transform.GetChild(0).GetComponent<Text>().text = "X";
 
-            text.color = new Color(0.7764707f, 0.2588235f, 0.2588235f);
-            //text.color = motherController.mainColors[4];
+            text.color = motherController.mainColors[4];
 
             this.GetComponent<Button>().interactable = false;
             var img = this.GetComponent<Image>();
-            img.color = new Color(0.8745099f, 0.8980393f, 0.9058824f, 0.5f);
+            img.color = motherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
         }
         else if(status == LevelStatus.complete)
         {
-            line.color = new Color(0.8745099f, 0.8980393f, 0.9058824f, 1);
+            line.color = motherController.mainColors[0];
             this.GetComponent<Button>().interactable = true;
             for (int i = 0; i < stars; i++)
             {
@@ -60,6 +60,7 @@ public class LevelButton : MonoBehaviour
             level = Convert.ToInt32(this.name);
 
             this.transform.GetChild(0).GetComponent<Text>().text = level.ToString();
+            this.transform.GetChild(0).GetComponent<Text>().color = new Color(0.5660378f, 0.5660378f, 0.5660378f);
             this.GetComponent<Image>().color = Color.white;
         }
         else
@@ -72,7 +73,8 @@ public class LevelButton : MonoBehaviour
 
     public void LoadLevel()
     {
-        controller.LoadLevel(world, level);
+        //controller.LoadLevel(world, level);
+        Debug.Log("Level " + world + " - " + level);
     }
 
     private void Start()
