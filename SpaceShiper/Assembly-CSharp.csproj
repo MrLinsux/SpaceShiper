@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Enviroment\Pusher.cs" />
     <Compile Include="Assets\Scripts\UI\LevelSelector.cs" />
     <Compile Include="Assets\Scripts\SingleSideTrap.cs" />
+    <Compile Include="Assets\Scripts\UI\AudioController.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\TestController.cs" />
     <Compile Include="Assets\Scripts\Flash.cs" />
@@ -77,7 +78,7 @@
     <Compile Include="Assets\Scripts\UI\LevelSlider.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\UI\AudioController.cs" />
+    <Compile Include="Assets\Scripts\UI\ButtonFX.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
