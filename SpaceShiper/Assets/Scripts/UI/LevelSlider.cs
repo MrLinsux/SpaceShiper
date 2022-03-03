@@ -67,6 +67,7 @@ public class LevelSlider : MonoBehaviour
 
     private Vector2 start;
     public MotherController motherController;
+    public Camera mainCamera;
 
     public float minVector = 10f;
     public float minY = 20f;
@@ -82,23 +83,23 @@ public class LevelSlider : MonoBehaviour
         {
             var touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
-                start = touch.position;
+                start = mainCamera.ScreenToWorldPoint(touch.position);
             else if(touch.phase == TouchPhase.Ended)
             {
-                if((Vector2.Distance(start, touch.position) >= minVector) && (Mathf.Abs(touch.position.y - start.y) > minY))
+                if((Vector2.Distance(start, mainCamera.ScreenToWorldPoint(touch.position)) >= minVector) && (Mathf.Abs(mainCamera.ScreenToWorldPoint(touch.position).y - start.y) > minY))
                 {
-                    Vector2 end = touch.position;
+                    Vector2 end = mainCamera.ScreenToWorldPoint(touch.position);
                     if(end.y > start.y)
                     {
                         currentPage--;
                         motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
-                        Handheld.Vibrate();
+                        //Handheld.Vibrate();
                     }
                     else if(end.y < start.y)
                     {
                         currentPage++;
                         motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
-                        Handheld.Vibrate();
+                        //Handheld.Vibrate();
                     }
                     else
                         return;

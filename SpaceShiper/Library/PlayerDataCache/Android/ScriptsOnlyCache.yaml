@@ -17,6 +17,7 @@ ScriptsOnlyBuild:
     - Portal
     - Pusher
     - SingleSideTrap
+    - SoundController
     - Switcher
     - Thicker
     - TimeDoor
@@ -75,6 +76,7 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
@@ -116,6 +118,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -145,19 +151,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1860}
     - Class: 114
-      Script: {instanceID: 2024}
+      Script: {instanceID: 2022}
     - Class: 114
-      Script: {instanceID: 2250}
+      Script: {instanceID: 2248}
     - Class: 114
-      Script: {instanceID: 2258}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2382}
+      Script: {instanceID: 2380}
     - Class: 114
-      Script: {instanceID: 2634}
+      Script: {instanceID: 2632}
     - Class: 114
-      Script: {instanceID: 2678}
+      Script: {instanceID: 2676}
     - Class: 114
-      Script: {instanceID: 2842}
+      Script: {instanceID: 2840}
     - Class: 114
       Script: {instanceID: 3066}
     - Class: 114
@@ -169,43 +175,47 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3324}
     - Class: 114
-      Script: {instanceID: 3436}
+      Script: {instanceID: 3438}
     - Class: 114
-      Script: {instanceID: 3828}
+      Script: {instanceID: 3830}
     - Class: 114
-      Script: {instanceID: 3866}
+      Script: {instanceID: 3868}
     - Class: 114
-      Script: {instanceID: 3912}
+      Script: {instanceID: 3914}
     - Class: 114
-      Script: {instanceID: 4204}
+      Script: {instanceID: 4186}
     - Class: 114
-      Script: {instanceID: 4302}
+      Script: {instanceID: 4206}
     - Class: 114
-      Script: {instanceID: 4308}
+      Script: {instanceID: 4304}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4310}
     - Class: 114
-      Script: {instanceID: 4374}
+      Script: {instanceID: 4372}
     - Class: 114
-      Script: {instanceID: 4424}
+      Script: {instanceID: 4376}
     - Class: 114
-      Script: {instanceID: 4504}
+      Script: {instanceID: 4426}
     - Class: 114
-      Script: {instanceID: 4570}
+      Script: {instanceID: 4506}
     - Class: 114
-      Script: {instanceID: 4580}
+      Script: {instanceID: 4572}
     - Class: 114
-      Script: {instanceID: 4818}
+      Script: {instanceID: 4582}
     - Class: 114
-      Script: {instanceID: 5158}
+      Script: {instanceID: 4590}
     - Class: 114
-      Script: {instanceID: 5196}
+      Script: {instanceID: 4822}
     - Class: 114
-      Script: {instanceID: 5664}
+      Script: {instanceID: 5162}
     - Class: 114
-      Script: {instanceID: 5742}
+      Script: {instanceID: 5200}
     - Class: 114
-      Script: {instanceID: 100584}
+      Script: {instanceID: 5668}
+    - Class: 114
+      Script: {instanceID: 5746}
+    - Class: 114
+      Script: {instanceID: 72734}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -559,6 +569,12 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AudioController
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -817,6 +833,12 @@ ScriptsOnlyBuild:
     className: MainCamera
   - hash:
       serializedVersion: 2
+      Hash: 0d07dd7b4e64af539b0ae06e7f15dea1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LevelSlider
+  - hash:
+      serializedVersion: 2
       Hash: b424b4eeb810aecb0ff91c62639241e9
     assemblyName: Unity.2D.Animation.Runtime.dll
     namespaceName: UnityEngine.Experimental.U2D.Animation
@@ -967,10 +989,10 @@ ScriptsOnlyBuild:
     className: Turel
   - hash:
       serializedVersion: 2
-      Hash: c88a472966c2457cba7e070b143fb969
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: LevelSlider
+    className: SoundController
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
