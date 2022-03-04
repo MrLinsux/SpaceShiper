@@ -27,6 +27,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -174,47 +175,47 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3322}
     - Class: 114
-      Script: {instanceID: 3436}
+      Script: {instanceID: 3438}
     - Class: 114
-      Script: {instanceID: 3828}
+      Script: {instanceID: 3830}
     - Class: 114
-      Script: {instanceID: 3866}
+      Script: {instanceID: 3868}
     - Class: 114
-      Script: {instanceID: 3912}
+      Script: {instanceID: 3914}
     - Class: 114
-      Script: {instanceID: 4184}
+      Script: {instanceID: 4186}
     - Class: 114
-      Script: {instanceID: 4204}
+      Script: {instanceID: 4206}
     - Class: 114
-      Script: {instanceID: 4302}
+      Script: {instanceID: 4304}
     - Class: 114
-      Script: {instanceID: 4308}
+      Script: {instanceID: 4310}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4372}
     - Class: 114
-      Script: {instanceID: 4374}
+      Script: {instanceID: 4376}
     - Class: 114
-      Script: {instanceID: 4424}
+      Script: {instanceID: 4426}
     - Class: 114
-      Script: {instanceID: 4504}
+      Script: {instanceID: 4506}
     - Class: 114
-      Script: {instanceID: 4570}
+      Script: {instanceID: 4572}
     - Class: 114
-      Script: {instanceID: 4580}
+      Script: {instanceID: 4582}
     - Class: 114
-      Script: {instanceID: 4588}
+      Script: {instanceID: 4590}
     - Class: 114
-      Script: {instanceID: 4820}
+      Script: {instanceID: 4822}
     - Class: 114
-      Script: {instanceID: 5086}
+      Script: {instanceID: 5088}
     - Class: 114
-      Script: {instanceID: 5162}
+      Script: {instanceID: 5164}
     - Class: 114
-      Script: {instanceID: 5200}
+      Script: {instanceID: 5202}
     - Class: 114
-      Script: {instanceID: 5668}
+      Script: {instanceID: 5670}
     - Class: 114
-      Script: {instanceID: 5746}
+      Script: {instanceID: 5748}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -430,7 +431,7 @@ ScriptsOnlyBuild:
     className: IKManager2D
   - hash:
       serializedVersion: 2
-      Hash: abd96db60d4e8d1262f181f3a4e04bcc
+      Hash: e1ac0699e81fe3b5b13c6b1b33b1fd09
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MotherController
@@ -652,7 +653,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: 79891c9a341ec2bcbd51b011065a4efb
+      Hash: 258a4f7c63d0857893d0c8d36ff67bb2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController

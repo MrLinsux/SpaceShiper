@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
     public bool isTest = false;
     public AudioClip buttonClick;
     public GameObject soundController;
+    public GameObject mainCamera;
+    public MotherController motherController;
 
     #region Play
     public GameObject playerCanvas;
@@ -61,6 +63,12 @@ public class UIController : MonoBehaviour
     public GameObject mainCanvas;
     public Text money;
 
+    public GameObject vibrBut;
+    public GameObject soundBut;
+    public GameObject musicBut;
+    public GameObject soundSlider;
+    public GameObject musicSlider;
+
     public void StartGame()
     {
         mainCanvas.SetActive(false);
@@ -97,13 +105,15 @@ public class UIController : MonoBehaviour
             slider.GetComponent<Slider>().interactable = false;
 
             EventTrigger trig;
-            if(slider.TryGetComponent<EventTrigger>(out trig))
-                trig.triggers.Clear();
+            if (slider.TryGetComponent<EventTrigger>(out trig))
+            {
+                trig.triggers = new List<EventTrigger.Entry>();
+            }
         }
         else
         {
             // включаем
-            slider.transform.GetChild(0).GetComponent<Image>().color = MotherController.mainColors[2];
+            slider.transform.GetChild(0).GetComponent<Image>().color = MotherController.mainColors[2] - new Color(0, 0, 0, 1 - 0.572549f);
             slider.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = MotherController.mainColors[2];
             slider.transform.GetChild(2).GetChild(0).GetComponent<Image>().color = MotherController.mainColors[2];
             slider.GetComponent<Slider>().interactable = true;
@@ -117,6 +127,10 @@ public class UIController : MonoBehaviour
                 trig.triggers.Add(entry);
             }
         }
+    }
+    public void Vibrate(int time)
+    {
+        Vibration.Vibrate(time);
     }
     #endregion
 
@@ -180,6 +194,35 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("onSound"))
+        {
+            // восстанавливаем настройки из реестра
+            Vibration.onVibrate = (PlayerPrefs.GetInt("onVibration") == 1);
+            if (!Vibration.onVibrate)
+                ReverseButton(vibrBut);
+
+
+            soundController.GetComponent<AudioSource>().mute = (PlayerPrefs.GetInt("onSound") == 1);
+            soundController.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("soundVol");
+            if (soundController.GetComponent<AudioSource>().mute)
+            {
+                ReverseButton(soundBut);
+                ReverseSlider(soundSlider);
+            }
+
+            mainCamera.GetComponent<AudioSource>().mute = (PlayerPrefs.GetInt("onMusic") == 1);
+            mainCamera.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("musicVol");
+            if (mainCamera.GetComponent<AudioSource>().mute)
+            {
+                ReverseButton(musicBut);
+                ReverseSlider(musicSlider);
+            }
+
+            soundSlider.GetComponent<Slider>().value = soundController.GetComponent<AudioSource>().volume;
+            musicSlider.GetComponent<Slider>().value = mainCamera.GetComponent<AudioSource>().volume;
+        }
+
+
         if (isTest)
         {
             var gameParamsNames = new string[]

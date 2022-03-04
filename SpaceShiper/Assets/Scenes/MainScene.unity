@@ -2310,6 +2310,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1204782160}
+        m_TargetAssemblyTypeName: MotherController, Assembly-CSharp
+        m_MethodName: SaveSettingsPrefs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &239281222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6000,7 +6012,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8365,7 +8377,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10665,6 +10677,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1204782160}
+        m_TargetAssemblyTypeName: MotherController, Assembly-CSharp
+        m_MethodName: SaveSettingsPrefs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1149926625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11118,6 +11142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492089551c05d034784efcab849395ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundController: {fileID: 473181935}
+  mainCamera: {fileID: 519420028}
+  cW: 0
+  cI: 0
   levels: []
   worldIcon: {fileID: 1149828791}
   levelsPanel: {fileID: 257740762}
@@ -102534,9 +102562,9 @@ RectTransform:
   m_Father: {fileID: 1538336523}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 270.4275, y: -60}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352270931
@@ -102610,6 +102638,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2092088976}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: ReverseVibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1204782160}
+        m_TargetAssemblyTypeName: MotherController, Assembly-CSharp
+        m_MethodName: SaveSettingsPrefs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -103370,8 +103410,8 @@ RectTransform:
   m_Father: {fileID: 1578653765}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -103639,9 +103679,9 @@ RectTransform:
   m_Father: {fileID: 1538336523}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 400.71252, y: -60}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461988665
@@ -103719,6 +103759,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1461988663}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1204782160}
+        m_TargetAssemblyTypeName: MotherController, Assembly-CSharp
+        m_MethodName: SaveSettingsPrefs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -104021,7 +104073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1493759457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -104114,9 +104166,9 @@ RectTransform:
   m_Father: {fileID: 1538336523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 140.1425, y: -60}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1516460648
@@ -104915,9 +104967,9 @@ RectTransform:
   m_Father: {fileID: 1538336523}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 530.9975, y: -60}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1589478973
@@ -104995,6 +105047,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1589478971}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1204782160}
+        m_TargetAssemblyTypeName: MotherController, Assembly-CSharp
+        m_MethodName: SaveSettingsPrefs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -108923,8 +108987,8 @@ RectTransform:
   m_Father: {fileID: 1533555919}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -110074,12 +110138,19 @@ MonoBehaviour:
   isTest: 0
   buttonClick: {fileID: 8300000, guid: 92cc23badecbd144fa679068b1380df8, type: 3}
   soundController: {fileID: 473181935}
+  mainCamera: {fileID: 519420028}
+  motherController: {fileID: 1204782160}
   playerCanvas: {fileID: 114324155}
   restartPanel: {fileID: 1816612597}
   pauseMenu: {fileID: 810539736}
   timer: {fileID: 2060062691}
   mainCanvas: {fileID: 944611245}
   money: {fileID: 0}
+  vibrBut: {fileID: 1352270929}
+  soundBut: {fileID: 1461988663}
+  musicBut: {fileID: 1589478971}
+  soundSlider: {fileID: 239281219}
+  musicSlider: {fileID: 1149926622}
 --- !u!1 &2094143999
 GameObject:
   m_ObjectHideFlags: 0

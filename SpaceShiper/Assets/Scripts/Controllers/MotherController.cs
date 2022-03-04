@@ -23,6 +23,11 @@ public class MotherController : MonoBehaviour
         }
     }
     private int world = 0;
+    public GameObject soundController;
+    public GameObject mainCamera;
+
+    public int cW;  // текущий мир
+    public int cI;  // текущий индекс страницы
 
     public int Money
     {
@@ -135,6 +140,8 @@ public class MotherController : MonoBehaviour
             levelsPanel.transform.localScale = new Vector3(0.85f, 0.85f, 1f);
 
         worldIcon.text = ((char)page.W).ToString();
+        cW = page.W; cI = page.I;
+        SaveCurrentPage();
     }
 
     [Serializable]
@@ -147,10 +154,23 @@ public class MotherController : MonoBehaviour
 
         public Level(int _world, int _level, int _type, int _stars) { world = _world; level = _level; type = _type; stars = _stars; }
     }
-    class SaveData
+
+
+    public void SaveSettingsPrefs()
     {
-        public int money;
-        public int world;
-        public int level;
+        PlayerPrefs.SetInt("onVibration", Vibration.onVibrate ? 1 : 0);
+        PlayerPrefs.SetInt("onSound", soundController.GetComponent<AudioSource>().mute ? 1 : 0);
+        PlayerPrefs.SetInt("onMusic", mainCamera.GetComponent<AudioSource>().mute ? 1 : 0);
+
+        PlayerPrefs.SetFloat("soundVol", soundController.GetComponent<AudioSource>().volume);
+        PlayerPrefs.SetFloat("musicVol", mainCamera.GetComponent<AudioSource>().volume);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveCurrentPage()
+    {
+        PlayerPrefs.SetInt("currentWorld", cW);
+        PlayerPrefs.SetInt("currentIndex", cI);
+        PlayerPrefs.Save();
     }
 }
