@@ -26,7 +26,7 @@ public class LevelButton : MonoBehaviour
         {
             s[i].SetActive(false);
         }
-        line.color = motherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
+        line.color = MotherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
 
         // тут раскрашиваем кнопку соответственно её статусу
         if (status == LevelStatus.active)
@@ -39,18 +39,20 @@ public class LevelButton : MonoBehaviour
         }
         else if(status == LevelStatus.close)
         {
+            this.transform.localScale = Vector3.one;
             var text = this.transform.GetChild(0).GetComponent<Text>();
             this.transform.GetChild(0).GetComponent<Text>().text = "X";
 
-            text.color = motherController.mainColors[4];
+            text.color = MotherController.mainColors[4];
 
             this.GetComponent<Button>().interactable = false;
             var img = this.GetComponent<Image>();
-            img.color = motherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
+            img.color = MotherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
         }
         else if(status == LevelStatus.complete)
         {
-            line.color = motherController.mainColors[0];
+            this.transform.localScale = Vector3.one;
+            line.color = MotherController.mainColors[0];
             this.GetComponent<Button>().interactable = true;
             for (int i = 0; i < stars; i++)
             {

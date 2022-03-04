@@ -27,7 +27,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -165,47 +164,49 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2840}
     - Class: 114
-      Script: {instanceID: 3066}
+      Script: {instanceID: 3064}
     - Class: 114
-      Script: {instanceID: 3076}
+      Script: {instanceID: 3074}
     - Class: 114
-      Script: {instanceID: 3128}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3210}
+      Script: {instanceID: 3208}
     - Class: 114
-      Script: {instanceID: 3324}
+      Script: {instanceID: 3322}
     - Class: 114
-      Script: {instanceID: 3438}
+      Script: {instanceID: 3436}
     - Class: 114
-      Script: {instanceID: 3830}
+      Script: {instanceID: 3828}
     - Class: 114
-      Script: {instanceID: 3868}
+      Script: {instanceID: 3866}
     - Class: 114
-      Script: {instanceID: 3914}
+      Script: {instanceID: 3912}
     - Class: 114
-      Script: {instanceID: 4186}
+      Script: {instanceID: 4184}
     - Class: 114
-      Script: {instanceID: 4206}
+      Script: {instanceID: 4204}
     - Class: 114
-      Script: {instanceID: 4304}
+      Script: {instanceID: 4302}
     - Class: 114
-      Script: {instanceID: 4310}
+      Script: {instanceID: 4308}
     - Class: 114
-      Script: {instanceID: 4372}
+      Script: {instanceID: 4370}
     - Class: 114
-      Script: {instanceID: 4376}
+      Script: {instanceID: 4374}
     - Class: 114
-      Script: {instanceID: 4426}
+      Script: {instanceID: 4424}
     - Class: 114
-      Script: {instanceID: 4506}
+      Script: {instanceID: 4504}
     - Class: 114
-      Script: {instanceID: 4572}
+      Script: {instanceID: 4570}
     - Class: 114
-      Script: {instanceID: 4582}
+      Script: {instanceID: 4580}
     - Class: 114
-      Script: {instanceID: 4590}
+      Script: {instanceID: 4588}
     - Class: 114
-      Script: {instanceID: 4822}
+      Script: {instanceID: 4820}
+    - Class: 114
+      Script: {instanceID: 5086}
     - Class: 114
       Script: {instanceID: 5162}
     - Class: 114
@@ -214,8 +215,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5668}
     - Class: 114
       Script: {instanceID: 5746}
-    - Class: 114
-      Script: {instanceID: 72734}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -917,6 +916,12 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundController
+  - hash:
+      serializedVersion: 2
       Hash: 38267070939b9a8b750d4c31450637ab
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -987,12 +992,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Turel
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SoundController
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity

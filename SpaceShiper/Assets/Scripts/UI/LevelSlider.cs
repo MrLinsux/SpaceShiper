@@ -93,13 +93,13 @@ public class LevelSlider : MonoBehaviour
                     {
                         currentPage--;
                         motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
-                        //Handheld.Vibrate();
+                        Vibration.Vibrate(70);
                     }
                     else if(end.y < start.y)
                     {
                         currentPage++;
                         motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
-                        //Handheld.Vibrate();
+                        Vibration.Vibrate(70);
                     }
                     else
                         return;

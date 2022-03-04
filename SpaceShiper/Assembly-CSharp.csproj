@@ -53,20 +53,20 @@
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Traps\Laser.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Portal.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\MultySideTrap.cs" />
-    <Compile Include="Assets\Scripts\MotherController.cs" />
+    <Compile Include="Assets\Scripts\Traps\MultySideTrap.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MotherController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Pusher.cs" />
     <Compile Include="Assets\Scripts\UI\LevelSelector.cs" />
-    <Compile Include="Assets\Scripts\SingleSideTrap.cs" />
+    <Compile Include="Assets\Scripts\Traps\SingleSideTrap.cs" />
     <Compile Include="Assets\Scripts\UI\AudioController.cs" />
-    <Compile Include="Assets\Scripts\UI\UIController.cs" />
-    <Compile Include="Assets\Scripts\TestController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\TestController.cs" />
     <Compile Include="Assets\Scripts\Flash.cs" />
-    <Compile Include="Assets\Scripts\LaserTrigger.cs" />
+    <Compile Include="Assets\Scripts\Traps\LaserTrigger.cs" />
     <Compile Include="Assets\Scripts\UI\Energy.cs" />
     <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
     <Compile Include="Assets\Scripts\Enviroment\PlayerSpawner.cs" />
@@ -76,9 +76,10 @@
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\UI\LevelSlider.cs" />
+    <Compile Include="Assets\Scripts\UI\SoundController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\UI\SoundController.cs" />
+    <Compile Include="Assets\Scripts\UI\Vibration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
