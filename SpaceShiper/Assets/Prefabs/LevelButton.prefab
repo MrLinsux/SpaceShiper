@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 47.7, y: -13.02}
-  m_SizeDelta: {x: 35, y: 29.17}
+  m_AnchoredPosition: {x: 47.7, y: -15}
+  m_SizeDelta: {x: 35, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8306316257092368306
 CanvasRenderer:
@@ -176,6 +176,7 @@ MonoBehaviour:
   world: 0
   level: 0
   controller: {fileID: 0}
+  motherController: {fileID: 0}
   line: {fileID: 0}
 --- !u!114 &5748337922004433133
 MonoBehaviour:
@@ -223,11 +224,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8617182482407922831}
         m_TargetAssemblyTypeName: LevelButton, Assembly-CSharp
-        m_MethodName: LoadLevel
-        m_Mode: 1
+        m_MethodName: PrepareLevel
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -346,8 +347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -13.02}
-  m_SizeDelta: {x: 35, y: 29.17}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 35, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8306316257848269388
 CanvasRenderer:
@@ -421,8 +422,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -50, y: -13.02}
-  m_SizeDelta: {x: 35, y: 29.17}
+  m_AnchoredPosition: {x: -50, y: -15}
+  m_SizeDelta: {x: 35, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8306316258068125242
 CanvasRenderer:
