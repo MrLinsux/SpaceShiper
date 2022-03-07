@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\UI\SoundController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\Ender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

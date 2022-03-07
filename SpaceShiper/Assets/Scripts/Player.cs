@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public Direction direction = Direction.zero;            // текущее направление
     public Direction mainDirection = Direction.zero;        // основное направление
     public Direction secondDirection = Direction.zero;      // направление в ѕам€ти поврота
-    private Coroutine movement;                             // переменна€ дл€ корутины Move()
+    public Coroutine movement;                             // переменна€ дл€ корутины Move()
     private Vector2 startPos;                               // точка начала вектора свойпа
     private Vector2 vDirection;                             // вектор свайпа
     private int wasTeleported;

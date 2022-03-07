@@ -55,16 +55,21 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        //LoadLevel(world, level);
+        LoadLevel(world, level);
 
-        //if (isEditLevel)
-        //    Time.timeScale = 0;
-        ////player.GetComponent<Player>().enabled = false;
-        //Application.targetFrameRate = 60;
+        if (isEditLevel)
+            Time.timeScale = 0;
+        //player.GetComponent<Player>().enabled = false;
+        Application.targetFrameRate = 60;
     }
 
     private void FixedUpdate()
     {
         Time.timeScale = worldSpeed;
+    }
+
+    public void CompleteLevel()
+    {
+
     }
 }

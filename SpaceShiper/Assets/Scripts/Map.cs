@@ -24,6 +24,7 @@ public class Map : MonoBehaviour
     public GameObject door;                     // обычная дверь
     public GameObject timeDoor;                 // дверь с таймером
     public GameObject playerSpawner;            // объект начала уровня
+    public GameObject ender;                    // выход с уровня
     public GameObject thicker;                  // ловушка-бумеранг
 
     public void BuildLevel(int world, int level)
@@ -124,6 +125,7 @@ public class Map : MonoBehaviour
         }
 
         Instantiate(playerSpawner, mapPlan.playerSpawner.pos, Quaternion.identity, this.transform).GetComponent<PlayerSpawner>().player = player;
+        Instantiate(ender, mapPlan.ender.pos, Quaternion.identity, this.transform);
     }
 
     public void SaveLevel(int world, int level)
@@ -207,6 +209,10 @@ public class Map : MonoBehaviour
             {
                 map.playerSpawner = new MapTiles.Spawner(child[i].position);
             }
+            else if (child[i].GetComponent<Ender>())
+            {
+                map.ender = new MapTiles.Ender(child[i].position);
+            }
             else if(child[i].GetComponent<Thicker>())
             {
                 map.thickers.Add(new MapTiles.Thicker(child[i].position, child[i].GetChild(1).position, child[i].GetChild(2).position));
@@ -261,6 +267,7 @@ public class Map : MonoBehaviour
         public List<TimeDoor> timeDoors = new List<TimeDoor>();
         public List<Thicker> thickers = new List<Thicker>();
         public Spawner playerSpawner;
+        public Ender ender;
 
 
         [System.Serializable]
@@ -435,6 +442,23 @@ public class Map : MonoBehaviour
             }
 
             public Spawner(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+        }
+
+        [System.Serializable]
+        public class Ender
+        {
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
+
+            public Ender(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
         }
 
         [System.Serializable]
