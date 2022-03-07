@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
+    public AudioClip dashSound;
     public float moveSpeed = 1f;        // скорость движения игрока
     public float minSwipeSpeed = 1f;    // минимальная скорость свайпа пальцеп для надала движения
     public float minVDirection = 1f;    // минимальная длина свайпа для начала движения
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     private int wasTeleported;
 
     public GameObject flash;                                // вспышка в начале движения
+    public AudioSource soundController;
     public LineRenderer vDirectionLine;
     public GameController controller;                // игровой контроллер
     public UIController uIController;
@@ -70,11 +72,6 @@ public class Player : MonoBehaviour
 
             Invoke("OnRestartPanel", 2f);
         }
-    }
-
-    private void OnRestartPanel()
-    {
-        uIController.restartPanel.SetActive(true);
     }
 
     private IEnumerator MovementChecker()
@@ -122,6 +119,7 @@ public class Player : MonoBehaviour
         isMove = true;
         animator.SetBool("isMove", true);
         animator.SetInteger("Dist", dist);
+        soundController.PlayOneShot(dashSound);
 
         Debug.Log("13 - " + dist);
         if (dist == 1)

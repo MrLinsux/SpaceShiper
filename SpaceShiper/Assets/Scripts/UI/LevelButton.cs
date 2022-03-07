@@ -85,7 +85,7 @@ public class LevelButton : MonoBehaviour
             loadLevelPanel.transform.GetChild(1).GetChild(i).GetComponent<Image>().color = new Color(0.4433962f, 0.4433962f, 0.4433962f);
 
 
-        loadLevelPanel.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { controller.LoadLevel(world, level); });
+        loadLevelPanel.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { controller.LoadLevel(world, level); loadLevelPanel.SetActive(false); });
 
         loadLevelPanel.SetActive(true);
     }

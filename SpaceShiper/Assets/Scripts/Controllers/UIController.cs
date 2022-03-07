@@ -18,7 +18,6 @@ public class UIController : MonoBehaviour
 
     #region Play
     public GameObject playerCanvas;
-    public GameObject restartPanel;
     public GameObject pauseMenu;
     public Text timer;
 
@@ -34,7 +33,7 @@ public class UIController : MonoBehaviour
     }
     private IEnumerator ResumeGame()
     {
-        int time = 3;
+        int time = 2;
         timer.transform.parent.gameObject.SetActive(true);
         pauseMenu.SetActive(false);
         while (time >= 0)
