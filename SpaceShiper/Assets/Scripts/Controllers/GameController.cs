@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     public bool isEditLevel = false;
     public float worldSpeed = 1f;
     public int stars = 0;
+    public int points = 0;
+    public int coins = 0;
     public bool isActiveLevel = true;
 
     public void LoadLevel(int world, int level)
@@ -26,6 +28,7 @@ public class GameController : MonoBehaviour
         // функция загрузки уровня
         ClearLevel();
         Time.timeScale = 1;
+        stars = 0; points = 0; coins = 0;
         pauseMenuTitle.text = "LVL " + ((char)world).ToString() + "-" + level.ToString();
         try
         {
@@ -56,10 +59,16 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        //LoadLevel(world, level);
-
-        //if (isEditLevel)
-        //    Time.timeScale = 0;
+        if (isEditLevel)
+        {
+            LoadLevel(world, level);
+            Time.timeScale = 0;
+            uIController.mainCanvas.SetActive(false);
+        }
+        else
+        {
+            uIController.mainCanvas.SetActive(true);
+        }
         ////player.GetComponent<Player>().enabled = false;
         Application.targetFrameRate = 60;
     }
@@ -86,10 +95,23 @@ public class GameController : MonoBehaviour
         // успешное завершение уровня
         ClearLevel();
         if (isActiveLevel)
+        {
+            // при прохождении нового уровня
             motherController.playerProgress.levels.Add(new MotherController.PlayerProgress.Level(world, level, stars));
+            motherController.activeLevel++;
+        }
         else
-            motherController.playerProgress.levels[(world - 65) * 18 + level] = new MotherController.PlayerProgress.Level(world, level, stars);
-        motherController.activeLevel++;
+        {
+            // при перепрохождении проёденного уровня
+            // если набрал больше звёзд
+            motherController.playerProgress.levels[(world - 65) * 18 + level].stars =
+                (stars > motherController.playerProgress.levels[(world - 65) * 18 + level].stars) ? 
+                stars : 
+                motherController.playerProgress.levels[(world - 65) * 18 + level].stars;
+        }
+
+        motherController.Money = coins;
+
         motherController.SavePlayerProgress();
         motherController.LoadLevelSelector(new LevelSlider.Page(motherController.cW, motherController.cI));
 

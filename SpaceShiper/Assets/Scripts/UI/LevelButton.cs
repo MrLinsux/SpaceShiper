@@ -29,7 +29,14 @@ public class LevelButton : MonoBehaviour
         {
             s[i].SetActive(false);
         }
-        line.color = MotherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
+        if (line == null)
+        {
+            Debug.LogError("Null Line");
+        }
+        else
+        {
+            line.color = MotherController.mainColors[0] - new Color(0f, 0f, 0f, 0.5f);
+        }
 
         // тут раскрашиваем кнопку соответственно её статусу
         if (status == LevelStatus.active)

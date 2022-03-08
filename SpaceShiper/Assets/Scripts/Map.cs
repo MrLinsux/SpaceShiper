@@ -11,6 +11,7 @@ public class Map : MonoBehaviour
 
     // набор объектов, из которых составляется уровень
     public TileBase wayTile;             // тайлы дороги
+    public TileBase coinTile;           // тоже дорога, но с точками
     public TileBase wallTile;            // тайлы стены
 
     public GameObject[] singleSideTraps;        // ловушки одиночной направленности
@@ -26,6 +27,10 @@ public class Map : MonoBehaviour
     public GameObject playerSpawner;            // объект начала уровня
     public GameObject ender;                    // выход с уровня
     public GameObject thicker;                  // ловушка-бумеранг
+    public GameObject coin;                     // монетка в виде денежного знака
+    public GameObject point;                    // точка для отслеживания прогресса прохождения уровня
+    public GameObject star;                     // звёзды
+    public int totalPoints = 0;                 // общее число точек, нужно для отслеживания прогресса уровня
 
     public void BuildLevel(int world, int level)
     {
@@ -41,7 +46,13 @@ public class Map : MonoBehaviour
             var way = mapPlan.way[i];
             SetWayTile(way.pos, wayTile);
         }
-        for(int i = 0; i < mapPlan.singleSideTraps.Count; i++)
+        for (int i = 0; i < mapPlan.coinWay.Count; i++)
+        {
+            // ставим дорогу
+            var coinWay = mapPlan.coinWay[i];
+            SetCoinWayTile(coinWay.pos, coinTile);
+        }
+        for (int i = 0; i < mapPlan.singleSideTraps.Count; i++)
         {
             // расставляем однонаправленные ловушки
             var trap = mapPlan.singleSideTraps[i];
@@ -123,6 +134,12 @@ public class Map : MonoBehaviour
 
             Instantiate(this.thicker, thicker.pos, Quaternion.Euler(0, 0, rotate), this.transform).GetComponent<Thicker>().SetPoints(thicker.posA, thicker.posB);
         }
+        for (int i = 0; i < mapPlan.stars.Count; i++)
+        {
+            // размещаем звёзды
+            var star = mapPlan.stars[i];
+            Instantiate(this.star, star.pos, Quaternion.identity, tilemap.transform);
+        }
 
         Instantiate(playerSpawner, mapPlan.playerSpawner.pos, Quaternion.identity, this.transform).GetComponent<PlayerSpawner>().player = player;
         Instantiate(ender, mapPlan.ender.pos, Quaternion.identity, this.transform);
@@ -143,6 +160,10 @@ public class Map : MonoBehaviour
                     if (wayTile == tile)
                     {
                         map.way.Add(new MapTiles.Way(x, y, z));
+                    }
+                    else if(coinTile == tile)
+                    {
+                        map.coinWay.Add(new MapTiles.CoinWay(x, y, z));
                     }
                 }
             }
@@ -217,6 +238,10 @@ public class Map : MonoBehaviour
             {
                 map.thickers.Add(new MapTiles.Thicker(child[i].position, child[i].GetChild(1).position, child[i].GetChild(2).position));
             }
+            else if (child[i].GetComponent<Star>())
+            {
+                map.stars.Add(new MapTiles.Star(child[i].position));
+            }
         }
 
         System.IO.File.WriteAllText(
@@ -249,6 +274,25 @@ public class Map : MonoBehaviour
 
         tilemap.SetTile(pos, tile);
     }
+    private void SetCoinWayTile(Vector3Int pos, TileBase tile)
+    {
+        // что-то вроде кисти, которая ставит дорогу, а вокруг стены
+
+        for (int i = -1; i <= 1; i++)
+            for (int j = -1; j <= 1; j++)
+                tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up + Vector3Int.back, wallTile);
+
+        tilemap.SetTile(pos, coinTile);
+        if (UnityEngine.Random.value <= 0.11f)
+        {
+            Instantiate(coin, pos, Quaternion.identity, this.transform);
+        }
+        else
+        {
+            Instantiate(point, pos, Quaternion.identity, this.transform);
+            totalPoints++;
+        }
+    }
 
     public class MapTiles
     {
@@ -258,6 +302,7 @@ public class Map : MonoBehaviour
         // подробнее про структуру уровня в Json в Концепт-документе
 
         public List<Way> way = new List<Way>();
+        public List<CoinWay> coinWay = new List<CoinWay>();
         public List<RuleTiles> ruleTiles = new List<RuleTiles>();
         public List<SingleSideTrap> singleSideTraps = new List<SingleSideTrap>();
         public List<MultySideTrap> multySideTraps = new List<MultySideTrap>();
@@ -266,6 +311,7 @@ public class Map : MonoBehaviour
         public List<Door> doors = new List<Door>();
         public List<TimeDoor> timeDoors = new List<TimeDoor>();
         public List<Thicker> thickers = new List<Thicker>();
+        public List<Star> stars = new List<Star>();
         public Spawner playerSpawner;
         public Ender ender;
 
@@ -284,6 +330,22 @@ public class Map : MonoBehaviour
                 }
             }
             public Way(int _cellX, int _cellY, int _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+        }
+
+        [System.Serializable]
+        public class CoinWay
+        {
+            public int x;
+            public int y;
+            public int z;
+            public Vector3Int pos
+            {
+                get
+                {
+                    return new Vector3Int(x, y, z);
+                }
+            }
+            public CoinWay(int _cellX, int _cellY, int _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
         }
 
         [System.Serializable]
@@ -490,6 +552,21 @@ public class Map : MonoBehaviour
             public Thicker(Vector3 pos, Vector3 _posA, Vector3 _posB) { x = pos.x; y = pos.y; z = pos.z; xA = _posA.x; yA = _posA.y; zA = _posA.z; xB = _posB.x; yB = _posB.y; zB = _posB.z; }
         }
 
+        [System.Serializable]
+        public class Star
+        {
+            public float x;
+            public float y;
+            public float z;
+            public Vector3 pos
+            {
+                get
+                {
+                    return new Vector3(x, y, z);
+                }
+            }
+            public Star(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+        }
     }
 
 }

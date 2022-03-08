@@ -751,10 +751,12 @@ MonoBehaviour:
   menuAmbient: {fileID: 8300000, guid: ac9c3c85b72eb7c4c9f133d3967615b0, type: 3}
   pauseMenuTitle: {fileID: 1390356519}
   world: 65
-  level: 1
-  isEditLevel: 1
+  level: 0
+  isEditLevel: 0
   worldSpeed: 1
   stars: 0
+  points: 0
+  coins: 0
   isActiveLevel: 1
 --- !u!4 &43818385
 Transform:
@@ -2439,7 +2441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -997.1726}
+  m_AnchoredPosition: {x: 420.66254, y: -997.1726}
   m_SizeDelta: {x: 470.98, y: 164.04999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242138729
@@ -3010,7 +3012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -104.7211}
+  m_AnchoredPosition: {x: 420.66254, y: -104.7211}
   m_SizeDelta: {x: 682.41, y: 101.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &265171075
@@ -4913,6 +4915,7 @@ MonoBehaviour:
   player: {fileID: 688669240}
   tilemap: {fileID: 453182900}
   wayTile: {fileID: 11400000, guid: 0bf204a0f4186ec40a62236c86efdf5d, type: 2}
+  coinTile: {fileID: 11400000, guid: 2f3b5b8022007404c91fb96c05aaead6, type: 2}
   wallTile: {fileID: 11400000, guid: d57735ac92b25694799e8060a41cd10e, type: 2}
   singleSideTraps:
   - {fileID: 1473921943992487392, guid: 7153eaaa28813444583411da3a34ffc5, type: 3}
@@ -4925,6 +4928,10 @@ MonoBehaviour:
   playerSpawner: {fileID: 1508811100973947459, guid: ca6ad8ed2897f6e4cb300e1b0dfe60d2, type: 3}
   ender: {fileID: 3127304285003966055, guid: 27fb3e1c6d42de74cbe37cbea404d6bc, type: 3}
   thicker: {fileID: 6700764873052418858, guid: e69a6569d16426e44ad1ce25ee756876, type: 3}
+  coin: {fileID: 383671852619588678, guid: 63c11d6d2d8bfef4b9d1276b3a05d237, type: 3}
+  point: {fileID: 2986965064756419141, guid: 75b5f755628686340948088ed1f0bebd, type: 3}
+  star: {fileID: 9061105480689083526, guid: bcaca585b66fc434da59b42717058993, type: 3}
+  totalPoints: 0
 --- !u!1 &473181935
 GameObject:
   m_ObjectHideFlags: 0
@@ -7653,16 +7660,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSound: {fileID: 8300000, guid: da0862fde5fbcb94fb73e539a28f37f5, type: 3}
-  moveSpeed: 0.8
+  moveSpeed: 0.62
   minSwipeSpeed: 2
   minVDirection: 1
   minDistanceForMR: 4
   directionChosen: 0
   isMove: 0
-  newWheelOn: 1
+  newWheelOn: 0
   onStartDelay: 0
   onStep1Delay: 0
-  onDeath: 0
+  onDeath: 1
   direction: 0
   mainDirection: 0
   secondDirection: 0
@@ -7873,7 +7880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -698.22046}
+  m_AnchoredPosition: {x: 420.66254, y: -698.22046}
   m_SizeDelta: {x: 606.08, y: 217.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &702629565
@@ -10400,8 +10407,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25.850006, y: -0.5999985}
-  m_SizeDelta: {x: -51.69, y: -20.04}
+  m_AnchoredPosition: {x: 22.459991, y: -0.5999985}
+  m_SizeDelta: {x: -72.76, y: -20.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &975183369
 MonoBehaviour:
@@ -10430,13 +10437,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 100
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 83313
+  m_Text: 0
 --- !u!222 &975183370
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10714,7 +10721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -997.1726}
+  m_AnchoredPosition: {x: 420.66254, y: -997.1726}
   m_SizeDelta: {x: 470.98, y: 164.04999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079074009
@@ -12335,12 +12342,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundController: {fileID: 473181935}
   mainCamera: {fileID: 519420028}
+  uiController: {fileID: 2092088976}
   cW: 0
   cI: 0
   activeWorld: 0
-  activeLevel: 0
+  _activeLevel: 0
   playerProgress:
     levels: []
+    money: 0
   levels: []
   worldIcon: {fileID: 1149828791}
   levelsPanel: {fileID: 257740762}
@@ -103238,7 +103247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -698.22046}
+  m_AnchoredPosition: {x: 420.66254, y: -698.22046}
   m_SizeDelta: {x: 606.08, y: 217.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1264489891
@@ -104509,7 +104518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -104.7211}
+  m_AnchoredPosition: {x: 420.66254, y: -104.7211}
   m_SizeDelta: {x: 682.41, y: 101.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1390356519
@@ -112100,7 +112109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 420.6625, y: -372.3683}
+  m_AnchoredPosition: {x: 420.66254, y: -372.3683}
   m_SizeDelta: {x: 606.08, y: 217.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2081381661
@@ -112276,7 +112285,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 421335791}
   timer: {fileID: 2060062691}
   mainCanvas: {fileID: 944611245}
-  money: {fileID: 0}
+  money: {fileID: 975183369}
   vibrBut: {fileID: 1352270929}
   soundBut: {fileID: 1461988663}
   musicBut: {fileID: 1589478971}

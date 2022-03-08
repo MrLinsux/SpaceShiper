@@ -427,6 +427,8 @@ public class Player : MonoBehaviour
     private bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
     {
         // функция для лучшего понимания кода
-        return controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0));
+        return 
+            (controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) || 
+            (controller.tilemap.GetComponent<Map>().coinTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0)));
     }
 }

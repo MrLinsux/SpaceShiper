@@ -25,6 +25,7 @@ public class MotherController : MonoBehaviour
     private int world = 0;
     public GameObject soundController;
     public GameObject mainCamera;
+    public UIController uiController;
 
     public int cW;  // текущий мир
     public int cI;  // текущий индекс страницы
@@ -75,6 +76,8 @@ public class MotherController : MonoBehaviour
                     _money /= 10;
                 }
             }
+
+            uiController.money.text = Money.ToString();
         }
     }
     private int orderMoney = 0;
@@ -200,12 +203,14 @@ public class MotherController : MonoBehaviour
         }
 
         public List<Level> levels = new List<Level>();      // тут храняться все уровни, которые игрок уже прошёл
+        public int money;
     }
 
     public void SavePlayerProgress()
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream fs = File.Create(Application.persistentDataPath + "/SystemData.dat");
+        playerProgress.money = Money;
         formatter.Serialize(fs, playerProgress);
         fs.Close();
         Debug.Log("Player Progress saved");
@@ -222,12 +227,14 @@ public class MotherController : MonoBehaviour
             activeWorld = playerProgress.levels[playerProgress.levels.Count - 1].world;
             activeLevel = playerProgress.levels[playerProgress.levels.Count - 1].level;
             activeLevel++;
+            Money = playerProgress.money;
             Debug.Log("Player Progress loaded");
         }
         else
         {
             activeWorld = 65;
             activeLevel = 0;
+            Money = 0;
             Debug.LogWarning("Player Progress is not detected");
         }
     }
