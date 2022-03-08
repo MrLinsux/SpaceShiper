@@ -29,6 +29,34 @@ public class MotherController : MonoBehaviour
     public int cW;  // текущий мир
     public int cI;  // текущий индекс страницы
 
+    public int activeWorld;
+    public int activeLevel
+    {
+        get
+        {
+            return _activeLevel;
+        }
+        set
+        {
+            if(value > 53)
+            {
+                activeWorld++;
+                _activeLevel = 0;
+            }
+            else if(value < 0)
+            {
+                activeWorld--;
+                _activeLevel = 53;
+            }
+            else
+            {
+                _activeLevel = value;
+            }
+        }
+    }
+    public int _activeLevel;
+    public PlayerProgress playerProgress;
+
     public int Money
     {
         get
@@ -71,19 +99,22 @@ public class MotherController : MonoBehaviour
 
     private void Start()
     {
+        LoadPlayerProgress();
     }
 
-    public void LoadLevelSelector(LevelSlider.Page page, LevelSlider.Page activePage, int activeLevel)
+    public void LoadLevelSelector(LevelSlider.Page page)
     {
         Level[] levelsType = new Level[18];
         System.Random rand = new System.Random();
         World = page.W;
+        var activePage = new LevelSlider.Page(activeWorld, Mathf.FloorToInt(activeLevel / 18));
+        activeWorld = activePage.W;
 
         if (page.W < activePage.W)
         {
             // до текущей страницы
             for (int i = 0; i < 18; i++)
-                levelsType[i] = new Level(World, i + (18 * page.I), 0, rand.Next(0, 4));
+                levelsType[i] = new Level(World, i + (18 * page.I), 0, playerProgress.levels[(page.W-65+page.I)*18+i].stars);
         }
         else if(page.W > activePage.W)
         {
@@ -97,7 +128,7 @@ public class MotherController : MonoBehaviour
             {
                 // до текущей страницы
                 for (int i = 0; i < 18; i++)
-                    levelsType[i] = new Level(World, i + (18 * page.I), 0, rand.Next(0, 4));
+                    levelsType[i] = new Level(World, i + (18 * page.I), 0, playerProgress.levels[(page.W - 65 + page.I) * 18 + i].stars);
             }
             else if (page.I > activePage.I)
             {
@@ -109,7 +140,7 @@ public class MotherController : MonoBehaviour
             {
                 // на текущей странице
                 for (int i = 0; i < activeLevel; i++)
-                    levelsType[i] = new Level(World, i + (18 * page.I), 0, rand.Next(0, 4));
+                    levelsType[i] = new Level(World, i + (18 * page.I), 0, playerProgress.levels[(page.W - 65 + page.I) * 18 + i].stars);
 
                 levelsType[activeLevel] = new Level(World, activeLevel + (18 * page.I), 1, 0);
 
@@ -155,6 +186,51 @@ public class MotherController : MonoBehaviour
         public Level(int _world, int _level, int _type, int _stars) { world = _world; level = _level; type = _type; stars = _stars; }
     }
 
+    [Serializable]
+    public class PlayerProgress
+    {
+        [Serializable]
+        public class Level
+        {
+            public int world = 0;
+            public int level = 0;
+            public int stars = 0;
+
+            public Level(int _world, int _level, int _stars) { world = _world; level = _level; stars = _stars; }
+        }
+
+        public List<Level> levels = new List<Level>();      // тут храняться все уровни, которые игрок уже прошёл
+    }
+
+    public void SavePlayerProgress()
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream fs = File.Create(Application.persistentDataPath + "/SystemData.dat");
+        formatter.Serialize(fs, playerProgress);
+        fs.Close();
+        Debug.Log("Player Progress saved");
+    }
+
+    public void LoadPlayerProgress()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SystemData.dat"))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream fs = File.Open(Application.persistentDataPath + "/SystemData.dat", FileMode.Open);
+            playerProgress = (PlayerProgress)formatter.Deserialize(fs);
+            fs.Close();
+            activeWorld = playerProgress.levels[playerProgress.levels.Count - 1].world;
+            activeLevel = playerProgress.levels[playerProgress.levels.Count - 1].level;
+            activeLevel++;
+            Debug.Log("Player Progress loaded");
+        }
+        else
+        {
+            activeWorld = 65;
+            activeLevel = 0;
+            Debug.LogWarning("Player Progress is not detected");
+        }
+    }
 
     public void SaveSettingsPrefs()
     {

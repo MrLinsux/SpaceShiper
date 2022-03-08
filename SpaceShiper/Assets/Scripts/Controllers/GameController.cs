@@ -11,12 +11,15 @@ public class GameController : MonoBehaviour
     public UIController uIController;
     public GameObject mainCamera;
     public SoundController soundController;
+    public MotherController motherController;
     public AudioClip gameAmbient;
     public AudioClip menuAmbient;
     public Text pauseMenuTitle;
     public int world = 0; public int level = 0;
     public bool isEditLevel = false;
     public float worldSpeed = 1f;
+    public int stars = 0;
+    public bool isActiveLevel = true;
 
     public void LoadLevel(int world, int level)
     {
@@ -70,7 +73,27 @@ public class GameController : MonoBehaviour
     {
         ClearLevel();
 
-        // точка появления игрока, которую мы получаем после построения уровня
+        player.GetComponent<Player>().OffPlayer();
+        player.SetActive(false);
+
+        uIController.mainCanvas.SetActive(true);
+        uIController.playerCanvas.SetActive(false);
+        mainCamera.GetComponent<AudioSource>().clip = menuAmbient;
+        mainCamera.GetComponent<AudioSource>().Play();
+    }
+    public void WinLevel()
+    {
+        // успешное завершение уровня
+        ClearLevel();
+        if (isActiveLevel)
+            motherController.playerProgress.levels.Add(new MotherController.PlayerProgress.Level(world, level, stars));
+        else
+            motherController.playerProgress.levels[(world - 65) * 18 + level] = new MotherController.PlayerProgress.Level(world, level, stars);
+        motherController.activeLevel++;
+        motherController.SavePlayerProgress();
+        motherController.LoadLevelSelector(new LevelSlider.Page(motherController.cW, motherController.cI));
+
+        player.GetComponent<Player>().OffPlayer();
         player.SetActive(false);
 
         uIController.mainCanvas.SetActive(true);

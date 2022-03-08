@@ -62,8 +62,6 @@ public class LevelSlider : MonoBehaviour
     }
 
     public Page currentPage = new Page(65, 0);      // текущая страница
-    public Page activeLevelPage = new Page(66, 1);  // страница, где находится активный уровень
-    public int activeLevel = 8;                     // номер активного уровня
 
     private Vector2 start;
     public MotherController motherController;
@@ -75,7 +73,7 @@ public class LevelSlider : MonoBehaviour
     void Start()
     {
         currentPage = new Page(PlayerPrefs.GetInt("currentWorld"), PlayerPrefs.GetInt("currentIndex"));
-        motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
+        motherController.LoadLevelSelector(currentPage);
     }
 
     void Update()
@@ -93,13 +91,13 @@ public class LevelSlider : MonoBehaviour
                     if(end.y > start.y)
                     {
                         currentPage--;
-                        motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
+                        motherController.LoadLevelSelector(currentPage);
                         Vibration.Vibrate(70);
                     }
                     else if(end.y < start.y)
                     {
                         currentPage++;
-                        motherController.LoadLevelSelector(currentPage, activeLevelPage, activeLevel);
+                        motherController.LoadLevelSelector(currentPage);
                         Vibration.Vibrate(70);
                     }
                     else

@@ -25,6 +25,6 @@ public class Ender : MonoBehaviour
 
     private void CompleteLevel()
     {
-        
+        controller.WinLevel();
     }
 }

@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private int wasTeleported;
 
     public GameObject flash;                                // вспышка в начале движения
+    public GameObject restartPanel;
     public AudioSource soundController;
     public LineRenderer vDirectionLine;
     public GameController controller;                // игровой контроллер
@@ -68,10 +69,23 @@ public class Player : MonoBehaviour
                 StopCoroutine(movement);
                 movement = null;
             }
+            Invoke("OnRestartPanel", 2f);
             this.gameObject.SetActive(false);
 
-            Invoke("OnRestartPanel", 2f);
         }
+    }
+
+    public void OffPlayer()
+    {
+        if(movement != null) StopCoroutine(movement);
+        movement = null;
+        this.transform.rotation.eulerAngles.Set(0, 0, 0);
+        isMove = false;
+    }
+
+    public void OnRestartPanel()
+    {
+        restartPanel.SetActive(true);
     }
 
     private IEnumerator MovementChecker()

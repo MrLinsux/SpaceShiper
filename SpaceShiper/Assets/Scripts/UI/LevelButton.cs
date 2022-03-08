@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LevelButton : MonoBehaviour
 {
     public enum LevelStatus { complete, active, close };        // все возможные состояния кнопки уровня: завершён, активен (незавершённый, но доступный) и закрытый соответственно
+    private LevelStatus status;
     public GameObject[] s;  // тут хранятся ссылки на иконки звёзд кнопки
     public int stars = 0;   // число звёзд
     public int world = 0;   // номер мира
@@ -22,6 +23,7 @@ public class LevelButton : MonoBehaviour
         world = _world;
         level = _level;
         stars = _stars;
+        this.status = status;
         this.name = level.ToString();
         for (int i = 0; i < 3; i++)
         {
@@ -37,6 +39,7 @@ public class LevelButton : MonoBehaviour
 
             this.transform.GetChild(0).GetComponent<Text>().text = level.ToString();
             this.GetComponent<Button>().interactable = true;
+            this.transform.GetChild(0).GetComponent<Text>().color = new Color(0.5660378f, 0.5660378f, 0.5660378f);
         }
         else if(status == LevelStatus.close)
         {
@@ -85,7 +88,10 @@ public class LevelButton : MonoBehaviour
             loadLevelPanel.transform.GetChild(1).GetChild(i).GetComponent<Image>().color = new Color(0.4433962f, 0.4433962f, 0.4433962f);
 
 
-        loadLevelPanel.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { controller.LoadLevel(world, level); loadLevelPanel.SetActive(false); });
+        loadLevelPanel.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => { 
+            controller.LoadLevel(world, level); 
+            loadLevelPanel.SetActive(false);
+            controller.isActiveLevel = (status == LevelStatus.active); });
 
         loadLevelPanel.SetActive(true);
     }

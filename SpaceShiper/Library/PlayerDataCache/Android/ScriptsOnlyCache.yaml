@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Door
+    - Ender
     - Energy
     - Flash
     - GameController
@@ -65,10 +66,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -80,6 +79,7 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.HorizontalLayoutGroup
@@ -131,91 +131,95 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 650}
+      Script: {instanceID: 652}
     - Class: 114
-      Script: {instanceID: 1482}
+      Script: {instanceID: 1484}
     - Class: 114
-      Script: {instanceID: 1664}
+      Script: {instanceID: 1666}
     - Class: 114
-      Script: {instanceID: 1684}
+      Script: {instanceID: 1686}
     - Class: 114
-      Script: {instanceID: 1696}
+      Script: {instanceID: 1698}
     - Class: 114
-      Script: {instanceID: 1742}
+      Script: {instanceID: 1744}
     - Class: 114
-      Script: {instanceID: 1754}
+      Script: {instanceID: 1756}
     - Class: 114
-      Script: {instanceID: 1780}
+      Script: {instanceID: 1782}
     - Class: 114
-      Script: {instanceID: 1814}
+      Script: {instanceID: 1816}
     - Class: 114
-      Script: {instanceID: 1860}
+      Script: {instanceID: 1862}
     - Class: 114
-      Script: {instanceID: 2022}
+      Script: {instanceID: 2024}
     - Class: 114
-      Script: {instanceID: 2248}
+      Script: {instanceID: 2250}
     - Class: 114
-      Script: {instanceID: 2256}
+      Script: {instanceID: 2258}
     - Class: 114
-      Script: {instanceID: 2380}
+      Script: {instanceID: 2382}
     - Class: 114
-      Script: {instanceID: 2632}
+      Script: {instanceID: 2634}
     - Class: 114
-      Script: {instanceID: 2676}
+      Script: {instanceID: 2678}
     - Class: 114
-      Script: {instanceID: 2840}
+      Script: {instanceID: 2842}
     - Class: 114
-      Script: {instanceID: 3064}
+      Script: {instanceID: 2928}
     - Class: 114
-      Script: {instanceID: 3074}
+      Script: {instanceID: 3068}
     - Class: 114
-      Script: {instanceID: 3126}
+      Script: {instanceID: 3078}
     - Class: 114
-      Script: {instanceID: 3208}
+      Script: {instanceID: 3130}
     - Class: 114
-      Script: {instanceID: 3322}
+      Script: {instanceID: 3210}
     - Class: 114
-      Script: {instanceID: 3438}
+      Script: {instanceID: 3324}
     - Class: 114
-      Script: {instanceID: 3830}
+      Script: {instanceID: 3440}
     - Class: 114
-      Script: {instanceID: 3868}
+      Script: {instanceID: 3670}
     - Class: 114
-      Script: {instanceID: 3914}
+      Script: {instanceID: 3832}
     - Class: 114
-      Script: {instanceID: 4186}
+      Script: {instanceID: 3870}
     - Class: 114
-      Script: {instanceID: 4206}
+      Script: {instanceID: 3916}
     - Class: 114
-      Script: {instanceID: 4304}
+      Script: {instanceID: 4188}
     - Class: 114
-      Script: {instanceID: 4310}
+      Script: {instanceID: 4208}
     - Class: 114
-      Script: {instanceID: 4372}
+      Script: {instanceID: 4306}
     - Class: 114
-      Script: {instanceID: 4376}
+      Script: {instanceID: 4312}
     - Class: 114
-      Script: {instanceID: 4426}
+      Script: {instanceID: 4374}
     - Class: 114
-      Script: {instanceID: 4506}
+      Script: {instanceID: 4378}
     - Class: 114
-      Script: {instanceID: 4572}
+      Script: {instanceID: 4428}
     - Class: 114
-      Script: {instanceID: 4582}
+      Script: {instanceID: 4508}
     - Class: 114
-      Script: {instanceID: 4590}
+      Script: {instanceID: 4574}
     - Class: 114
-      Script: {instanceID: 4822}
+      Script: {instanceID: 4584}
     - Class: 114
-      Script: {instanceID: 5088}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 5164}
+      Script: {instanceID: 4824}
     - Class: 114
-      Script: {instanceID: 5202}
+      Script: {instanceID: 5090}
     - Class: 114
-      Script: {instanceID: 5670}
+      Script: {instanceID: 5166}
     - Class: 114
-      Script: {instanceID: 5748}
+      Script: {instanceID: 5204}
+    - Class: 114
+      Script: {instanceID: 5672}
+    - Class: 114
+      Script: {instanceID: 5750}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -323,7 +327,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: cc4c31360c7e94085a5d3ce41aedee54
+      Hash: edee598f9e74fb1c4c7e2dec6c2ffa41
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -377,7 +381,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 58ac7f8065b5dbd22010a7f31aee2a3e
+      Hash: ea9aaf9d27a3b88aeb1b9696ec226b74
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -431,7 +435,7 @@ ScriptsOnlyBuild:
     className: IKManager2D
   - hash:
       serializedVersion: 2
-      Hash: e1ac0699e81fe3b5b13c6b1b33b1fd09
+      Hash: 0871dd7422c105e188bbbf70730c0830
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MotherController
@@ -477,6 +481,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextMeshProUGUI
+  - hash:
+      serializedVersion: 2
+      Hash: ddefe7116f69beb3958bf0a483a8910f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Ender
   - hash:
       serializedVersion: 2
       Hash: b5057a59e5ba38f3a9c3b008c1f70a74
@@ -531,12 +541,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: LimbSolver2D
-  - hash:
-      serializedVersion: 2
-      Hash: 241cc3ca210b4682fe9ab5530523180e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: LevelSelector
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -653,7 +657,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: 258a4f7c63d0857893d0c8d36ff67bb2
+      Hash: 9c6f4e6e316b680db5b6882383da186b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
@@ -821,7 +825,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: 6d2a9219e2534cadfeac92119e6317ef
+      Hash: 17e7b75fdd455b4276b4cc93a0d95d2c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Map
@@ -833,7 +837,7 @@ ScriptsOnlyBuild:
     className: MainCamera
   - hash:
       serializedVersion: 2
-      Hash: 0d07dd7b4e64af539b0ae06e7f15dea1
+      Hash: 4805fe1418d9713044d991731acf0e17
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LevelSlider
@@ -996,4 +1000,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/mrPlag/Documents/Projects/Games/SpaceShiper/Builds/UI_Build.apk
+  playerPath: C:/Users/mrPlag/Documents/Projects/Games/SpaceShiper/Builds/Alpha_Build.apk
