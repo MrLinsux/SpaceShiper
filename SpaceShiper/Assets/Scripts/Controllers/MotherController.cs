@@ -26,6 +26,7 @@ public class MotherController : MonoBehaviour
     public GameObject soundController;
     public GameObject mainCamera;
     public UIController uiController;
+    public Image[] pageIndexes;
 
     public int cW;  // текущий мир
     public int cI;  // текущий индекс страницы
@@ -107,9 +108,14 @@ public class MotherController : MonoBehaviour
 
     public void LoadLevelSelector(LevelSlider.Page page)
     {
+        Debug.Log(page.W + "-"+page.I);
         Level[] levelsType = new Level[18];
-        System.Random rand = new System.Random();
         World = page.W;
+        for(int i = 0; i < 3; i++)
+        {
+            pageIndexes[i].color = new Color(0.5254902f, 0.5254902f, 0.5254902f);
+        }
+        pageIndexes[page.I].color = MotherController.mainColors[0];
         var activePage = new LevelSlider.Page(activeWorld, Mathf.FloorToInt(activeLevel / 18));
         activeWorld = activePage.W;
 
@@ -240,7 +246,7 @@ public class MotherController : MonoBehaviour
         {
             activeWorld = 65;
             activeLevel = 0;
-            Money = 0;
+            _money = 0;
             Debug.LogWarning("Player Progress is not detected");
         }
     }
@@ -269,8 +275,7 @@ public class MotherController : MonoBehaviour
         activeLevel = 0;
         activeWorld = 65;
         cW = 65; cI = 0;
-        LoadLevelSelector();
-        Money = 0;
+        _money = 0;
         if (File.Exists(Application.persistentDataPath + "/SystemData.dat"))
             File.Delete(Application.persistentDataPath + "/SystemData.dat");
     }

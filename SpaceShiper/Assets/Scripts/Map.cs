@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
     // набор объектов, из которых составляется уровень
     public TileBase wayTile;             // тайлы дороги
     public TileBase coinTile;           // тоже дорога, но с точками
-    public TileBase wallTile;            // тайлы стены
+    //public TileBase wallTile;            // тайлы стены
 
     public GameObject[] singleSideTraps;        // ловушки одиночной направленности
     private string[] singleSideTrapsNames;      // и их имена
@@ -185,14 +185,14 @@ public class Map : MonoBehaviour
                 var trapPos = tilemap.WorldToCell(child[i].position - new Vector3(0, 0, child[i].position.z));
                 var directions = child[i].GetComponent<MultySideTrap>().directions;
 
-                if (wallTile == tilemap.GetTile(trapPos + Vector3Int.right)) 
-                    directions[0] = false;
-                if (wallTile == tilemap.GetTile(trapPos + Vector3Int.up)) 
-                    directions[1] = false;
-                if (wallTile == tilemap.GetTile(trapPos + Vector3Int.left))
-                    directions[2] = false;
-                if (wallTile == tilemap.GetTile(trapPos + Vector3Int.down))
-                    directions[3] = false;
+                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.right)) 
+                    directions[0] = true;
+                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.up)) 
+                    directions[1] = true;
+                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.left))
+                    directions[2] = true;
+                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.down))
+                    directions[3] = true;
 
                 map.multySideTraps.Add(
                     new MapTiles.MultySideTrap(
@@ -268,9 +268,9 @@ public class Map : MonoBehaviour
     {
         // что-то вроде кисти, которая ставит дорогу, а вокруг стены
 
-        for (int i = -1; i <= 1; i++)
-            for (int j = -1; j <= 1; j++)
-                tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up + Vector3Int.back, wallTile);
+        //for (int i = -1; i <= 1; i++)
+        //    for (int j = -1; j <= 1; j++)
+        //        tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up + Vector3Int.back, wallTile);
 
         tilemap.SetTile(pos, tile);
     }
@@ -278,9 +278,9 @@ public class Map : MonoBehaviour
     {
         // что-то вроде кисти, которая ставит дорогу, а вокруг стены
 
-        for (int i = -1; i <= 1; i++)
-            for (int j = -1; j <= 1; j++)
-                tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up + Vector3Int.back, wallTile);
+        //for (int i = -1; i <= 1; i++)
+        //    for (int j = -1; j <= 1; j++)
+        //        tilemap.SetTile(pos + i * Vector3Int.right + j * Vector3Int.up + Vector3Int.back, wallTile);
 
         tilemap.SetTile(pos, coinTile);
         if (UnityEngine.Random.value <= 0.11f)

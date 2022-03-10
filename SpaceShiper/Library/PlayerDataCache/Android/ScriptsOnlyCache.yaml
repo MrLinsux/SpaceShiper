@@ -36,6 +36,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -191,8 +192,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3874}
     - Class: 114
-      Script: {instanceID: 3920}
-    - Class: 114
       Script: {instanceID: 4192}
     - Class: 114
       Script: {instanceID: 4212}
@@ -255,8 +254,6 @@ ScriptsOnlyBuild:
     - Class: 156049354
       Script: {instanceID: 0}
     - Class: 483693784
-      Script: {instanceID: 0}
-    - Class: 687078895
       Script: {instanceID: 0}
     - Class: 1839735485
       Script: {instanceID: 0}
@@ -449,7 +446,7 @@ ScriptsOnlyBuild:
     className: IKManager2D
   - hash:
       serializedVersion: 2
-      Hash: 40337b30fbe36a06560374fe7cdfc8e5
+      Hash: ab358a6f529abd8025b483eb49a472eb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MotherController
@@ -851,7 +848,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: e7c973ef43bb23cd8b8550485dfbc433
+      Hash: d60d0df3686a4dbd0060dc349e175f79
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Map

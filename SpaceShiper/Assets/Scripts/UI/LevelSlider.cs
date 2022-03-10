@@ -15,9 +15,9 @@ public class LevelSlider : MonoBehaviour
             set
             {
                 if (value < 65)
-                    w = 90;
+                    i = 0;
                 else if (value > 90)
-                    w = 65;
+                    i = 2;
                 else
                     w = value;
             }
@@ -32,13 +32,13 @@ public class LevelSlider : MonoBehaviour
             {
                 if (value < 0)
                 {
-                    W--;
                     i = 2;
+                    W--;
                 }
                 else if (value > 2)
                 {
-                    W++;
                     i = 0;
+                    W++;
                 }
                 else
                 {
@@ -90,14 +90,12 @@ public class LevelSlider : MonoBehaviour
                     Vector2 end = mainCamera.ScreenToWorldPoint(touch.position);
                     if(end.y > start.y)
                     {
-                        currentPage--;
-                        motherController.LoadLevelSelector(currentPage);
+                        motherController.LoadLevelSelector(currentPage--);
                         Vibration.Vibrate(70);
                     }
                     else if(end.y < start.y)
                     {
-                        currentPage++;
-                        motherController.LoadLevelSelector(currentPage);
+                        motherController.LoadLevelSelector(currentPage++);
                         Vibration.Vibrate(70);
                     }
                     else
