@@ -178,6 +178,12 @@ public class MotherController : MonoBehaviour
         SaveCurrentPage();
     }
 
+    public void LoadLevelSelector()
+    {
+        // перезагрузка страницы уровня
+        LoadLevelSelector(new LevelSlider.Page(cW, cI));
+    }
+
     [Serializable]
     class Level
     {
@@ -255,5 +261,17 @@ public class MotherController : MonoBehaviour
         PlayerPrefs.SetInt("currentWorld", cW);
         PlayerPrefs.SetInt("currentIndex", cI);
         PlayerPrefs.Save();
+    }
+
+    public void ResetPlayerProgress()
+    {
+        playerProgress.levels = new List<PlayerProgress.Level>();
+        activeLevel = 0;
+        activeWorld = 65;
+        cW = 65; cI = 0;
+        LoadLevelSelector();
+        Money = 0;
+        if (File.Exists(Application.persistentDataPath + "/SystemData.dat"))
+            File.Delete(Application.persistentDataPath + "/SystemData.dat");
     }
 }

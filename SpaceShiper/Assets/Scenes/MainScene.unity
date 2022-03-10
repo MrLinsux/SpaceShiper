@@ -4914,8 +4914,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 688669240}
   tilemap: {fileID: 453182900}
-  wayTile: {fileID: 11400000, guid: 0bf204a0f4186ec40a62236c86efdf5d, type: 2}
-  coinTile: {fileID: 11400000, guid: 2f3b5b8022007404c91fb96c05aaead6, type: 2}
+  wayTile: {fileID: 11400000, guid: eb917cdc0ee13394c8bce696b99d25a1, type: 2}
+  coinTile: {fileID: 11400000, guid: eb917cdc0ee13394c8bce696b99d25a1, type: 2}
   wallTile: {fileID: 11400000, guid: d57735ac92b25694799e8060a41cd10e, type: 2}
   singleSideTraps:
   - {fileID: 1473921943992487392, guid: 7153eaaa28813444583411da3a34ffc5, type: 3}
@@ -9554,7 +9554,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: REMOVE ADS
+  m_Text: 'RESET
+
+    PROGRESS'
 --- !u!222 &880964195
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -106931,7 +106933,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1610467933}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1204782160}
+        m_TargetAssemblyTypeName: MotherController, Assembly-CSharp
+        m_MethodName: ResetPlayerProgress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1610467933
 MonoBehaviour:
   m_ObjectHideFlags: 0
