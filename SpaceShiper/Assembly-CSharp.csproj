@@ -58,12 +58,14 @@
     <Compile Include="Assets\Scripts\Enviroment\Portal.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Traps\MultySideTrap.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\BitPoint.cs" />
     <Compile Include="Assets\Scripts\Controllers\MotherController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Ender.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Pusher.cs" />
     <Compile Include="Assets\Scripts\Traps\SingleSideTrap.cs" />
     <Compile Include="Assets\Scripts\UI\Vibration.cs" />
     <Compile Include="Assets\Scripts\UI\AudioController.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\BitCoin.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TestController.cs" />
     <Compile Include="Assets\Scripts\Flash.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Assets\Scripts\Enviroment\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Enviroment\TimeDoor.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Switcher.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\Star.cs" />
     <Compile Include="Assets\Scripts\Traps\Thicker.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MainCamera.cs" />
@@ -80,9 +83,7 @@
     <Compile Include="Assets\Scripts\UI\SoundController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\Enviroment\BitCoin.cs" />
-    <Compile Include="Assets\Scripts\Enviroment\BitPoint.cs" />
-    <Compile Include="Assets\Scripts\Enviroment\Star.cs" />
+    <Compile Include="Assets\Scripts\UI\ConsoleOut.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

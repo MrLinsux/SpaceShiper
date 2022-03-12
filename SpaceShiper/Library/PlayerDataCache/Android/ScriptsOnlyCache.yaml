@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - BitCoin
     - BitPoint
+    - ConsoleOut
     - Door
     - Ender
     - Energy
@@ -227,6 +228,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5678}
     - Class: 114
       Script: {instanceID: 5756}
+    - Class: 114
+      Script: {instanceID: 19958}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -1020,6 +1023,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Turel
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ConsoleOut
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
