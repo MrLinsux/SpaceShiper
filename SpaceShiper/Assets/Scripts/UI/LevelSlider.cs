@@ -72,7 +72,10 @@ public class LevelSlider : MonoBehaviour
 
     void Start()
     {
-        currentPage = new Page(PlayerPrefs.GetInt("currentWorld"), PlayerPrefs.GetInt("currentIndex"));
+        if (PlayerPrefs.HasKey("currentWorld"))
+            currentPage = new Page(PlayerPrefs.GetInt("currentWorld"), PlayerPrefs.GetInt("currentIndex"));
+        else
+            currentPage = new Page(65, 0);
         motherController.LoadLevelSelector(currentPage);
     }
 

@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
             // точка появления игрока, которую мы получаем после построения уровня
             this.world = world; this.level = level;
             player.SetActive(true);
+            player.transform.Rotate(0, 0, 0);
             tilemap.GetComponent<Map>().BuildLevel(world, level);
             uIController.mainCanvas.SetActive(false);
             uIController.playerCanvas.SetActive(true);
@@ -110,7 +111,7 @@ public class GameController : MonoBehaviour
                 motherController.playerProgress.levels[(world - 65) * 18 + level].stars;
         }
 
-        motherController.Money = coins;
+        motherController.Money += coins;
 
         motherController.SavePlayerProgress();
         motherController.LoadLevelSelector(new LevelSlider.Page(motherController.cW, motherController.cI));

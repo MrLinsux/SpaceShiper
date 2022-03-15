@@ -236,18 +236,27 @@ public class MotherController : MonoBehaviour
             FileStream fs = File.Open(Application.persistentDataPath + "/SystemData.dat", FileMode.Open);
             playerProgress = (PlayerProgress)formatter.Deserialize(fs);
             fs.Close();
-            activeWorld = playerProgress.levels[playerProgress.levels.Count - 1].world;
-            activeLevel = playerProgress.levels[playerProgress.levels.Count - 1].level;
-            activeLevel++;
+            try
+            {
+                activeWorld = playerProgress.levels[playerProgress.levels.Count - 1].world;
+                activeLevel = playerProgress.levels[playerProgress.levels.Count - 1].level;
+                activeLevel++;
+            }
+            catch
+            {
+                Debug.LogError("There isn't active level in player save");
+                activeWorld = 65;
+                activeLevel = 0;
+            }
             Money = playerProgress.money;
             Debug.Log("Player Progress loaded");
         }
         else
         {
+            Debug.LogWarning("Player Progress is not detected");
             activeWorld = 65;
             activeLevel = 0;
             _money = 0;
-            Debug.LogWarning("Player Progress is not detected");
         }
     }
 

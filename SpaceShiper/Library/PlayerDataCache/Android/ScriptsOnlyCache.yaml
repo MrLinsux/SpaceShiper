@@ -70,8 +70,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -193,43 +195,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3874}
     - Class: 114
-      Script: {instanceID: 4192}
+      Script: {instanceID: 3966}
     - Class: 114
-      Script: {instanceID: 4212}
+      Script: {instanceID: 4194}
     - Class: 114
-      Script: {instanceID: 4310}
+      Script: {instanceID: 4214}
     - Class: 114
-      Script: {instanceID: 4316}
+      Script: {instanceID: 4312}
     - Class: 114
-      Script: {instanceID: 4378}
+      Script: {instanceID: 4318}
     - Class: 114
-      Script: {instanceID: 4382}
+      Script: {instanceID: 4380}
     - Class: 114
-      Script: {instanceID: 4432}
+      Script: {instanceID: 4384}
     - Class: 114
-      Script: {instanceID: 4456}
+      Script: {instanceID: 4434}
     - Class: 114
-      Script: {instanceID: 4514}
+      Script: {instanceID: 4458}
     - Class: 114
-      Script: {instanceID: 4580}
+      Script: {instanceID: 4516}
     - Class: 114
-      Script: {instanceID: 4590}
+      Script: {instanceID: 4582}
     - Class: 114
-      Script: {instanceID: 4598}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 4830}
+      Script: {instanceID: 4600}
     - Class: 114
-      Script: {instanceID: 5096}
+      Script: {instanceID: 4832}
     - Class: 114
-      Script: {instanceID: 5172}
+      Script: {instanceID: 5098}
     - Class: 114
-      Script: {instanceID: 5210}
+      Script: {instanceID: 5174}
     - Class: 114
-      Script: {instanceID: 5678}
+      Script: {instanceID: 5212}
     - Class: 114
-      Script: {instanceID: 5756}
+      Script: {instanceID: 5680}
     - Class: 114
-      Script: {instanceID: 19958}
+      Script: {instanceID: 5758}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -701,6 +703,12 @@ ScriptsOnlyBuild:
     className: TestController
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ConsoleOut
+  - hash:
+      serializedVersion: 2
       Hash: 18c222bef9ae745ce69ddde9b74337ca
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -1023,12 +1031,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Turel
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ConsoleOut
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
