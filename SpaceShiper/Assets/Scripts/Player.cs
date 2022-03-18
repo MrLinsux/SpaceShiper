@@ -5,23 +5,23 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    public AudioClip dashSound;
-    public float moveSpeed = 1f;        // скорость движени€ игрока
-    public float minSwipeSpeed = 1f;    // минимальна€ скорость свайпа пальцеп дл€ надала движени€
-    public float minVDirection = 1f;    // минимальна€ длина свайпа дл€ начала движени€
+    public AudioClip dashSound;                             // звук начала движени€
+    public float moveSpeed = 1f;                            // скорость движени€ игрока
+    public float minSwipeSpeed = 1f;                        // минимальна€ скорость свайпа пальцеп дл€ надала движени€
+    public float minVDirection = 1f;                        // минимальна€ длина свайпа дл€ начала движени€
     public int minDistanceForMR = 5;
 
-    public bool directionChosen;        // выбран ли вектор движени€ 
-    public bool isMove = false;         // находитс€ ли игрок в движении
+    public bool directionChosen;                            // выбран ли вектор движени€ 
+    public bool isMove = false;                             // находитс€ ли игрок в движении
     public bool newWheelOn = true;
     public bool onStartDelay = true;
     public bool onStep1Delay = true;
     public bool onDeath = true;
-    private Vector3 end;                // точка у которой движетс€ игрок
+    private Vector3 end;                                    // точка у которой движетс€ игрок
     public Direction direction = Direction.zero;            // текущее направление
     public Direction mainDirection = Direction.zero;        // основное направление
     public Direction secondDirection = Direction.zero;      // направление в ѕам€ти поврота
-    public Coroutine movement;                             // переменна€ дл€ корутины Move()
+    public Coroutine movement;                              // переменна€ дл€ корутины Move()
     private Vector2 startPos;                               // точка начала вектора свойпа
     private Vector2 vDirection;                             // вектор свайпа
     private int wasTeleported;
@@ -30,13 +30,13 @@ public class Player : MonoBehaviour
     public GameObject restartPanel;
     public AudioSource soundController;
     public LineRenderer vDirectionLine;
-    public GameController controller;                // игровой контроллер
+    public GameController gameController;                   // игровой контроллер
     public UIController uIController;
     public GameObject vectorTester;
     public Camera cameraController;
     public Camera spectrator;
     public Tilemap tilemap;                                 // объект Map
-    public Animator animator;                              // аниматор игрока
+    public Animator animator;                               // аниматор игрока
     public GameObject pGrave;
     public GameObject pGraveCircle;
 
@@ -428,7 +428,7 @@ public class Player : MonoBehaviour
     {
         // функци€ дл€ лучшего понимани€ кода
         return 
-            (controller.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) || 
-            (controller.tilemap.GetComponent<Map>().coinTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0)));
+            (gameController.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) || 
+            (gameController.tilemap.GetComponent<Map>().coinTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0)));
     }
 }

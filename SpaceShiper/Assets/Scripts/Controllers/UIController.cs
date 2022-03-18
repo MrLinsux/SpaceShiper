@@ -134,10 +134,6 @@ public class UIController : MonoBehaviour
     #endregion
 
     #region Dev
-    public void SaveLevel()
-    {
-        gameController.tilemap.GetComponent<Map>().SaveLevel(gameController.world, gameController.level);
-    }
 
     public void ChangeParam(Text playerParamValue)
     {

@@ -5,20 +5,17 @@ using UnityEngine;
 public class PlayerSpawner : MonoBehaviour
 {
     public GameObject player;
+    public GameObject observer;
 
     void Start()
     {
-        player.transform.position = this.transform.position;
-        StartCoroutine(WaitStart());
+        player.transform.position = this.transform.position + Vector3.up;
+        observer.transform.position = this.transform.position + Vector3.up;
+        player.SetActive(false);
     }
 
-    private IEnumerator WaitStart()
+    private void ActivePlayer()
     {
-        player.GetComponent<Player>().enabled = false;
-
-        while(this.transform.GetChild(0).localPosition.y != -1)
-            yield return new WaitForEndOfFrame();
-
-        player.GetComponent<Player>().enabled = true;
+        player.SetActive(true);
     }
 }

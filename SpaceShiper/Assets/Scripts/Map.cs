@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
     public GameObject player;           // объект игрока
+    public GameObject observer;
 
     public Tilemap tilemap;             // компоненит тайлмапа
 
@@ -46,11 +47,19 @@ public class Map : MonoBehaviour
             var way = mapPlan.way[i];
             SetWayTile(way.pos, wayTile);
         }
-        for (int i = 0; i < mapPlan.coinWay.Count; i++)
+        for (int i = 0; i < mapPlan.pointWay.Count; i++)
         {
             // ставим дорогу
-            var coinWay = mapPlan.coinWay[i];
+            var coinWay = mapPlan.pointWay[i];
             SetCoinWayTile(coinWay.pos, coinTile);
+        }
+        for(int i = 0; i < mapPlan.stars.Count; i++)
+        {
+            // размещаем звёзды
+            var stars = mapPlan.stars[i];
+
+            tilemap.SetTile(stars.pos, wayTile);
+            Instantiate(this.star, tilemap.CellToWorld(stars.pos), Quaternion.identity, tilemap.transform);
         }
         for (int i = 0; i < mapPlan.singleSideTraps.Count; i++)
         {
@@ -134,121 +143,11 @@ public class Map : MonoBehaviour
 
             Instantiate(this.thicker, thicker.pos, Quaternion.Euler(0, 0, rotate), this.transform).GetComponent<Thicker>().SetPoints(thicker.posA, thicker.posB);
         }
-        for (int i = 0; i < mapPlan.stars.Count; i++)
-        {
-            // размещаем звёзды
-            var star = mapPlan.stars[i];
-            Instantiate(this.star, star.pos, Quaternion.identity, tilemap.transform);
-        }
 
-        Instantiate(playerSpawner, mapPlan.playerSpawner.pos, Quaternion.identity, this.transform).GetComponent<PlayerSpawner>().player = player;
+        var ps = Instantiate(playerSpawner, mapPlan.playerSpawner.pos, Quaternion.identity, this.transform).GetComponent<PlayerSpawner>();
+        ps.player = player;
+        ps.observer = observer;
         Instantiate(ender, mapPlan.ender.pos, Quaternion.identity, this.transform);
-    }
-
-    public void SaveLevel(int world, int level)
-    {
-        MapTiles map = new MapTiles();      // весь уровень
-
-        // сначала сохраняем тайлы
-        for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax; x++)
-        {
-            for (int y = tilemap.cellBounds.yMin; y < tilemap.cellBounds.yMax; y++)
-            {
-                for (int z = tilemap.cellBounds.zMin; z < tilemap.cellBounds.zMax; z++) 
-                {
-                    var tile = tilemap.GetTile(new Vector3Int(x, y, z));
-                    if (wayTile == tile)
-                    {
-                        map.way.Add(new MapTiles.Way(x, y, z));
-                    }
-                    else if(coinTile == tile)
-                    {
-                        map.coinWay.Add(new MapTiles.CoinWay(x, y, z));
-                    }
-                }
-            }
-        }
-        
-        Transform[] child = tilemap.gameObject.GetComponentsInChildren<Transform>();
-        for (int i = 0; i < child.Length; i++)
-        {
-            if(child[i].GetComponent<SingleSideTrap>())
-            {
-                map.singleSideTraps.Add(
-                    new MapTiles.SingleSideTrap(
-                        child[i].GetComponent<SingleSideTrap>().sourcePos,
-                        Array.IndexOf(singleSideTrapsNames, child[i].name),
-                        (int)child[i].GetComponent<SingleSideTrap>().singleDirection));
-            }
-            else if(child[i].GetComponent<MultySideTrap>())
-            {
-                var trapPos = tilemap.WorldToCell(child[i].position - new Vector3(0, 0, child[i].position.z));
-                var directions = child[i].GetComponent<MultySideTrap>().directions;
-
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.right)) 
-                    directions[0] = true;
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.up)) 
-                    directions[1] = true;
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.left))
-                    directions[2] = true;
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.down))
-                    directions[3] = true;
-
-                map.multySideTraps.Add(
-                    new MapTiles.MultySideTrap(
-                        child[i].position,
-                        Array.IndexOf(multySideTrapsNames, child[i].name),
-                        directions));
-            }
-            else if(child[i].CompareTag("Teleport"))
-            {
-                map.portals.Add(new MapTiles.Teleporter(new MapTiles.Portal[2] {
-                    new MapTiles.Portal(child[i].position),
-                    new MapTiles.Portal(child[i].GetChild(1).position)
-                }));
-            }
-            else if(child[i].GetComponent<Pusher>())
-            {
-                map.pushers.Add(new MapTiles.Pusher(child[i].position));
-            }
-            else if(child[i].GetComponent<Door>())
-            {
-                map.doors.Add(new MapTiles.Door(
-                    child[i].position, 
-                    new MapTiles.Switcher(child[i].GetChild(0).position)
-                    ));
-            }
-            else if(child[i].GetComponent<TimeDoor>())
-            {
-                map.timeDoors.Add(new MapTiles.TimeDoor(
-                    child[i].position, 
-                    new MapTiles.Switcher(child[i].GetChild(0).position), 
-                    child[i].GetComponent<TimeDoor>().timeToClose
-                    ));
-            }
-            else if(child[i].GetComponent<PlayerSpawner>())
-            {
-                map.playerSpawner = new MapTiles.Spawner(child[i].position);
-            }
-            else if (child[i].GetComponent<Ender>())
-            {
-                map.ender = new MapTiles.Ender(child[i].position);
-            }
-            else if(child[i].GetComponent<Thicker>())
-            {
-                map.thickers.Add(new MapTiles.Thicker(child[i].position, child[i].GetChild(1).position, child[i].GetChild(2).position));
-            }
-            else if (child[i].GetComponent<Star>())
-            {
-                map.stars.Add(new MapTiles.Star(child[i].position));
-            }
-        }
-
-        System.IO.File.WriteAllText(
-            Application.dataPath + @"\Resources\Levels\" + world.ToString() + "\\" + level.ToString() + ".json", 
-            JsonUtility.ToJson(map)
-            );
-        Debug.Log("Level saved");
     }
 
     void Start()
@@ -302,7 +201,7 @@ public class Map : MonoBehaviour
         // подробнее про структуру уровня в Json в Концепт-документе
 
         public List<Way> way = new List<Way>();
-        public List<CoinWay> coinWay = new List<CoinWay>();
+        public List<PointWay> pointWay = new List<PointWay>();
         public List<RuleTiles> ruleTiles = new List<RuleTiles>();
         public List<SingleSideTrap> singleSideTraps = new List<SingleSideTrap>();
         public List<MultySideTrap> multySideTraps = new List<MultySideTrap>();
@@ -333,7 +232,7 @@ public class Map : MonoBehaviour
         }
 
         [System.Serializable]
-        public class CoinWay
+        public class PointWay
         {
             public int x;
             public int y;
@@ -345,7 +244,7 @@ public class Map : MonoBehaviour
                     return new Vector3Int(x, y, z);
                 }
             }
-            public CoinWay(int _cellX, int _cellY, int _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
+            public PointWay(int _cellX, int _cellY, int _cellZ) { x = _cellX; y = _cellY; z = _cellZ; }
         }
 
         [System.Serializable]
@@ -368,7 +267,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
                 }
             }
             public int id;
@@ -386,7 +285,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
                 }
             }
             public int id;
@@ -411,7 +310,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
                 }
             }
 
@@ -428,7 +327,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
                 }
             }
 
@@ -446,11 +345,11 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
                 }
             }
 
-            public Door(Vector3 pos, Switcher _switcher) { x = pos.x; y = pos.y; z = pos.z; switcher = _switcher;  }
+            public Door(Vector3 pos, Switcher _switcher) { x = pos.x; y = pos.y; z = pos.z; switcher = _switcher; }
         }
 
         [System.Serializable]
@@ -461,12 +360,12 @@ public class Map : MonoBehaviour
             public float z;
             public float time;
             public Switcher switcher;
-            public Vector3 pos 
-            { 
+            public Vector3 pos
+            {
                 get
                 {
-                    return new Vector3(x, y, z);
-                } 
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
+                }
             }
 
             public TimeDoor(Vector3 pos, Switcher _switcher, float _time) { x = pos.x; y = pos.y; z = pos.z; switcher = _switcher; time = _time; }
@@ -482,7 +381,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
                 }
             }
 
@@ -499,7 +398,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x, y, z - 1);
                 }
             }
 
@@ -516,7 +415,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x, y, z - 1);
                 }
             }
 
@@ -533,7 +432,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3(x, y, z - 1);
                 }
             }
 
@@ -549,23 +448,28 @@ public class Map : MonoBehaviour
             public Vector3 posB
             { get { return new Vector3(xB, yB, zB); } }
 
-            public Thicker(Vector3 pos, Vector3 _posA, Vector3 _posB) { x = pos.x; y = pos.y; z = pos.z; xA = _posA.x; yA = _posA.y; zA = _posA.z; xB = _posB.x; yB = _posB.y; zB = _posB.z; }
+            public Thicker(Vector3 pos, Vector3 _posA, Vector3 _posB)
+            {
+                x = (int)Math.Round(pos.x - 0.5f); y = (int)Math.Round(pos.y - 0.5f); z = (int)Math.Round(pos.z);
+                xA = (int)Math.Round(_posA.x - 0.5f); yA = (int)Math.Round(_posA.y - 0.5f); zA = (int)Math.Round(_posA.z);
+                xB = (int)Math.Round(_posB.x - 0.5f); yB = (int)Math.Round(_posB.y - 0.5f); zB = (int)Math.Round(_posB.z);
+            }
         }
 
         [System.Serializable]
         public class Star
         {
-            public float x;
-            public float y;
-            public float z;
-            public Vector3 pos
+            public int x;
+            public int y;
+            public int z;
+            public Vector3Int pos
             {
                 get
                 {
-                    return new Vector3(x, y, z);
+                    return new Vector3Int(x, y, z);
                 }
             }
-            public Star(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+            public Star(Vector3 pos) { x = (int)Math.Round(pos.x); y = (int)Math.Round(pos.y); z = (int)Math.Round(pos.z); }
         }
     }
 
