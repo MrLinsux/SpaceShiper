@@ -433,27 +433,25 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z - 1);
+                    return new Vector3(x, y, z);
                 }
             }
 
             public float xA;
             public float yA;
-            public float zA;
             public Vector3 posA
-            { get { return new Vector3(xA, yA, zA); } }
+            { get { return new Vector3(xA, yA, 0); } }
 
             public float xB;
             public float yB;
-            public float zB;
             public Vector3 posB
-            { get { return new Vector3(xB, yB, zB); } }
+            { get { return new Vector3(xB, yB, 0); } }
 
             public Thicker(Vector3 pos, Vector3 _posA, Vector3 _posB)
             {
                 x = (int)Math.Round(pos.x - 0.5f); y = (int)Math.Round(pos.y - 0.5f); z = (int)Math.Round(pos.z);
-                xA = (int)Math.Round(_posA.x - 0.5f); yA = (int)Math.Round(_posA.y - 0.5f); zA = (int)Math.Round(_posA.z);
-                xB = (int)Math.Round(_posB.x - 0.5f); yB = (int)Math.Round(_posB.y - 0.5f); zB = (int)Math.Round(_posB.z);
+                xA = (int)Math.Round(_posA.x - 0.5f); yA = (int)Math.Round(_posA.y - 0.5f);
+                xB = (int)Math.Round(_posB.x - 0.5f); yB = (int)Math.Round(_posB.y - 0.5f);
             }
         }
 

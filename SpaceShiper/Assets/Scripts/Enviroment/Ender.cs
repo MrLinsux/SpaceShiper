@@ -15,9 +15,13 @@ public class Ender : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player;
-        if (collision.TryGetComponent<Player>(out player))
+        if (collision.TryGetComponent(out player))
         {
-            player.gameObject.SetActive(false);
+            player.GetComponent<Animator>().Play("Idle");
+            player.GetComponent<SpriteRenderer>().flipX = false;
+            player.transform.rotation = new Quaternion(0, 0, 0, 0);
+            player.GetComponent<SpriteRenderer>().enabled = false;
+
             Instantiate(effect, this.transform.position, Quaternion.identity);
             Invoke("CompleteLevel", 3f);
         }

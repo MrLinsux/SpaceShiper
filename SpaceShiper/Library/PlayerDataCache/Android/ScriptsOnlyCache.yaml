@@ -499,7 +499,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: a7b01150c466d028e8eb61dffb13b246
+      Hash: 176c4efefe08599af560874ba651e905
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EditMap
@@ -859,7 +859,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 51c52b9126b4ccc7d84392feea7adf08
+      Hash: f3137ed6f949e5c541f3b594027f5c20
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Thicker

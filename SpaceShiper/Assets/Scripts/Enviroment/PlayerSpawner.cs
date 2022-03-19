@@ -11,20 +11,19 @@ public class PlayerSpawner : MonoBehaviour
     {
         player.transform.position = this.transform.position + Vector3.up;
         observer.transform.position = this.transform.position + Vector3.up;
-        player.GetComponent<Animator>().Play("Idle");
-        player.GetComponent<SpriteRenderer>().flipX = false;
         player.GetComponent<Animator>().enabled = false;
         player.GetComponent<Player>().enabled = false;
-        player.SetActive(false);
+        player.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private void ActivePlayer()
     {
-        player.SetActive(true);
+        player.GetComponent<SpriteRenderer>().enabled = true;
     }
     private void StartPlayer()
     {
         player.GetComponent<Animator>().enabled = true;
         player.GetComponent<Player>().enabled = true;
+        player.GetComponent<SpriteRenderer>().enabled = true;
     }
 }
