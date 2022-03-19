@@ -98,6 +98,7 @@ public class Map : MonoBehaviour
         {
             // размещаем толкатели
             var pusher = mapPlan.pushers[i];
+            tilemap.SetTile(pusher.pos, wayTile);
             Instantiate(this.pusher, pusher.pos, Quaternion.identity, tilemap.transform);
         }
         for(int i = 0; i < mapPlan.doors.Count; i++)
@@ -148,6 +149,7 @@ public class Map : MonoBehaviour
         ps.player = player;
         ps.observer = observer;
         Instantiate(ender, mapPlan.ender.pos, Quaternion.identity, this.transform);
+        tilemap.SetTile(mapPlan.ender.pos, wayTile);
     }
 
     void Start()
@@ -320,18 +322,18 @@ public class Map : MonoBehaviour
         [System.Serializable]
         public class Pusher
         {
-            public float x;
-            public float y;
-            public float z;
-            public Vector3 pos
+            public int x;
+            public int y;
+            public int z;
+            public Vector3Int pos
             {
                 get
                 {
-                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
+                    return new Vector3Int(x, y, z);
                 }
             }
 
-            public Pusher(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+            public Pusher(Vector3 pos) { x = (int)Math.Round(pos.x); y = (int)Math.Round(pos.y); z = (int)Math.Round(pos.z); }
         }
 
         [System.Serializable]
@@ -408,18 +410,17 @@ public class Map : MonoBehaviour
         [System.Serializable]
         public class Ender
         {
-            public float x;
-            public float y;
-            public float z;
-            public Vector3 pos
+            public int x;
+            public int y;
+            public int z;
+            public Vector3Int pos
             {
                 get
                 {
-                    return new Vector3(x, y, z - 1);
+                    return new Vector3Int(x, y, z);
                 }
             }
-
-            public Ender(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+            public Ender(Vector3 pos) { x = (int)Math.Round(pos.x); y = (int)Math.Round(pos.y); z = (int)Math.Round(pos.z); }
         }
 
         [System.Serializable]

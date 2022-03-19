@@ -70,8 +70,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -827,7 +829,7 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
-      Hash: 83e769eee07fc231384c812eedbb8224
+      Hash: bc0e039dc273624d9bb4c43393c6d632
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerSpawner
@@ -869,7 +871,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: d60d0df3686a4dbd0060dc349e175f79
+      Hash: 284742df8044064c19571339c8d0a953
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Map

@@ -13,6 +13,7 @@ public class EditMap : MonoBehaviour
     public TileBase starWay;                    // тоже дорога, но со звёздами
     public TileBase ender;                      // выход с уровня
     public TileBase playerSpawner;            // объект начала уровня
+    public TileBase pusher;                   // толкатель
 
     public GameObject[] singleSideTraps;        // ловушки одиночной направленности
     private string[] singleSideTrapsNames;      // и их имена
@@ -21,7 +22,6 @@ public class EditMap : MonoBehaviour
 
     // префабы
     public GameObject teleport;                 // телепорт
-    public GameObject pusher;                   // толкатель
     public GameObject door;                     // обычная дверь
     public GameObject timeDoor;                 // дверь с таймером
     public GameObject thicker;                  // ловушка-бумеранг
@@ -38,6 +38,8 @@ public class EditMap : MonoBehaviour
 
         tilemap.SetTile(tilemap.WorldToCell(mapPlan.playerSpawner.pos), playerSpawner);
         tilemap.SetTile(tilemap.WorldToCell(mapPlan.ender.pos), ender);
+
+        this.world = world; this.level = level;
 
         for (int i = 0; i < mapPlan.way.Count; i++)
         {
@@ -56,6 +58,12 @@ public class EditMap : MonoBehaviour
             // ставим звёзды
             var starWay = mapPlan.stars[i];
             tilemap.SetTile(tilemap.WorldToCell(starWay.pos), this.starWay);
+        }
+        for (int i = 0; i < mapPlan.pushers.Count; i++)
+        {
+            // размещаем толкатели
+            var pusher = mapPlan.pushers[i];
+            tilemap.SetTile(tilemap.WorldToCell(pusher.pos), this.pusher);
         }
         for (int i = 0; i < mapPlan.singleSideTraps.Count; i++)
         {
@@ -89,12 +97,6 @@ public class EditMap : MonoBehaviour
                 Quaternion.identity,
                 tilemap.transform
                 ).transform.GetChild(1).position = portal.portals[1].pos;
-        }
-        for (int i = 0; i < mapPlan.pushers.Count; i++)
-        {
-            // размещаем толкатели
-            var pusher = mapPlan.pushers[i];
-            Instantiate(this.pusher, pusher.pos, Quaternion.identity, tilemap.transform);
         }
         for (int i = 0; i < mapPlan.doors.Count; i++)
         {
@@ -181,6 +183,10 @@ public class EditMap : MonoBehaviour
                     {
                         map.ender = new MapTiles.Ender(tilemap.CellToWorld(new Vector3Int(x, y, z)));
                     }
+                    else if(tile == pusher)
+                    {
+                        map.pushers.Add(new MapTiles.Pusher(tilemap.CellToWorld(new Vector3Int(x, y, z))));
+                    }
                 }
             }
         }
@@ -222,10 +228,6 @@ public class EditMap : MonoBehaviour
                     new MapTiles.Portal(child[i].position),
                     new MapTiles.Portal(child[i].GetChild(1).position)
                 }));
-            }
-            else if (child[i].GetComponent<Pusher>())
-            {
-                map.pushers.Add(new MapTiles.Pusher(child[i].position));
             }
             else if (child[i].GetComponent<Door>())
             {
@@ -403,18 +405,18 @@ public class EditMap : MonoBehaviour
         [System.Serializable]
         public class Pusher
         {
-            public float x;
-            public float y;
-            public float z;
-            public Vector3 pos
+            public int x;
+            public int y;
+            public int z;
+            public Vector3Int pos
             {
                 get
                 {
-                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
+                    return new Vector3Int(x, y, z);
                 }
             }
 
-            public Pusher(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+            public Pusher(Vector3 pos) { x = (int)Math.Round(pos.x); y = (int)Math.Round(pos.y); z = (int)Math.Round(pos.z); }
         }
 
         [System.Serializable]

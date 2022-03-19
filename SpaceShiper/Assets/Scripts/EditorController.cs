@@ -17,6 +17,7 @@ public class EditorController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.S))
         {
+            Debug.Log("Saving...");
             tilemap.SaveLevel();
         }
     }
