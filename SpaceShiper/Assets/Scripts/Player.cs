@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
                 _shape.shapeType = ParticleSystemShapeType.Circle;
                 Destroy(grave, 5f);
             }
+            Vibration.Vibrate(90);
             animator.SetInteger("Dist", 0);
             animator.SetBool("isMove", false);
             isMove = false;
@@ -189,6 +190,7 @@ public class Player : MonoBehaviour
             movement = null;
         }
         Debug.Log("16");
+        Vibration.Vibrate(50);
     }
 
     void Start()

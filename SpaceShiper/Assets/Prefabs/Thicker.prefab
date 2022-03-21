@@ -345,8 +345,8 @@ MonoBehaviour:
   PointA: {fileID: 2630676317415813501}
   PointB: {fileID: 254136315448507226}
   disk: {fileID: 5393166944604250100}
-  speed: 4
-  pause: 0.3
+  speed: 13
+  pause: 1
 --- !u!1 &8579296599709364306
 GameObject:
   m_ObjectHideFlags: 0

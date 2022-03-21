@@ -23,6 +23,9 @@ public class Thicker : MonoBehaviour
         yield return new WaitForSeconds(pause);
         B.GetComponent<Animator>().SetBool("HaveDisk", false);
         yield return new WaitUntil(() => B.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Out"));
+        var tempL = A;
+        A = B;
+        B = tempL;
         var _temp = PointB;
         PointB = PointA;
         PointA = _temp;

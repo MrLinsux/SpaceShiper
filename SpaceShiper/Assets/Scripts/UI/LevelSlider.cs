@@ -59,6 +59,14 @@ public class LevelSlider : MonoBehaviour
             a.I--;
             return a;
         }
+        public static bool operator ==(Page a, Page b)
+        {
+            return ((a.W == b.W) && (a.I == b.I));
+        }
+        public static bool operator !=(Page a, Page b)
+        {
+            return ((a.W != b.W) || (a.I != b.I));
+        }
     }
 
     public Page currentPage = new Page(65, 0);      // текущая страница
@@ -90,19 +98,21 @@ public class LevelSlider : MonoBehaviour
             {
                 if((Vector2.Distance(start, mainCamera.ScreenToWorldPoint(touch.position)) >= minVector) && (Mathf.Abs(mainCamera.ScreenToWorldPoint(touch.position).y - start.y) > minY))
                 {
+                    Page temp = new Page(currentPage.W, currentPage.I);
                     Vector2 end = mainCamera.ScreenToWorldPoint(touch.position);
                     if(end.y > start.y)
                     {
                         motherController.LoadLevelSelector(currentPage--);
-                        Vibration.Vibrate(70);
                     }
                     else if(end.y < start.y)
                     {
                         motherController.LoadLevelSelector(currentPage++);
-                        Vibration.Vibrate(70);
                     }
                     else
                         return;
+
+                    if(temp != currentPage)
+                        Vibration.Vibrate(70);
                 }
             }    
         }
