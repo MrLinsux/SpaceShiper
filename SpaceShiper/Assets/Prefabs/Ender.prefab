@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3127304285003966053}
   - component: {fileID: 3127304285003966052}
   - component: {fileID: 3127304285003966074}
+  - component: {fileID: 2012259853380538331}
   m_Layer: 0
   m_Name: Ender
   m_TagString: Untagged
@@ -50,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a317e53af8d3df4aaef58af2808100e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 3211039806222894909, guid: 4f7daa9b401ade84899edca2b6295ebf, type: 3}
+  isDespawned: 0
 --- !u!61 &3127304285003966052
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -68,14 +69,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.25}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &3127304285003966074
 SpriteRenderer:
@@ -117,8 +118,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: ca8a1870a95203f42a0b18f0ea9ef36c, type: 3}
-  m_Color: {r: 0.35564688, g: 0.745283, b: 0.17225882, a: 1}
+  m_Sprite: {fileID: 1647187441827699362, guid: 077c19fe184b60449b7ad21f17402ce2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -128,3 +129,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2012259853380538331
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127304285003966055}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: af54aee3c992d7f44a58f1425f260a03, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

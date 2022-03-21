@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnderWay
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 7482667652216324306, guid: ca8a1870a95203f42a0b18f0ea9ef36c, type: 3}
-  m_Color: {r: 0.15039325, g: 0.745283, b: 0.12304199, a: 1}
+  m_Color: {r: 0.13333334, g: 0.7921569, b: 0.9137255, a: 1}
   m_Transform:
     e00: 1
     e01: 0

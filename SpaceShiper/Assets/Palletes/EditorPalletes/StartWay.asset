@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StartWay
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 7482667652216324306, guid: ca8a1870a95203f42a0b18f0ea9ef36c, type: 3}
-  m_Color: {r: 0.13381095, g: 0.7912857, b: 0.9150943, a: 1}
+  m_Color: {r: 0.14901961, g: 0.74509805, b: 0.121568635, a: 1}
   m_Transform:
     e00: 1
     e01: 0

@@ -149,7 +149,6 @@ public class Map : MonoBehaviour
         ps.player = player;
         ps.observer = observer;
         Instantiate(ender, mapPlan.ender.pos, Quaternion.identity, this.transform);
-        tilemap.SetTile(mapPlan.ender.pos, wayTile);
     }
 
     void Start()

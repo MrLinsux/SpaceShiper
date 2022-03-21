@@ -5,11 +5,12 @@ using UnityEngine;
 public class Ender : MonoBehaviour
 {
     private GameController controller;
-    public GameObject effect;
+    private Animator anim;
 
     private void Start()
     {
         controller = GameObject.Find("GameController").GetComponent<GameController>();
+        anim = this.GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,8 +22,8 @@ public class Ender : MonoBehaviour
             player.GetComponent<SpriteRenderer>().flipX = false;
             player.transform.rotation = new Quaternion(0, 0, 0, 0);
             player.GetComponent<SpriteRenderer>().enabled = false;
+            anim.SetBool("IsDespawn", true);
 
-            Instantiate(effect, this.transform.position, Quaternion.identity);
             Invoke("CompleteLevel", 3f);
         }
     }
