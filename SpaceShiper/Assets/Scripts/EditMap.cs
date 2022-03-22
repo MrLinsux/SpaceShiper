@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -25,8 +26,8 @@ public class EditMap : MonoBehaviour
     public GameObject door;                     // обычная дверь
     public GameObject timeDoor;                 // дверь с таймером
     public GameObject thicker;                  // ловушка-бумеранг
-    private int world = 65;
-    private int level = 0;
+    public int world = 65;
+    public int level = 0;
 
     public void BuildLevel(int world, int level)
     {
@@ -152,8 +153,6 @@ public class EditMap : MonoBehaviour
     public void SaveLevel(int world, int level)
     {
         MapTiles map = new MapTiles();      // весь уровень
-        this.world = world;
-        this.level = level;
 
         // сначала сохраняем тайлы
         for (int x = tilemap.cellBounds.xMin; x < tilemap.cellBounds.xMax; x++)
@@ -254,7 +253,9 @@ public class EditMap : MonoBehaviour
             }
         }
 
-        System.IO.File.WriteAllText(
+        if (!File.Exists(Application.dataPath + @"\Resources\Levels\" + world.ToString() + "\\" + level.ToString() + ".json"))
+            File.Create(Application.dataPath + @"\Resources\Levels\" + world.ToString() + "\\" + level.ToString() + ".json");
+        File.WriteAllText(
             Application.dataPath + @"\Resources\Levels\" + world.ToString() + "\\" + level.ToString() + ".json",
             JsonUtility.ToJson(map)
             );

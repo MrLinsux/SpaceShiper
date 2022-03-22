@@ -165,9 +165,6 @@ public class UIController : MonoBehaviour
     {
         switch (toggle.name)
         {
-            case "OnNewWheelToggle":
-                player.newWheelOn = toggle.isOn;
-                break;
             case "OnStartAnimToggle":
                 player.animator.SetBool("onStart", toggle.isOn);
                 break;
@@ -247,7 +244,6 @@ public class UIController : MonoBehaviour
             gameParams[2].GetChild(0).GetComponent<Text>().text = player.minSwipeSpeed.ToString();
             gameParams[3].GetChild(0).GetComponent<Text>().text = player.minVDirection.ToString();
             gameParams[4].GetChild(0).GetComponent<Text>().text = player.minDistanceForMR.ToString();
-            gameParams[5].GetComponent<Toggle>().isOn = player.newWheelOn;
             gameParams[6].GetComponent<Toggle>().isOn = player.onStartDelay;
             gameParams[7].GetComponent<Toggle>().isOn = player.onStep1Delay;
             gameParams[8].GetComponent<Toggle>().isOn = player.animator.GetBool("onStep1");

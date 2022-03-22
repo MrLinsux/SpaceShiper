@@ -28,6 +28,9 @@ public class GameController : MonoBehaviour
         // функция загрузки уровня
         ClearLevel();
         Time.timeScale = 1;
+        player.GetComponent<Animator>().Play("Idle");
+        player.GetComponent<SpriteRenderer>().flipX = false;
+        player.transform.rotation = new Quaternion(0, 0, 0, 0);
         stars = 0; points = 0; coins = 0;
         pauseMenuTitle.text = "LVL " + ((char)world).ToString() + "-" + level.ToString();
         try

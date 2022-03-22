@@ -391,7 +391,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 4b4b6466d6729b9b9abe93ffc4fe2759
+      Hash: 21eee8f3abdf4b489f864b39e4f33a66
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -499,7 +499,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 176c4efefe08599af560874ba651e905
+      Hash: aae8e55be3c8ba229386e30ae5dc9462
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EditMap
