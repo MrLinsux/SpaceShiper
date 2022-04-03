@@ -27,6 +27,7 @@ public class MotherController : MonoBehaviour
     public GameObject mainCamera;
     public UIController uiController;
     public Image[] pageIndexes;
+    public LevelSlider levelSlider;
 
     public int cW;  // текущий мир
     public int cI;  // текущий индекс страницы
@@ -181,6 +182,7 @@ public class MotherController : MonoBehaviour
 
         worldIcon.text = ((char)page.W).ToString();
         cW = page.W; cI = page.I;
+        levelSlider.currentPage = page;
         SaveCurrentPage();
     }
 
@@ -189,6 +191,11 @@ public class MotherController : MonoBehaviour
         // перезагрузка страницы уровня
         LoadLevelSelector(new LevelSlider.Page(cW, cI));
     }
+
+    public void LoadActiveLevelPage()
+    {
+        LoadLevelSelector(new LevelSlider.Page(activeWorld, Mathf.FloorToInt(activeLevel/18)));
+    }    
 
     [Serializable]
     class Level
@@ -273,8 +280,8 @@ public class MotherController : MonoBehaviour
 
     public void SaveCurrentPage()
     {
-        PlayerPrefs.SetInt("currentWorld", cW);
-        PlayerPrefs.SetInt("currentIndex", cI);
+        PlayerPrefs.SetInt("currentWorld", activeWorld);
+        PlayerPrefs.SetInt("currentIndex", Mathf.FloorToInt(activeLevel / 18));
         PlayerPrefs.Save();
     }
 

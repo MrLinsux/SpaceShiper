@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Traps\MultySideTrap.cs" />
     <Compile Include="Assets\Scripts\Enviroment\BitPoint.cs" />
     <Compile Include="Assets\Scripts\Controllers\MotherController.cs" />
+    <Compile Include="Assets\Scripts\EditMap.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Ender.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Pusher.cs" />
     <Compile Include="Assets\Scripts\Traps\SingleSideTrap.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TestController.cs" />
     <Compile Include="Assets\Scripts\UI\ConsoleOut.cs" />
+    <Compile Include="Assets\Scripts\EditorController.cs" />
     <Compile Include="Assets\Scripts\Flash.cs" />
     <Compile Include="Assets\Scripts\Traps\LaserTrigger.cs" />
     <Compile Include="Assets\Scripts\UI\Energy.cs" />
@@ -84,8 +86,7 @@
     <Compile Include="Assets\Scripts\UI\SoundController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\EditMap.cs" />
-    <Compile Include="Assets\Scripts\EditorController.cs" />
+    <Compile Include="Assets\Scripts\ScreenSwiper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

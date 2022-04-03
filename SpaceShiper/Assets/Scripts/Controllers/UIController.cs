@@ -19,11 +19,12 @@ public class UIController : MonoBehaviour
     #region Play
     public GameObject playerCanvas;
     public GameObject pauseMenu;
+    public Button pauseButton;
     public Text timer;
 
     public void PauseGame()
     {
-        if (Time.timeScale > 0)
+        if (pauseButton.interactable == true)
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
@@ -45,6 +46,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
         timer.transform.parent.gameObject.SetActive(false);
         pauseMenu.SetActive(false);
+        pauseButton.interactable = true;
     }
 
     public void Exit()
@@ -143,9 +145,6 @@ public class UIController : MonoBehaviour
                 player.moveSpeed = (float)Convert.ToDouble(playerParamValue.text);
                 playerParamValue.transform.parent.GetChild(playerParamValue.transform.parent.childCount - 1).GetComponent<Text>().text = "Speed = " + player.moveSpeed;
                 break;
-            case "MinSpeed":
-                player.minSwipeSpeed = (float)Convert.ToDouble(playerParamValue.text);
-                break;
             case "MinVector":
                 player.minVDirection = (float)Convert.ToDouble(playerParamValue.text);
                 break;
@@ -241,7 +240,6 @@ public class UIController : MonoBehaviour
 
             gameParams[0].GetComponent<Toggle>().isOn = Time.timeScale != 0;
             gameParams[1].GetChild(0).GetComponent<Text>().text = player.moveSpeed.ToString();
-            gameParams[2].GetChild(0).GetComponent<Text>().text = player.minSwipeSpeed.ToString();
             gameParams[3].GetChild(0).GetComponent<Text>().text = player.minVDirection.ToString();
             gameParams[4].GetChild(0).GetComponent<Text>().text = player.minDistanceForMR.ToString();
             gameParams[6].GetComponent<Toggle>().isOn = player.onStartDelay;

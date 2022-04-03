@@ -399,7 +399,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x, y, z - 1);
+                    return new Vector3(x, y, z);
                 }
             }
 

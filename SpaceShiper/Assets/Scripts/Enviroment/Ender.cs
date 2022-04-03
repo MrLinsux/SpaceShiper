@@ -23,6 +23,7 @@ public class Ender : MonoBehaviour
             player.transform.rotation = new Quaternion(0, 0, 0, 0);
             player.GetComponent<SpriteRenderer>().enabled = false;
             anim.SetBool("IsDespawn", true);
+            player.enabled = false;
 
             Invoke("CompleteLevel", 3f);
         }

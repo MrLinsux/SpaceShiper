@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public AudioClip dashSound;                             // звук начала движения
     public float moveSpeed = 1f;                            // скорость движения игрока
-    public float minSwipeSpeed = 1f;                        // минимальная скорость свайпа пальцеп для надала движения
     public float minVDirection = 1f;                        // минимальная длина свайпа для начала движения
     public int minDistanceForMR = 5;
 
@@ -31,7 +30,6 @@ public class Player : MonoBehaviour
     public LineRenderer vDirectionLine;
     public GameController gameController;                   // игровой контроллер
     public UIController uIController;
-    public GameObject vectorTester;
     public Camera cameraController;
     public Camera spectrator;
     public Tilemap tilemap;                                 // объект Map
@@ -93,6 +91,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator MovementChecker()
     {
+        // не позволяет игроку застрять, пркращая его движение, если он не движется при isMove
         var firstPos = this.transform.position;
         yield return new WaitForSeconds(1.5f);
         if(this.transform.position == firstPos)
@@ -141,9 +140,6 @@ public class Player : MonoBehaviour
         Debug.Log("13 - " + dist);
         if (dist == 1)
         {
-            this.GetComponent<SpriteRenderer>().flipX = 
-                (((int)this.transform.eulerAngles.z > 0 ? (int)this.transform.eulerAngles.z : (int)this.transform.eulerAngles.z + 360) / 90) 
-                == (((int)mainDirection + 1) % 4);
             if (onStep1Delay)
                 yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Step 2"));
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
@@ -174,7 +170,6 @@ public class Player : MonoBehaviour
             this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed*Time.fixedDeltaTime);
         }
         this.transform.position = end;
-
         if (secondDirection != Direction.zero)
         {
             movement = StartCoroutine(Move(secondDirection));
@@ -200,13 +195,9 @@ public class Player : MonoBehaviour
         wasTeleported = 0;
     }
 
-    GameObject vTest;
     bool moreOneThouch = false;
     void FixedUpdate()
     {
-        // скорость свайпа
-        float deltaThouch = 0;
-
         if (Input.touchCount == 0)
             moreOneThouch = false;
 
@@ -219,7 +210,6 @@ public class Player : MonoBehaviour
                 case TouchPhase.Began:
                     startPos = cameraController.ScreenToWorldPoint(touch.position);
                     directionChosen = false;
-                    vTest = Instantiate(vectorTester, spectrator.ScreenToWorldPoint(touch.position), Quaternion.identity);
                     break;
 
                 // провёл пальцем
@@ -228,9 +218,6 @@ public class Player : MonoBehaviour
                     vDirection = (Vector2)cameraController.ScreenToWorldPoint(touch.position) - startPos;
                     vDirectionLine.positionCount = 2;
                     vDirectionLine.SetPositions(new Vector3[] { spectrator.transform.position, vDirection + (Vector2)spectrator.transform.position });
-                    deltaThouch = cameraController.ScreenToWorldPoint(touch.deltaPosition).magnitude;
-                    if(vTest != null)
-                        vTest.transform.position = spectrator.ScreenToWorldPoint(touch.position) + Vector3.forward * 15;
                     break;
 
                 // убрал палец
@@ -240,13 +227,11 @@ public class Player : MonoBehaviour
                     vDirectionLine.positionCount = 0;
                     if (Input.touchCount > 1)
                         moreOneThouch = true;
-                    if(vTest != null)
-                        Destroy(vTest);
                     break;
             }
         }
         // если выбрано направление, скорость больше минимальной и длина свайпа больше минимальной
-        if (directionChosen && (deltaThouch > minSwipeSpeed) && (vDirection.magnitude > minVDirection))
+        if (directionChosen && (vDirection.magnitude > minVDirection))
         {
             var xAxis = Vector2.right;
             float dirAngle = (
