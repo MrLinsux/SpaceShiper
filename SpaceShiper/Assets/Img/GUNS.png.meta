@@ -29,6 +29,9 @@ TextureImporter:
   - first:
       213: 6358912070752803421
     second: GUNS_8
+  - first:
+      213: 5537445408334006501
+    second: GUNS_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -314,6 +317,27 @@ TextureImporter:
       bones: []
       spriteID: d5a1a2f56d46f3850800000000000000
       internalID: 6358912070752803421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GUNS_9
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 40
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e8cdde9245f8dc40800000000000000
+      internalID: 5537445408334006501
       vertices: []
       indices: 
       edges: []

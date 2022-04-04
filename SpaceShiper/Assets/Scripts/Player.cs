@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private Vector2 vDirection;                             // вектор свайпа
     private int wasTeleported;
 
-    public GameObject flash;                                // вспышка в начале движения
     public GameObject restartPanel;
     public AudioSource soundController;
     public LineRenderer vDirectionLine;
@@ -36,6 +35,7 @@ public class Player : MonoBehaviour
     public Animator animator;                               // аниматор игрока
     public GameObject pGrave;
     public GameObject pGraveCircle;
+    public GameObject landing;                              // след от приземления
 
     public enum Direction { zero, right, up, left, down }   // все возможные направления движения
     public Vector2[] dirToVector2 = new Vector2[5] { Vector2.zero, Vector2.right, Vector2.up, Vector2.left, Vector2.down };
@@ -120,8 +120,18 @@ public class Player : MonoBehaviour
         // на тот случай, если уже в нужной клетке стоим
         if (this.transform.position == end)
         {
-            this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
-            animator.SetInteger("Dist", 0);
+            if (this.transform.eulerAngles != new Vector3(0, 0, 90 * (int)mainDirection))
+            {
+                // TODO: след от призимления, несмотря на отсутствие перемещения
+                this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
+                Destroy(Instantiate(landing, this.transform.position + (Vector3)dirToVector2[(int)direction], this.transform.rotation), 2f);
+                animator.SetInteger("Dist", 0);
+                yield return new WaitForFixedUpdate();
+            }
+            else
+            {
+                animator.SetInteger("Dist", 0);
+            }
             animator.SetBool("isMove", false);
             isMove = false;
             mainDirection = Direction.zero;
@@ -149,7 +159,6 @@ public class Player : MonoBehaviour
             this.transform.eulerAngles = new Vector3(0, 0, 90 * (int)mainDirection);        // поворот в направлении движения
             if(onStartDelay)
                 yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Move"));
-            Instantiate(flash, this.transform.position, Quaternion.identity);
         }
         else
         {
@@ -170,6 +179,7 @@ public class Player : MonoBehaviour
             this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed*Time.fixedDeltaTime);
         }
         this.transform.position = end;
+        Destroy(Instantiate(landing, this.transform.position + (Vector3)dirToVector2[(int)direction], this.transform.rotation), 2f);
         if (secondDirection != Direction.zero)
         {
             movement = StartCoroutine(Move(secondDirection));

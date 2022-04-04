@@ -754,7 +754,7 @@ MonoBehaviour:
   pauseMenuTitle: {fileID: 1390356519}
   world: 65
   level: 0
-  isEditLevel: 1
+  isEditLevel: 0
   worldSpeed: 1
   stars: 0
   points: 0
@@ -7813,7 +7813,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688669240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.1, y: 0.401, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7843,7 +7843,6 @@ MonoBehaviour:
   direction: 0
   mainDirection: 0
   secondDirection: 0
-  flash: {fileID: 6822846243423567256, guid: ce594bc332ca180478429d773bf19d5b, type: 3}
   restartPanel: {fileID: 803830004}
   soundController: {fileID: 473181937}
   vDirectionLine: {fileID: 853969236}
@@ -7855,6 +7854,7 @@ MonoBehaviour:
   animator: {fileID: 688669245}
   pGrave: {fileID: 3448761777589256324, guid: be823ed4799a5f043ba58c0eefefcd88, type: 3}
   pGraveCircle: {fileID: 8778661604902795853, guid: 218cf09c528cee34cac0372b2a9eabeb, type: 3}
+  landing: {fileID: 7657075852989443872, guid: bcd16dd7d8244f74eb063b168922fd74, type: 3}
   dirToVector2:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
@@ -7934,104 +7934,21 @@ PolygonCollider2D:
       - {x: 0.2, y: -0.4}
       - {x: 0.4, y: -0.4}
       - {x: 0.4, y: 0.4}
---- !u!96 &688669247
-TrailRenderer:
-  serializedVersion: 2
+--- !u!114 &688669247
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688669240}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cf9af9c9d7e8052438187bf1cfa95e6e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Time: 0.2
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 1
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 1
-    numCapVertices: 1
-    alignment: 0
-    textureMode: 0
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_MinVertexDistance: 0
-  m_Autodestruct: 0
-  m_Emitting: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787daf7af95752f49b08401cefd4a8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailSegment: {fileID: 2623537770069740096, guid: 5299eb55795936747bbff564f035ea33, type: 3}
+  startTimeSpawn: 0.001
+  segmentLifeTime: 1
 --- !u!1 &694215018
 GameObject:
   m_ObjectHideFlags: 0

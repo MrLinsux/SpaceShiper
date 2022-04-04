@@ -7,7 +7,6 @@ ScriptsOnlyBuild:
     - Door
     - Ender
     - Energy
-    - Flash
     - GameController
     - Laser
     - LevelButton
@@ -27,6 +26,7 @@ ScriptsOnlyBuild:
     - Switcher
     - Thicker
     - TimeDoor
+    - Trail
     - Turel
     - UIController
     Unity.2D.Animation.Editor.dll:
@@ -71,8 +71,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -198,9 +200,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3970}
     - Class: 114
-      Script: {instanceID: 4200}
+      Script: {instanceID: 4168}
     - Class: 114
-      Script: {instanceID: 4220}
+      Script: {instanceID: 4202}
     - Class: 114
       Script: {instanceID: 4318}
     - Class: 114
@@ -392,7 +394,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: cf784cc359c13d552e4b397f8b155151
+      Hash: eb5ced25e9e77f7b642081d2a9b7ec3b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -764,6 +766,12 @@ ScriptsOnlyBuild:
     className: AudioPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: ccd8651258833a3d73945f10cfdcc2f9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Trail
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
@@ -774,12 +782,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: EventTrigger
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Flash
   - hash:
       serializedVersion: 2
       Hash: 07fc9f0f86872d338b51db4c672a9251
