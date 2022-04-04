@@ -754,7 +754,7 @@ MonoBehaviour:
   pauseMenuTitle: {fileID: 1390356519}
   world: 65
   level: 0
-  isEditLevel: 0
+  isEditLevel: 1
   worldSpeed: 1
   stars: 0
   points: 0
@@ -7794,7 +7794,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5c5861e063a452f4e82c370b0af12480, type: 3}
+  m_Sprite: {fileID: -7109236268072225906, guid: dc4396c62b0f19c48b8f4aeb5f5e761a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
