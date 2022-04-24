@@ -20,6 +20,7 @@ public class Thicker : MonoBehaviour
         var temp = speed;
         speed = 0;
         B.GetComponent<Animator>().SetBool("HaveDisk", true);
+        disk.GetComponent<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(pause);
         B.GetComponent<Animator>().SetBool("HaveDisk", false);
         yield return new WaitUntil(() => B.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Out"));
@@ -31,6 +32,7 @@ public class Thicker : MonoBehaviour
         PointA = _temp;
         speed = temp;
         waiter = null;
+        disk.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     public void SetPoints(Vector3 _A, Vector3 _B)

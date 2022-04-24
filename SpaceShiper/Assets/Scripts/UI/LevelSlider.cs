@@ -67,6 +67,21 @@ public class LevelSlider : MonoBehaviour
         {
             return ((a.W != b.W) || (a.I != b.I));
         }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 
     public Page currentPage = new Page(65, 0);      // текущая страница
