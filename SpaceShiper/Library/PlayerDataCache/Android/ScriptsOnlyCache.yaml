@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - BitCoin
     - BitPoint
+    - Blade
     - ConsoleOut
     - Door
     - Ender
@@ -178,63 +179,65 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2934}
     - Class: 114
-      Script: {instanceID: 3074}
+      Script: {instanceID: 2940}
     - Class: 114
-      Script: {instanceID: 3084}
+      Script: {instanceID: 3076}
     - Class: 114
-      Script: {instanceID: 3136}
+      Script: {instanceID: 3086}
     - Class: 114
-      Script: {instanceID: 3216}
+      Script: {instanceID: 3138}
     - Class: 114
-      Script: {instanceID: 3330}
+      Script: {instanceID: 3218}
     - Class: 114
-      Script: {instanceID: 3446}
+      Script: {instanceID: 3332}
     - Class: 114
-      Script: {instanceID: 3676}
+      Script: {instanceID: 3448}
     - Class: 114
-      Script: {instanceID: 3734}
+      Script: {instanceID: 3678}
     - Class: 114
-      Script: {instanceID: 3840}
+      Script: {instanceID: 3736}
     - Class: 114
-      Script: {instanceID: 3878}
+      Script: {instanceID: 3842}
     - Class: 114
-      Script: {instanceID: 3970}
+      Script: {instanceID: 3880}
     - Class: 114
-      Script: {instanceID: 4168}
+      Script: {instanceID: 3972}
     - Class: 114
-      Script: {instanceID: 4202}
+      Script: {instanceID: 4170}
     - Class: 114
-      Script: {instanceID: 4318}
+      Script: {instanceID: 4204}
     - Class: 114
-      Script: {instanceID: 4324}
+      Script: {instanceID: 4320}
     - Class: 114
-      Script: {instanceID: 4386}
+      Script: {instanceID: 4326}
     - Class: 114
-      Script: {instanceID: 4390}
+      Script: {instanceID: 4388}
     - Class: 114
-      Script: {instanceID: 4440}
+      Script: {instanceID: 4392}
     - Class: 114
-      Script: {instanceID: 4464}
+      Script: {instanceID: 4442}
     - Class: 114
-      Script: {instanceID: 4522}
+      Script: {instanceID: 4466}
     - Class: 114
-      Script: {instanceID: 4588}
+      Script: {instanceID: 4524}
     - Class: 114
-      Script: {instanceID: 4598}
+      Script: {instanceID: 4590}
     - Class: 114
-      Script: {instanceID: 4606}
+      Script: {instanceID: 4600}
     - Class: 114
-      Script: {instanceID: 4838}
+      Script: {instanceID: 4608}
     - Class: 114
-      Script: {instanceID: 5104}
+      Script: {instanceID: 4840}
     - Class: 114
-      Script: {instanceID: 5180}
+      Script: {instanceID: 5106}
     - Class: 114
-      Script: {instanceID: 5218}
+      Script: {instanceID: 5182}
     - Class: 114
-      Script: {instanceID: 5686}
+      Script: {instanceID: 5220}
     - Class: 114
-      Script: {instanceID: 5764}
+      Script: {instanceID: 5688}
+    - Class: 114
+      Script: {instanceID: 5766}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -394,7 +397,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: eb5ced25e9e77f7b642081d2a9b7ec3b
+      Hash: ac35df189b3d2390151b52f3145c6f09
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -508,7 +511,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: aae8e55be3c8ba229386e30ae5dc9462
+      Hash: 525d72117afe0d723e6fbd1acea79660
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EditMap
@@ -518,6 +521,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Ender
+  - hash:
+      serializedVersion: 2
+      Hash: 20c9a74d659b6895cfdb5f4624ba8daa
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Blade
   - hash:
       serializedVersion: 2
       Hash: b5057a59e5ba38f3a9c3b008c1f70a74

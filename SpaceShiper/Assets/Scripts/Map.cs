@@ -286,7 +286,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
+                    return new Vector3(x, y, z +50);
                 }
             }
             public int id;

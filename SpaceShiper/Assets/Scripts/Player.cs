@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private Vector2 startPos;                               // точка начала вектора свойпа
     private Vector2 vDirection;                             // вектор свайпа
     private int wasTeleported;
+    public Sprite standartSprite;
 
     public GameObject restartPanel;
     public AudioSource soundController;
@@ -82,6 +83,11 @@ public class Player : MonoBehaviour
         movement = null;
         this.transform.rotation.eulerAngles.Set(0, 0, 0);
         isMove = false;
+    }
+
+    public void SetStandartSprite()
+    {
+        this.GetComponent<SpriteRenderer>().sprite = standartSprite;
     }
 
     public void OnRestartPanel()

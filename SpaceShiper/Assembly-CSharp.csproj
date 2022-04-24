@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Controllers\TestController.cs" />
     <Compile Include="Assets\Scripts\UI\ConsoleOut.cs" />
     <Compile Include="Assets\Scripts\EditorController.cs" />
+    <Compile Include="Assets\Scripts\Trail.cs" />
     <Compile Include="Assets\Scripts\Traps\LaserTrigger.cs" />
     <Compile Include="Assets\Scripts\UI\Energy.cs" />
     <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Assets\Scripts\UI\SoundController.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Door.cs" />
     <Compile Include="Assets\Scripts\Traps\Turel.cs" />
-    <Compile Include="Assets\Scripts\Trail.cs" />
+    <Compile Include="Assets\Scripts\Traps\Blade.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

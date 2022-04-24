@@ -176,11 +176,14 @@ MonoBehaviour:
   playerSpawner: {fileID: 11400000, guid: 8ce3f072c4be79742ad8c24bdfa93f67, type: 2}
   pusher: {fileID: 11400000, guid: 1e80c5338ed8da1498005841f7839e05, type: 2}
   singleSideTraps: []
-  multySideTraps: []
+  multySideTraps:
+  - {fileID: 6872569371202488903, guid: 218dea71b0b09f3419e45db706ff9c81, type: 3}
   teleport: {fileID: 0}
   door: {fileID: 0}
   timeDoor: {fileID: 0}
   thicker: {fileID: 6700764873052418858, guid: e69a6569d16426e44ad1ce25ee756876, type: 3}
+  world: 65
+  level: 0
 --- !u!483693784 &1275827865
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -419,7 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1275827864}
   world: 65
-  level: 3
+  level: 0
 --- !u!1 &1922148875
 GameObject:
   m_ObjectHideFlags: 0

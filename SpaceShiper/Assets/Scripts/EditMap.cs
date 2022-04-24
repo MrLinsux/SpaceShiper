@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class EditMap : MonoBehaviour
 {
-    public Tilemap tilemap;             // компоненит тайлмапа
+    private Tilemap tilemap;             // компоненит тайлмапа
 
     // набор объектов, из которых составляется уровень
     public TileBase wayTile;                    // тайлы дороги
@@ -206,14 +206,15 @@ public class EditMap : MonoBehaviour
                 var trapPos = tilemap.WorldToCell(child[i].position - new Vector3(0, 0, child[i].position.z));
                 var directions = child[i].GetComponent<MultySideTrap>().directions;
 
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.right))
-                    directions[0] = true;
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.up))
-                    directions[1] = true;
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.left))
-                    directions[2] = true;
-                if (wayTile == tilemap.GetTile(trapPos + Vector3Int.down))
-                    directions[3] = true;
+                if (!IsWay(trapPos + Vector3Int.right))
+                    directions[0] = false;
+                if (!IsWay(trapPos + Vector3Int.up))
+                    directions[1] = false;
+                if (!IsWay(trapPos + Vector3Int.left))
+                    directions[2] = false;
+                if (!IsWay(trapPos + Vector3Int.down))
+                    directions[3] = false;
+                Debug.Log(tilemap.GetTile(trapPos + Vector3Int.up));
 
                 map.multySideTraps.Add(
                     new MapTiles.MultySideTrap(
@@ -264,6 +265,11 @@ public class EditMap : MonoBehaviour
     public void SaveLevel()
     {
         SaveLevel(this.world, this.level);
+    }
+
+    public bool IsWay(Vector3Int pos)
+    {
+        return (wayTile == tilemap.GetTile(pos)) || (starWay == tilemap.GetTile(pos)) || (pointWay == tilemap.GetTile(pos));
     }
 
     void Start()
@@ -376,7 +382,7 @@ public class EditMap : MonoBehaviour
             }
             public int id;
             public bool[] ds;
-            public MultySideTrap(Vector3 pos, int _tileID, bool[] _directions) { x = pos.x; y = pos.y; z = pos.z; id = _tileID; ds = _directions; }
+            public MultySideTrap(Vector3 pos, int _tileID, bool[] _directions) { x = (int)Math.Round(pos.x - 0.5f); y = (int)Math.Round(pos.y - 0.5f); z = (int)Math.Round(pos.z); id = _tileID; ds = _directions; }
         }
 
         [System.Serializable]
