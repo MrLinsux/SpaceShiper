@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090f7e2f1ebd2e74f97c67a25371cde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
   wayTile: {fileID: 11400000, guid: eb917cdc0ee13394c8bce696b99d25a1, type: 2}
   pointWay: {fileID: 11400000, guid: 9734db8d9d596c8488e633144767b2d2, type: 2}
   starWay: {fileID: 11400000, guid: a937badd23303af419a2be386bf3fb84, type: 2}
@@ -178,6 +177,7 @@ MonoBehaviour:
   singleSideTraps: []
   multySideTraps:
   - {fileID: 6872569371202488903, guid: 218dea71b0b09f3419e45db706ff9c81, type: 3}
+  - {fileID: 8320250045824788967, guid: 0e5c1ff6fd93a5548b5179ec45d905a7, type: 3}
   teleport: {fileID: 0}
   door: {fileID: 0}
   timeDoor: {fileID: 0}

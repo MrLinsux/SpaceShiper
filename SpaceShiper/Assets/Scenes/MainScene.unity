@@ -5017,6 +5017,7 @@ MonoBehaviour:
   - {fileID: 1473921943992487392, guid: 7153eaaa28813444583411da3a34ffc5, type: 3}
   multySideTraps:
   - {fileID: 6872569371202488903, guid: 218dea71b0b09f3419e45db706ff9c81, type: 3}
+  - {fileID: 8320250045824788967, guid: 0e5c1ff6fd93a5548b5179ec45d905a7, type: 3}
   teleport: {fileID: 1041826477602911468, guid: b9e3ff0df83a73f41a2f25e1a4a7c95c, type: 3}
   pusher: {fileID: 4873849396437241778, guid: d39cb69eb7289af45a0172a506a6d617, type: 3}
   door: {fileID: 2811609724084421223, guid: 6c02d702ce7143840b2a2c8b9f4f6dad, type: 3}

@@ -364,7 +364,7 @@ public class EditMap : MonoBehaviour
             }
             public int id;
             public int d;
-            public SingleSideTrap(Vector3 pos, int _tileID, int _direction) { x = pos.x; y = pos.y; z = pos.z; id = _tileID; d = _direction; }
+            public SingleSideTrap(Vector3 pos, int _tileID, int _direction) { x = (int)Math.Round(pos.x - 0.5f); y = (int)Math.Round(pos.y - 0.5f); z = (int)Math.Round(pos.z); id = _tileID; d = _direction; }
         }
 
         [System.Serializable]
@@ -406,7 +406,7 @@ public class EditMap : MonoBehaviour
                 }
             }
 
-            public Portal(Vector3 pos) { x = pos.x; y = pos.y; z = pos.z; }
+            public Portal(Vector3 pos) { x = (int)Math.Round(pos.x - 0.5f); y = (int)Math.Round(pos.y - 0.5f); z = (int)Math.Round(pos.z); }
         }
 
         [System.Serializable]

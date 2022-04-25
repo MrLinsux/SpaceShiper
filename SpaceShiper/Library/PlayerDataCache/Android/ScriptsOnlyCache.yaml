@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - Ender
     - Energy
     - GameController
+    - KillPlayer
     - Laser
     - LevelButton
     - LevelSlider
@@ -143,101 +144,103 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1484}
     - Class: 114
-      Script: {instanceID: 1666}
+      Script: {instanceID: 1668}
     - Class: 114
-      Script: {instanceID: 1686}
+      Script: {instanceID: 1688}
     - Class: 114
-      Script: {instanceID: 1698}
+      Script: {instanceID: 1700}
     - Class: 114
-      Script: {instanceID: 1744}
+      Script: {instanceID: 1746}
     - Class: 114
-      Script: {instanceID: 1756}
+      Script: {instanceID: 1758}
     - Class: 114
-      Script: {instanceID: 1782}
+      Script: {instanceID: 1784}
     - Class: 114
-      Script: {instanceID: 1816}
+      Script: {instanceID: 1818}
     - Class: 114
-      Script: {instanceID: 1862}
+      Script: {instanceID: 1864}
     - Class: 114
-      Script: {instanceID: 2024}
+      Script: {instanceID: 2026}
     - Class: 114
-      Script: {instanceID: 2250}
+      Script: {instanceID: 2252}
     - Class: 114
-      Script: {instanceID: 2258}
+      Script: {instanceID: 2260}
     - Class: 114
-      Script: {instanceID: 2382}
+      Script: {instanceID: 2384}
     - Class: 114
-      Script: {instanceID: 2412}
+      Script: {instanceID: 2414}
     - Class: 114
-      Script: {instanceID: 2636}
+      Script: {instanceID: 2638}
     - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 2824}
+      Script: {instanceID: 2826}
     - Class: 114
-      Script: {instanceID: 2846}
+      Script: {instanceID: 2848}
     - Class: 114
-      Script: {instanceID: 2934}
+      Script: {instanceID: 2936}
     - Class: 114
-      Script: {instanceID: 2940}
+      Script: {instanceID: 2942}
     - Class: 114
-      Script: {instanceID: 3076}
+      Script: {instanceID: 3078}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3138}
+      Script: {instanceID: 3140}
     - Class: 114
-      Script: {instanceID: 3218}
+      Script: {instanceID: 3220}
     - Class: 114
-      Script: {instanceID: 3332}
+      Script: {instanceID: 3334}
     - Class: 114
-      Script: {instanceID: 3448}
+      Script: {instanceID: 3450}
     - Class: 114
-      Script: {instanceID: 3678}
+      Script: {instanceID: 3680}
     - Class: 114
-      Script: {instanceID: 3736}
+      Script: {instanceID: 3738}
     - Class: 114
-      Script: {instanceID: 3842}
+      Script: {instanceID: 3844}
     - Class: 114
-      Script: {instanceID: 3880}
+      Script: {instanceID: 3882}
     - Class: 114
-      Script: {instanceID: 3972}
+      Script: {instanceID: 3974}
     - Class: 114
-      Script: {instanceID: 4170}
+      Script: {instanceID: 4172}
     - Class: 114
-      Script: {instanceID: 4204}
+      Script: {instanceID: 4206}
     - Class: 114
-      Script: {instanceID: 4320}
+      Script: {instanceID: 4322}
     - Class: 114
-      Script: {instanceID: 4326}
+      Script: {instanceID: 4328}
     - Class: 114
-      Script: {instanceID: 4388}
+      Script: {instanceID: 4390}
     - Class: 114
-      Script: {instanceID: 4392}
+      Script: {instanceID: 4394}
     - Class: 114
-      Script: {instanceID: 4442}
+      Script: {instanceID: 4444}
     - Class: 114
-      Script: {instanceID: 4466}
+      Script: {instanceID: 4468}
     - Class: 114
-      Script: {instanceID: 4524}
+      Script: {instanceID: 4526}
     - Class: 114
-      Script: {instanceID: 4590}
+      Script: {instanceID: 4592}
     - Class: 114
-      Script: {instanceID: 4600}
+      Script: {instanceID: 4602}
     - Class: 114
-      Script: {instanceID: 4608}
+      Script: {instanceID: 4610}
     - Class: 114
-      Script: {instanceID: 4840}
+      Script: {instanceID: 4842}
     - Class: 114
-      Script: {instanceID: 5106}
+      Script: {instanceID: 5108}
     - Class: 114
-      Script: {instanceID: 5182}
+      Script: {instanceID: 5184}
     - Class: 114
-      Script: {instanceID: 5220}
+      Script: {instanceID: 5222}
     - Class: 114
-      Script: {instanceID: 5688}
+      Script: {instanceID: 5690}
     - Class: 114
-      Script: {instanceID: 5766}
+      Script: {instanceID: 5768}
+    - Class: 114
+      Script: {instanceID: 46278}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -373,7 +376,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: b2f7babced37819113f1d82bc2efd66d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Laser
@@ -1061,6 +1064,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Turel
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: KillPlayer
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
