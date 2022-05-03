@@ -10,11 +10,13 @@ public class Laser : MonoBehaviour
     public float activeTime = 1f;
     public float passiveTime = 1f;
     private List<GameObject> beams = new List<GameObject>();
+    private Animator mainAnim;
 
     private void Start()
     {
         map = GameObject.Find("Map").GetComponent<Tilemap>();
         Vector3Int direction = Vector3Int.zero;
+        mainAnim = this.transform.parent.GetComponent<Animator>();
         if (this.transform.rotation.eulerAngles == Vector3.zero)
             direction = Vector3Int.right;
         else if (this.transform.rotation.eulerAngles == Vector3.forward * 90)
@@ -40,10 +42,12 @@ public class Laser : MonoBehaviour
         {
             for(int i = 0; i < beams.Count; i++)
                 beams[i].SetActive(true);
+            mainAnim.SetBool("isOn", true);
             yield return new WaitForSeconds(activeTime);
 
             for (int i = 0; i < beams.Count; i++)
                 beams[i].SetActive(false);
+            mainAnim.SetBool("isOn", false);
             yield return new WaitForSeconds(passiveTime);
         }
     }
