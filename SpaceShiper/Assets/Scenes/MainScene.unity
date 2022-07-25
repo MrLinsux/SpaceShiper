@@ -1245,6 +1245,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 543778841}
   outline: {fileID: 84165040}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &84165040
 MonoBehaviour:
@@ -2270,7 +2271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &162388811
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2584,6 +2585,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 732591683}
   outline: {fileID: 183170632}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &183170632
 MonoBehaviour:
@@ -6334,7 +6336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 121.399994}
+  m_AnchoredPosition: {x: 0, y: 121.3999}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &478798354
@@ -11985,13 +11987,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 960993912}
+  - component: {fileID: 960993915}
   - component: {fileID: 960993913}
   - component: {fileID: 960993914}
   - component: {fileID: 960993918}
   - component: {fileID: 960993917}
   - component: {fileID: 960993920}
   - component: {fileID: 960993921}
-  - component: {fileID: 960993915}
   m_Layer: 5
   m_Name: Skin
   m_TagString: Untagged
@@ -12096,8 +12098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Material: {fileID: 2100000, guid: a108fde09fee7844bb892fb151a06658, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12153,6 +12155,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 118550888}
   outline: {fileID: 960993914}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &960993920
 MonoBehaviour:
@@ -13180,9 +13183,9 @@ RectTransform:
   m_Father: {fileID: 944611249}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 928.00006, y: -1160.4172}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -71.99994, y: 617.58276}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1094104614
@@ -13550,6 +13553,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 803554371}
   outline: {fileID: 1104680033}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1104680033
 MonoBehaviour:
@@ -14842,7 +14846,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -117.00008, y: -272.99994}
+  m_AnchoredPosition: {x: -117.00006, y: -273}
   m_SizeDelta: {x: -870.00006, y: -1674.8345}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1158025327
@@ -15087,6 +15091,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 301665502}
   outline: {fileID: 1159670072}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1159670072
 MonoBehaviour:
@@ -15538,6 +15543,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 466600373}
   outline: {fileID: 1192692292}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1192692292
 MonoBehaviour:
@@ -107640,6 +107646,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 627921088}
   outline: {fileID: 1319307124}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1319307124
 MonoBehaviour:
@@ -108209,6 +108216,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 1688948684}
   outline: {fileID: 1341601366}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1341601366
 MonoBehaviour:
@@ -110323,6 +110331,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 263726096}
   outline: {fileID: 1477671128}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1477671128
 MonoBehaviour:
@@ -115709,6 +115718,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 1034228852}
   outline: {fileID: 1889459103}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1889459103
 MonoBehaviour:
@@ -116585,6 +116595,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 1350858373}
   outline: {fileID: 1962288705}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &1962288705
 MonoBehaviour:
@@ -117658,6 +117669,7 @@ MonoBehaviour:
   isSelectPoint: {fileID: 186963225}
   outline: {fileID: 2036207735}
   motherController: {fileID: 1204782160}
+  trail: {fileID: 0}
   Name: white
 --- !u!114 &2036207735
 MonoBehaviour:

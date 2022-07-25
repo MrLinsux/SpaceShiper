@@ -16,6 +16,7 @@ public class SkinButton : MonoBehaviour
     public Outline outline;
     public MotherController.Skin skin;
     public MotherController motherController;
+    public GameObject trail;
 
     public string Name = "white";
     Animator animator;
@@ -37,6 +38,7 @@ public class SkinButton : MonoBehaviour
     {
         skin = new MotherController.Skin(name, cost, isUnlock, type);
         this.Name = name;
+
         SetSkin(Name);
         isSelectPoint.SetActive(false);
 

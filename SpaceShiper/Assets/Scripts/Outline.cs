@@ -6,11 +6,11 @@ public class Outline : MonoBehaviour
     public Color outlineColor = Color.white;
     public Color spriteColor = Color.clear;
 
-    private SpriteRenderer spriteRenderer;
+    private Renderer spriteRenderer;
 
     void OnEnable()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<Renderer>();
 
         UpdateOutline(true);
     }

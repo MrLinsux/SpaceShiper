@@ -9,7 +9,6 @@ public class SkinRender : MonoBehaviour
 
     void Start()
     {
-        animator = this.GetComponent<Animator>();
         SetSkin(Name);
     }
 
@@ -25,6 +24,19 @@ public class SkinRender : MonoBehaviour
             // если скин не найден, то ставим секретный
             path = "Skins\\darkAvatar\\Anim";
             animator.runtimeAnimatorController = (AnimatorOverrideController)Resources.Load(path);
+        }
+
+        Trail trail;
+        path = "Skins\\" + _name + "\\Trail";
+        if (this.TryGetComponent(out trail) && (Resources.Load(path) != null))
+        {
+            trail.trailSegment = (GameObject)Resources.Load(path);
+        }
+        else if (Resources.Load(path) == null)
+        {
+            // если скин не найден, то ставим секретный
+            path = "Skins\\darkAvatar\\Trail";
+            trail.trailSegment = (GameObject)Resources.Load(path);
         }
         Name = _name;
     }
