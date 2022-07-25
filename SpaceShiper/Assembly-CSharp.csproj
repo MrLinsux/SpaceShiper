@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,16 +47,20 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.16</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Traps\Laser.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Portal.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\UI\SkinButton.cs" />
     <Compile Include="Assets\Scripts\Traps\MultySideTrap.cs" />
     <Compile Include="Assets\Scripts\Enviroment\BitPoint.cs" />
     <Compile Include="Assets\Scripts\Controllers\MotherController.cs" />
@@ -64,10 +68,13 @@
     <Compile Include="Assets\Scripts\EditMap.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Ender.cs" />
     <Compile Include="Assets\Scripts\Traps\Blade.cs" />
+    <Compile Include="Assets\Scripts\UI\SkinSlider.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Pusher.cs" />
     <Compile Include="Assets\Scripts\Traps\SingleSideTrap.cs" />
     <Compile Include="Assets\Scripts\UI\Vibration.cs" />
     <Compile Include="Assets\Scripts\UI\AudioController.cs" />
+    <Compile Include="Assets\Scripts\SkinRender.cs" />
+    <Compile Include="Assets\Scripts\Outline.cs" />
     <Compile Include="Assets\Scripts\Enviroment\BitCoin.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TestController.cs" />
@@ -75,8 +82,8 @@
     <Compile Include="Assets\Scripts\EditorController.cs" />
     <Compile Include="Assets\Scripts\Trail.cs" />
     <Compile Include="Assets\Scripts\Traps\LaserTrigger.cs" />
-    <Compile Include="Assets\Scripts\UI\Energy.cs" />
     <Compile Include="Assets\Scripts\UI\LevelButton.cs" />
+    <Compile Include="Assets\Scripts\UI\Energy.cs" />
     <Compile Include="Assets\Scripts\Enviroment\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Enviroment\TimeDoor.cs" />
     <Compile Include="Assets\Scripts\Enviroment\Switcher.cs" />
@@ -94,9 +101,13 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Materials\Outline.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\Resources\Skins\list.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Resources\Skins\red\conf.txt" />
+    <None Include="Assets\Resources\Skins\white\conf.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -689,6 +700,9 @@
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.quicksearch">
+      <HintPath>Library\ScriptAssemblies\com.unity.quicksearch.dll</HintPath>
     </Reference>
     <Reference Include="PsdPlugin">
       <HintPath>Library\ScriptAssemblies\PsdPlugin.dll</HintPath>

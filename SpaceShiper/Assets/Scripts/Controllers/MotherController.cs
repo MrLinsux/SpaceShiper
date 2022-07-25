@@ -28,6 +28,8 @@ public class MotherController : MonoBehaviour
     public UIController uiController;
     public Image[] pageIndexes;
     public LevelSlider levelSlider;
+    public Player player;
+    public SkinButton currentSkin;
 
     public int cW;  // текущий мир
     public int cI;  // текущий индекс страницы
@@ -88,7 +90,10 @@ public class MotherController : MonoBehaviour
     public LevelButton[] levels;
     public Text worldIcon;
 
+    Skin[] skins;
+
     public GameObject levelsPanel;
+    public GameObject skinsPanel;
 
     public static Color[] mainColors = new Color[]
     {
@@ -105,6 +110,17 @@ public class MotherController : MonoBehaviour
     private void Start()
     {
         LoadPlayerProgress();
+
+        // загружаем скины
+        string[] list = ((TextAsset)Resources.Load("Skins\\list")).text.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);        // список скинов, которые будут подгружаться в магазин
+        skins = new Skin[list.Length];
+        for (int i = 0; i < list.Length; i++)
+        {
+            if (Resources.Load("Skins\\" + list[i] + "\\conf") != null)
+                skins[i] = new Skin(((TextAsset)Resources.Load("Skins\\" + list[i] + "\\conf")).text.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries), list[i]);
+            else
+                skins[i] = new Skin("darkAvatar");
+        }                                        // конфиги всех скинов в магазине
     }
 
     public void LoadLevelSelector(LevelSlider.Page page)
@@ -195,7 +211,92 @@ public class MotherController : MonoBehaviour
     public void LoadActiveLevelPage()
     {
         LoadLevelSelector(new LevelSlider.Page(activeWorld, Mathf.FloorToInt(activeLevel/18)));
-    }    
+    }
+    public void LoadSkinSelector(int page)
+    {
+        Debug.Log("Skin Menu Page: " + page);
+
+        if (page > (skins.Length / 12)) // не пускаем страницу, которая слишком далеко зашла
+            return;
+
+
+        var buttons = skinsPanel.transform.GetComponentsInChildren<SkinButton>();
+        int skinsNumOnPage = (page == (skins.Length / 12)) ? skins.Length - page * 12 : 12;
+        for (int i = 0; i < skinsNumOnPage; i++)
+        {
+            var skin = skins[page * 12 + i];
+            buttons[i].SetButton(skin.cost, skin.isUnlock, skin.type, skin.name);
+        }
+        for(int i = skinsNumOnPage; i < 12; i++)
+        {
+            buttons[i].gameObject.SetActive(false);
+        }
+
+        currentSkin = null;
+        for(int i = 0; i < skinsNumOnPage; i++)
+        {
+            // включаем скин игрока
+            if(buttons[i].Name == player.GetComponent<SkinRender>().Name)
+            {
+                buttons[i].SetActive(true);
+                currentSkin = buttons[i];
+                break;
+            }
+        }
+    }
+
+    public class Skin
+    {
+        public string name;
+        public bool isUnlock;
+        public int cost;
+        public SkinButton.SkinType type;
+
+        public Skin(string[] conf, string name)
+        {
+            this.name = name;
+            // конструктор разбирает конфиг и записывает необходимые данные
+            for(int i = 0; i < conf.Length; i++)
+            {
+                var confStr = conf[i].Split('=');
+                switch (confStr[0])
+                {
+                    case "cost":
+                        cost = Convert.ToInt32(confStr[1]);
+                        break;
+                    case "isUnlock":
+                        isUnlock = (confStr[1] == "1");
+                        break;
+                    case "type":
+                        switch(confStr[1])
+                        {
+                            case "normal":
+                                type = SkinButton.SkinType.normal;
+                                break;
+                            case "rare":
+                                type = SkinButton.SkinType.rare;
+                                break;
+                            case "unique":
+                                type = SkinButton.SkinType.unique;
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public Skin(string name)
+        {
+            this.name = name;
+        }
+        public Skin(string name, int cost, bool isUnlock, SkinButton.SkinType type)
+        {
+            this.name = name;
+            this.cost = cost;
+            this.isUnlock = isUnlock;
+            this.type = type;
+        }
+    }
 
     [Serializable]
     class Level
@@ -221,8 +322,10 @@ public class MotherController : MonoBehaviour
             public Level(int _world, int _level, int _stars) { world = _world; level = _level; stars = _stars; }
         }
 
-        public List<Level> levels = new List<Level>();      // тут храняться все уровни, которые игрок уже прошёл
+        public List<Level> levels = new List<Level>();          // тут храняться все уровни, которые игрок уже прошёл
         public int money;
+        public string currentSkin;
+        public List<string> openSkins = new List<string>();     // скины, которые есть у игрока
     }
 
     public void SavePlayerProgress()
@@ -256,6 +359,8 @@ public class MotherController : MonoBehaviour
                 activeLevel = 0;
             }
             Money = playerProgress.money;
+            player.GetComponent<SkinRender>().Name = playerProgress.currentSkin == "" ? "white" : playerProgress.currentSkin;
+
             Debug.Log("Player Progress loaded");
         }
         else
@@ -264,6 +369,7 @@ public class MotherController : MonoBehaviour
             activeWorld = 65;
             activeLevel = 0;
             _money = 0;
+            player.GetComponent<SkinRender>().Name = "white";
         }
     }
 
@@ -288,6 +394,8 @@ public class MotherController : MonoBehaviour
     public void ResetPlayerProgress()
     {
         playerProgress.levels = new List<PlayerProgress.Level>();
+        playerProgress.currentSkin = "white";
+        playerProgress.openSkins = new List<string>();
         activeLevel = 0;
         activeWorld = 65;
         cW = 65; cI = 0;
