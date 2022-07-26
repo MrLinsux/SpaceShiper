@@ -1241,7 +1241,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 543778841}
   outline: {fileID: 84165040}
   motherController: {fileID: 1204782160}
@@ -1259,7 +1259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &84165041
 SpriteRenderer:
@@ -1309,7 +1310,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &97735357
@@ -2581,7 +2582,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 732591683}
   outline: {fileID: 183170632}
   motherController: {fileID: 1204782160}
@@ -2599,7 +2600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &183170633
 SpriteRenderer:
@@ -2649,7 +2651,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &186963225
@@ -9059,13 +9061,14 @@ GameObject:
   - component: {fileID: 688669245}
   - component: {fileID: 688669247}
   - component: {fileID: 688669248}
+  - component: {fileID: 688669249}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &688669241
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9085,7 +9088,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a108fde09fee7844bb892fb151a06658, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9106,15 +9109,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 5534986098654155393, guid: c8e81e997cf48a84b828aafbab191d91, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &688669242
@@ -9205,7 +9208,7 @@ Animator:
   m_GameObject: {fileID: 688669240}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b65b0553be00d1545b402e104290590c, type: 2}
+  m_Controller: {fileID: 22100000, guid: d6cf8bb6b4c364941ae15f17729a187c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 0
@@ -9231,8 +9234,8 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1.2, y: 1.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9275,6 +9278,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: white
+--- !u!114 &688669249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688669240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 0}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
+  spriteColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &692295681
 GameObject:
   m_ObjectHideFlags: 0
@@ -12069,7 +12087,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &960993914
@@ -12084,7 +12102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!114 &960993915
 MonoBehaviour:
@@ -12099,14 +12118,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a108fde09fee7844bb892fb151a06658, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6538483066931830126, guid: bd1b48159ac2acc48a796a10a97a5cb0, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: ca8a1870a95203f42a0b18f0ea9ef36c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12151,7 +12170,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 118550888}
   outline: {fileID: 960993914}
   motherController: {fileID: 1204782160}
@@ -13549,7 +13568,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 803554371}
   outline: {fileID: 1104680033}
   motherController: {fileID: 1204782160}
@@ -13567,7 +13586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1104680034
 SpriteRenderer:
@@ -13617,7 +13637,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1105178921
@@ -15087,7 +15107,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 301665502}
   outline: {fileID: 1159670072}
   motherController: {fileID: 1204782160}
@@ -15105,7 +15125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1159670073
 SpriteRenderer:
@@ -15155,7 +15176,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1169950527
@@ -15539,7 +15560,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 466600373}
   outline: {fileID: 1192692292}
   motherController: {fileID: 1204782160}
@@ -15557,7 +15578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1192692293
 SpriteRenderer:
@@ -15607,7 +15629,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1194400991
@@ -107642,7 +107664,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 627921088}
   outline: {fileID: 1319307124}
   motherController: {fileID: 1204782160}
@@ -107660,7 +107682,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1319307125
 SpriteRenderer:
@@ -107710,7 +107733,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1329312025
@@ -108212,7 +108235,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 1688948684}
   outline: {fileID: 1341601366}
   motherController: {fileID: 1204782160}
@@ -108230,7 +108253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1341601367
 SpriteRenderer:
@@ -108280,7 +108304,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1345894981
@@ -110327,7 +110351,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 263726096}
   outline: {fileID: 1477671128}
   motherController: {fileID: 1204782160}
@@ -110345,7 +110369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1477671129
 SpriteRenderer:
@@ -110395,7 +110420,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1485419888
@@ -115714,7 +115739,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 1034228852}
   outline: {fileID: 1889459103}
   motherController: {fileID: 1204782160}
@@ -115732,7 +115757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1889459104
 SpriteRenderer:
@@ -115782,7 +115808,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1890975143
@@ -116591,7 +116617,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 1350858373}
   outline: {fileID: 1962288705}
   motherController: {fileID: 1204782160}
@@ -116609,7 +116635,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &1962288706
 SpriteRenderer:
@@ -116659,7 +116686,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1970776928
@@ -117665,7 +117692,7 @@ MonoBehaviour:
   unlock: {r: 0.882353, g: 0.8980392, b: 0.8980392, a: 1}
   rareUnlock: {r: 1, g: 0.94117653, b: 0, a: 1}
   locked: {r: 0.5921569, g: 0.8588236, b: 1, a: 1}
-  rareLocked: {r: 0.5568628, g: 0.8980392, b: 0.5411765, a: 1}
+  rareLocked: {r: 0.91372555, g: 0.26666668, b: 0.6313726, a: 1}
   isSelectPoint: {fileID: 186963225}
   outline: {fileID: 2036207735}
   motherController: {fileID: 1204782160}
@@ -117683,7 +117710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0}
 --- !u!212 &2036207736
 SpriteRenderer:
@@ -117733,7 +117761,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2054374416

@@ -1,0 +1,3 @@
+cost=5000
+isUnlock=0
+type=rare

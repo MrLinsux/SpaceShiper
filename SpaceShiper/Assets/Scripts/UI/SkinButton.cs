@@ -48,10 +48,10 @@ public class SkinButton : MonoBehaviour
             switch (type)
             {
                 case SkinType.normal:
-                    this.GetComponent<Outline>().outlineColor = unlock;
+                    this.GetComponent<Outline>().newOutlineColor = unlock;
                     break;
                 case SkinType.rare:
-                    this.GetComponent<Outline>().outlineColor = rareUnlock;
+                    this.GetComponent<Outline>().newOutlineColor = rareUnlock;
                     break;
             }
             this.GetComponent<Button>().onClick.AddListener(() => this.SetActive(true));
@@ -62,10 +62,10 @@ public class SkinButton : MonoBehaviour
             switch (type)
             {
                 case SkinType.normal:
-                    this.GetComponent<Outline>().outlineColor = locked;
+                    this.GetComponent<Outline>().newOutlineColor = locked;
                     break;
                 case SkinType.rare:
-                    this.GetComponent<Outline>().outlineColor = rareLocked;
+                    this.GetComponent<Outline>().newOutlineColor = rareLocked;
                     break;
             }
         }
@@ -74,7 +74,7 @@ public class SkinButton : MonoBehaviour
     {
         if (isSelect)
         {
-            this.GetComponent<Outline>().outlineColor = select;
+            this.GetComponent<Outline>().newOutlineColor = select;
             if (motherController.currentSkin != this)
                 motherController.currentSkin?.SetActive(false);
             motherController.currentSkin = this;
@@ -86,10 +86,10 @@ public class SkinButton : MonoBehaviour
             switch (skin.type)
             {
                 case SkinType.normal:
-                    this.GetComponent<Outline>().outlineColor = unlock;
+                    this.GetComponent<Outline>().newOutlineColor = unlock;
                     break;
                 case SkinType.rare:
-                    this.GetComponent<Outline>().outlineColor = rareUnlock;
+                    this.GetComponent<Outline>().newOutlineColor = rareUnlock;
                     break;
             }
 

@@ -12,7 +12,8 @@ Shader "Sprites/Outline"
 
 			// Add values to determine if outlining is enabled and outline color.
 			[PerRendererData] _Outline("Outline", Float) = 0
-			[PerRendererData] _OutlineColor("Outline Color", Color) = (1,1,1,1)
+			[PerRendererData] _NewOutlineColor("New Outline Color", Color) = (1,1,1,1)
+			[PerRendererData] _OldOutlineColor("Old Outline Color", Color) = (1,1,1,1)
 			[PerRendererData] _OutlineSize("Outline Size", int) = 1
 			[PerRendererData] _SpriteColor("Sprite Color", Color) = (1,1,1,0)
 	}
@@ -45,7 +46,8 @@ Shader "Sprites/Outline"
 				#include "UnitySprites.cginc"
 
 				float _Outline;
-				fixed4 _OutlineColor;
+				fixed4 _NewOutlineColor;
+				fixed4 _OldOutlineColor;
 				fixed4 _SpriteColor;
 				int _OutlineSize;
 				float4 _MainTex_TexelSize;
@@ -55,9 +57,9 @@ Shader "Sprites/Outline"
 					fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
 
 					// If outline is enabled and there is a pixel, try to draw an outline.
-				if (_Outline > 0 && c.a == 0)
+				/*if (_Outline > 0 && c.a == 0)
 				{
-					float totalAlpha = 0.0;
+					//float totalAlpha = 0.0;
 
 					[unroll(16)]
 					for (int i = 1; i < _OutlineSize + 1; i++)
@@ -76,7 +78,13 @@ Shader "Sprites/Outline"
 					}
 				}
 				else if (c.a != 0)
-					c.rgba = fixed4(_SpriteColor.r, _SpriteColor.g, _SpriteColor.b, 1 - _SpriteColor.a) + tex2D(_MainTex, IN.texcoord) * _SpriteColor.a;
+					c.rgba = fixed4(_SpriteColor.r, _SpriteColor.g, _SpriteColor.b, 1 - _SpriteColor.a) + tex2D(_MainTex, IN.texcoord) * _SpriteColor.a;*/
+					
+					[unroll(16)]
+					if(_Outline > 0 && c.r == _OldOutlineColor.r && c.g == _OldOutlineColor.g && c.b == _OldOutlineColor.b && c.a == _OldOutlineColor.a)
+						c.rgba = fixed4(1,1,1,1) * _NewOutlineColor;
+					else if (c.a != 0)
+						c.rgba = fixed4(_SpriteColor.r, _SpriteColor.g, _SpriteColor.b, 1 - _SpriteColor.a) + tex2D(_MainTex, IN.texcoord) * _SpriteColor.a;
 
 					c.rgb *= c.a;
 

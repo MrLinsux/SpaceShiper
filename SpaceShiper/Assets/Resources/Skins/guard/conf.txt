@@ -1,0 +1,3 @@
+cost=0
+isUnlock=1
+type=normal

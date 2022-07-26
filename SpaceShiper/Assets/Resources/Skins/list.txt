@@ -1,2 +1,13 @@
-white
+on
+yellow
+orange
 red
+green
+blue
+purple
+dragon
+agent47
+monkey
+neo
+johnWeek
+skeleton
