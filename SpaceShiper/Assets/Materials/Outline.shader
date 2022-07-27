@@ -51,6 +51,7 @@ Shader "Sprites/Outline"
 				fixed4 _SpriteColor;
 				int _OutlineSize;
 				float4 _MainTex_TexelSize;
+				float _SpriteFading;
 
 				fixed4 frag(v2f IN) : SV_Target
 				{
@@ -80,11 +81,13 @@ Shader "Sprites/Outline"
 				else if (c.a != 0)
 					c.rgba = fixed4(_SpriteColor.r, _SpriteColor.g, _SpriteColor.b, 1 - _SpriteColor.a) + tex2D(_MainTex, IN.texcoord) * _SpriteColor.a;*/
 					
-					[unroll(16)]
-					if(_Outline > 0 && c.r == _OldOutlineColor.r && c.g == _OldOutlineColor.g && c.b == _OldOutlineColor.b && c.a == _OldOutlineColor.a)
+					if(_Outline > 0 && c.r == _OldOutlineColor.r && c.g == _OldOutlineColor.g && c.b == _OldOutlineColor.b && c.a > 0)
 						c.rgba = fixed4(1,1,1,1) * _NewOutlineColor;
 					else if (c.a != 0)
-						c.rgba = fixed4(_SpriteColor.r, _SpriteColor.g, _SpriteColor.b, 1 - _SpriteColor.a) + tex2D(_MainTex, IN.texcoord) * _SpriteColor.a;
+						c.rgba = (fixed4(_SpriteColor.r, _SpriteColor.g, _SpriteColor.b, 1 - _SpriteColor.a) + tex2D(_MainTex, IN.texcoord) * _SpriteColor.a);
+
+						if(c.a>0)
+							c.a = _SpriteFading;
 
 					c.rgb *= c.a;
 

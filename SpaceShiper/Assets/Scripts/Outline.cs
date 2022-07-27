@@ -7,11 +7,11 @@ public class Outline : MonoBehaviour
     public Color oldOutlineColor = Color.white;
     public Color spriteColor = Color.clear;
 
-    private Renderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
 
     void OnEnable()
     {
-        spriteRenderer = GetComponent<Renderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         UpdateOutline(true);
     }
@@ -34,6 +34,7 @@ public class Outline : MonoBehaviour
         mpb.SetColor("_NewOutlineColor", newOutlineColor);
         mpb.SetColor("_OldOutlineColor", oldOutlineColor);
         mpb.SetColor("_SpriteColor", spriteColor);
+        mpb.SetFloat("_SpriteFading", this.spriteRenderer.color.a);
         spriteRenderer.SetPropertyBlock(mpb);
     }
 }

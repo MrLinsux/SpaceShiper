@@ -90,10 +90,11 @@ public class MotherController : MonoBehaviour
     public LevelButton[] levels;
     public Text worldIcon;
 
-    Skin[] skins;
+    public Skin[] skins;
 
     public GameObject levelsPanel;
     public GameObject skinsPanel;
+    public GameObject skinsSelector;
 
     public static Color[] mainColors = new Color[]
     {
@@ -117,10 +118,14 @@ public class MotherController : MonoBehaviour
         for (int i = 0; i < list.Length; i++)
         {
             if (Resources.Load("Skins\\" + list[i] + "\\conf") != null)
-                skins[i] = new Skin(((TextAsset)Resources.Load("Skins\\" + list[i] + "\\conf")).text.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries), list[i]);
+            {
+                skins[i] = new Skin(((TextAsset)Resources.Load("Skins\\" + list[i] + "\\conf")).text.Split(new string[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries), list[i], i);
+                skins[i].isUnlock = playerProgress.openSkins.Exists(s => s == list[i]);
+            }
             else
                 skins[i] = new Skin("darkAvatar");
         }                                        // конфиги всех скинов в магазине
+        skinsSelector.GetComponent<SkinSlider>().maxPage = skins.Length / 12;
     }
 
     public void LoadLevelSelector(LevelSlider.Page page)
@@ -220,12 +225,14 @@ public class MotherController : MonoBehaviour
             return;
 
 
-        var buttons = skinsPanel.transform.GetComponentsInChildren<SkinButton>();
+        var buttons = skinsPanel.transform.GetComponentsInChildren<SkinButton>(true);
         int skinsNumOnPage = (page == (skins.Length / 12)) ? skins.Length - page * 12 : 12;
         for (int i = 0; i < skinsNumOnPage; i++)
         {
+            buttons[i].gameObject.SetActive(true);
             var skin = skins[page * 12 + i];
-            buttons[i].SetButton(skin.cost, skin.isUnlock, skin.type, skin.name);
+            buttons[i].SetButton(skin);
+            buttons[i].GetComponent<Animator>().SetBool("isSelect", false);
         }
         for(int i = skinsNumOnPage; i < 12; i++)
         {
@@ -247,14 +254,16 @@ public class MotherController : MonoBehaviour
 
     public class Skin
     {
+        public int id;
         public string name;
         public bool isUnlock;
         public int cost;
         public SkinButton.SkinType type;
 
-        public Skin(string[] conf, string name)
+        public Skin(string[] conf, string name, int id)
         {
             this.name = name;
+            this.id = id;
             // конструктор разбирает конфиг и записывает необходимые данные
             for(int i = 0; i < conf.Length; i++)
             {
@@ -263,9 +272,6 @@ public class MotherController : MonoBehaviour
                 {
                     case "cost":
                         cost = Convert.ToInt32(confStr[1]);
-                        break;
-                    case "isUnlock":
-                        isUnlock = (confStr[1] == "1");
                         break;
                     case "type":
                         switch(confStr[1])
@@ -289,12 +295,13 @@ public class MotherController : MonoBehaviour
         {
             this.name = name;
         }
-        public Skin(string name, int cost, bool isUnlock, SkinButton.SkinType type)
+        public Skin(string name, int cost, bool isUnlock, SkinButton.SkinType type, int id)
         {
             this.name = name;
             this.cost = cost;
             this.isUnlock = isUnlock;
             this.type = type;
+            this.id = id;
         }
     }
 
@@ -359,7 +366,9 @@ public class MotherController : MonoBehaviour
                 activeLevel = 0;
             }
             Money = playerProgress.money;
-            player.GetComponent<SkinRender>().Name = playerProgress.currentSkin == "" ? "white" : playerProgress.currentSkin;
+            player.GetComponent<SkinRender>().Name = playerProgress.currentSkin == "" ? "on" : playerProgress.currentSkin;
+            if (playerProgress.openSkins == null || playerProgress.openSkins.Count < 0)
+                playerProgress.openSkins = new List<string>() { "on" };
 
             Debug.Log("Player Progress loaded");
         }
@@ -369,7 +378,7 @@ public class MotherController : MonoBehaviour
             activeWorld = 65;
             activeLevel = 0;
             _money = 0;
-            player.GetComponent<SkinRender>().Name = "white";
+            player.GetComponent<SkinRender>().Name = "on";
         }
     }
 
@@ -394,13 +403,16 @@ public class MotherController : MonoBehaviour
     public void ResetPlayerProgress()
     {
         playerProgress.levels = new List<PlayerProgress.Level>();
-        playerProgress.currentSkin = "white";
-        playerProgress.openSkins = new List<string>();
+        playerProgress.currentSkin = "on";
+        playerProgress.openSkins = new List<string>() { "on" };
         activeLevel = 0;
         activeWorld = 65;
         cW = 65; cI = 0;
         _money = 0;
         if (File.Exists(Application.persistentDataPath + "/SystemData.dat"))
             File.Delete(Application.persistentDataPath + "/SystemData.dat");
+
+        SavePlayerProgress();
+        Application.Quit();
     }
 }

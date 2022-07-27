@@ -70,6 +70,12 @@ public class UIController : MonoBehaviour
     public GameObject soundSlider;
     public GameObject musicSlider;
 
+    public GameObject shopPanel;
+    public GameObject skinsPanel;
+    public GameObject levelPanel;
+    public GameObject arcadaPanel;
+    public GameObject tabs;
+
     public void StartGame()
     {
         mainCanvas.SetActive(false);
@@ -132,6 +138,19 @@ public class UIController : MonoBehaviour
     public void Vibrate(int time)
     {
         Vibration.Vibrate(time);
+    }
+
+    public void ActivePanel(int index)
+    {
+        GameObject[] panels = new GameObject[] { shopPanel, skinsPanel, levelPanel, arcadaPanel };
+        var buttons = tabs.GetComponentsInChildren<Button>();
+        for (int i = 0; i < 4; i++)
+        {
+            panels[i].SetActive(false);
+            buttons[i].interactable = true;
+        }
+        tabs.GetComponentsInChildren<Button>()[index].interactable = false;
+        panels[index].SetActive(true);
     }
     #endregion
 

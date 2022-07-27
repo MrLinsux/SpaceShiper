@@ -115,6 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d60c5f93d872d743b09603942c69d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  newOutlineColor: {r: 1, g: 1, b: 1, a: 0}
   oldOutlineColor: {r: 0.5019608, g: 0.45882353, b: 0.2509804, a: 1}
   spriteColor: {r: 0, g: 0, b: 0, a: 1}

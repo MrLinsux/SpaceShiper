@@ -18,7 +18,7 @@ public class SkinButton : MonoBehaviour
     public MotherController motherController;
     public GameObject trail;
 
-    public string Name = "white";
+    public string Name = "on";
     Animator animator;
 
 
@@ -31,21 +31,22 @@ public class SkinButton : MonoBehaviour
     private void OnEnable()
     {
         if(isSelectPoint.activeInHierarchy)
-            animator.SetBool("isSelect", true);
+            animator?.SetBool("isSelect", true);
     }
 
-    public void SetButton(int cost, bool isUnlock, SkinType type, string name)
+    public void SetButton(MotherController.Skin _skin)
     {
-        skin = new MotherController.Skin(name, cost, isUnlock, type);
-        this.Name = name;
+        skin = _skin;
+        this.Name = skin.name;
 
         SetSkin(Name);
         isSelectPoint.SetActive(false);
+        this.GetComponent<Button>().onClick.RemoveAllListeners();
 
-        if (isUnlock)
+        if (skin.isUnlock)
         {
             this.GetComponent<Outline>().spriteColor = new Color(0, 0, 0, 1);
-            switch (type)
+            switch (skin.type)
             {
                 case SkinType.normal:
                     this.GetComponent<Outline>().newOutlineColor = unlock;
@@ -59,7 +60,7 @@ public class SkinButton : MonoBehaviour
         else
         {
             this.GetComponent<Outline>().spriteColor = new Color(0.1647059f, 0.1647059f, 0.1647059f, 0);
-            switch (type)
+            switch (skin.type)
             {
                 case SkinType.normal:
                     this.GetComponent<Outline>().newOutlineColor = locked;
@@ -68,8 +69,30 @@ public class SkinButton : MonoBehaviour
                     this.GetComponent<Outline>().newOutlineColor = rareLocked;
                     break;
             }
+            this.GetComponent<Button>().onClick.AddListener(() => this.Unlock());
         }
     }
+
+    public void Unlock()
+    {
+        this.GetComponent<Outline>().spriteColor = new Color(0, 0, 0, 1);
+        switch (skin.type)
+        {
+            case SkinType.normal:
+                this.GetComponent<Outline>().newOutlineColor = unlock;
+                break;
+            case SkinType.rare:
+                this.GetComponent<Outline>().newOutlineColor = rareUnlock;
+                break;
+        }
+        this.GetComponent<Button>().onClick.RemoveAllListeners();
+        this.GetComponent<Button>().onClick.AddListener(() => this.SetActive(true));
+        this.skin.isUnlock = true;
+        motherController.skins[skin.id].isUnlock = true;
+        motherController.playerProgress.openSkins.Add(skin.name);
+        motherController.SavePlayerProgress();
+    }
+
     public void SetActive(bool isSelect)
     {
         if (isSelect)

@@ -12,9 +12,39 @@ public class SkinSlider : MonoBehaviour
     public float minVector = 10f;
     public float minY = 20f;
 
-    public int currentPage = 0;
+    public int CurrentPage
+    {
+        get
+        {
+            return currentPage;
+        }
+
+        set
+        {
+            if (value < 0)
+            {
+                currentPage = 0;
+            }
+            else if(value > maxPage)
+            {
+                currentPage = maxPage;
+            }
+            else
+            {
+                currentPage = value;
+            }
+        }
+    }
+    private int currentPage = 0;
+
+    public int maxPage = 1;
 
     void Start()
+    {
+        motherController.LoadSkinSelector(0);
+    }
+
+    private void OnEnable()
     {
         motherController.LoadSkinSelector(0);
     }
@@ -30,20 +60,24 @@ public class SkinSlider : MonoBehaviour
             {
                 if ((Vector2.Distance(start, mainCamera.ScreenToWorldPoint(touch.position)) >= minVector) && (Mathf.Abs(mainCamera.ScreenToWorldPoint(touch.position).y - start.y) > minY))
                 {
-                    var temp = currentPage;
+                    var temp = CurrentPage;
                     Vector2 end = mainCamera.ScreenToWorldPoint(touch.position);
                     if (end.y > start.y)
                     {
-                        motherController.LoadSkinSelector(currentPage--);
+                        CurrentPage--;
+                        if(temp != CurrentPage)
+                            motherController.LoadSkinSelector(CurrentPage);
                     }
                     else if (end.y < start.y)
                     {
-                        motherController.LoadSkinSelector(currentPage++);
+                        CurrentPage++;
+                        if (temp != CurrentPage)
+                            motherController.LoadSkinSelector(CurrentPage);
                     }
                     else
                         return;
 
-                    if (temp != currentPage)
+                    if (temp != CurrentPage)
                         Vibration.Vibrate(70);
                 }
             }

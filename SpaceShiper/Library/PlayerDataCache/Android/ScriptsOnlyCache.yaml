@@ -39,6 +39,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -48,6 +49,7 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
@@ -58,7 +60,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.GameObjectBrush
     - UnityEditor.Tilemaps.GroupBrush
     - UnityEditor.Tilemaps.LineBrush
-    - UnityEditor.Tilemaps.PrefabBrush
     - UnityEditor.Tilemaps.RandomBrush
     - UnityEditor.Tilemaps.TintBrush
     - UnityEditor.Tilemaps.TintBrushSmooth
@@ -66,6 +67,7 @@ ScriptsOnlyBuild:
     - UnityEngine.RuleTile
     Unity.CollabProxy.Editor.dll:
     - Unity.Cloud.Collaborate.UserInterface.CollaborateWindow
+    - Unity.Cloud.Collaborate.UserInterface.WindowCache
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -76,8 +78,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -477,7 +481,7 @@ ScriptsOnlyBuild:
     className: IKManager2D
   - hash:
       serializedVersion: 2
-      Hash: 2ccdbdb1a227f46d0928f88f88932beb
+      Hash: 62d51dbe8a41b921d7003f348f83d625
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MotherController
@@ -555,7 +559,7 @@ ScriptsOnlyBuild:
     className: TintTextureGenerator
   - hash:
       serializedVersion: 2
-      Hash: 4cf7350bf9706f136823be1288f99b9c
+      Hash: 56cd505b79fe153b51155a0bf33eefe8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SkinSlider
@@ -693,7 +697,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: cb2e580f62d3fed7e2872ce25103bacf
+      Hash: 00abe55b693c480b500e3aa2811d64f4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Outline
@@ -741,7 +745,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: d99de6b6a7dbdbf1d981ff3784642f66
+      Hash: cfa2ae514e13b7ab7cdcb9479e264c03
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIController
