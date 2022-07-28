@@ -6,71 +6,56 @@ using UnityEngine.Tilemaps;
 
 public class Turel : MonoBehaviour
 {
-    public float activeTime = 1f;
-    public float passiveTime = 1f;
-    public Tilemap map;
-    private Laser[] lasers;
-    public Vector3 startPos;
-    public Vector3 endPos;
+    public Map map;
+    public Vector2 startPos;
+    public Vector2 endPos;
 
-    private void SetActiveLasers(bool val)
-    {
-        for (int i = 0; i < lasers.Length; i++)
-            lasers[i].gameObject.SetActive(val);
-    }
+    public Color shotColor;
+    public Color chargeColor;
+    public Color offColor;
+
+    public SpriteRenderer point;
+    public Animator canon;
+    public GameObject bullet;
+    public Transform bulletSpawn;
 
     void Start()
     {
-        List<Laser> _lasers = new List<Laser>() { this.transform.GetChild(0).GetComponent<Laser>() };
         endPos = startPos = this.transform.position;
-
-        Vector3Int direction = Vector3Int.zero;
-        var tilemap = GameObject.Find("Map").GetComponent<Tilemap>();
-
-        switch ((int)this.GetComponent<SingleSideTrap>().singleDirection)
-        {
-            case 0:
-                direction = Vector3Int.right;
-                break;
-            case 1:
-                direction = Vector3Int.up;
-                break;
-            case 2:
-                direction = Vector3Int.left;
-                break;
-            case 3:
-                direction = Vector3Int.down;
-                break;
-        }
-
-        int wayLong = 2;
-
-        while (direction != Vector3Int.zero)
-        {
-            if (tilemap.GetComponent<Map>().wayTile == tilemap.GetTile(tilemap.WorldToCell(startPos + direction * wayLong)))
-            {
-                _lasers.Add(Instantiate(_lasers[0].gameObject, startPos + direction * wayLong, _lasers[0].transform.rotation, this.transform).GetComponent<Laser>());
-                wayLong++;
-            }
-            else
-            {
-                break;
-            }
-            if (wayLong > 100)
-                break;
-        }
-        lasers = _lasers.ToArray();
-        StartCoroutine(Strike());
+        map = GameObject.Find("Map").GetComponent<Map>();
+        endPos = ((Vector2Int)map.GetLastTileInCoridor(startPos, (Player.Direction)this.GetComponent<SingleSideTrap>().singleDirection));
+        var collider = this.GetComponent<BoxCollider2D>();
+        collider.size = new Vector2((endPos - startPos).magnitude - 0.5f, 1);
+        collider.offset = new Vector2(((endPos - startPos).magnitude + 0.5f) / 2, 0);
     }
 
-    IEnumerator Strike()
+    public void Shot()
     {
-        while(true)
+        point.color = shotColor;
+        Instantiate(bullet, bulletSpawn.transform.position, this.transform.rotation);
+    }
+    public void Charge()
+    {
+        point.color = chargeColor;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Player player;
+        if(collision.TryGetComponent(out player))
         {
-            SetActiveLasers(false);
-            yield return new WaitForSeconds(passiveTime);
-            SetActiveLasers(true);
-            yield return new WaitForSeconds(activeTime);
+            this.GetComponent<Animator>().SetBool("hasPlayer", true);
+            this.transform.GetChild(0).GetComponent<Animator>().SetBool("isActive", true);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Player player;
+        if (collision.TryGetComponent(out player))
+        {
+            this.GetComponent<Animator>().SetBool("hasPlayer", false);
+            this.transform.GetChild(0).GetComponent<Animator>().SetBool("isActive", false);
+            point.color = offColor;
         }
     }
 }

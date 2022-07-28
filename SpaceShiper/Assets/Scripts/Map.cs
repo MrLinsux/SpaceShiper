@@ -193,6 +193,41 @@ public class Map : MonoBehaviour
             totalPoints++;
         }
     }
+    public Vector3Int GetLastTileInCoridor(Vector3 start, Player.Direction direction)
+    {
+        // вычисляем находим крайнюю точку движения по дороге
+        int cellItemX = (int)start.x;
+        int cellItemY = (int)start.y;
+        switch (direction)
+        {
+            case Player.Direction.right:
+                while (IsThisTileFromWay(cellItemX, 1, cellItemY, 0))
+                    cellItemX++;
+                break;
+            case Player.Direction.up:
+                while (IsThisTileFromWay(cellItemX, 0, cellItemY, 1))
+                    cellItemY++;
+                break;
+            case Player.Direction.left:
+                while (IsThisTileFromWay(cellItemX, -1, cellItemY, 0))
+                    cellItemX--;
+                break;
+            case Player.Direction.down:
+                while (IsThisTileFromWay(cellItemX, 0, cellItemY, -1))
+                    cellItemY--;
+                break;
+        }
+
+        return new Vector3Int(cellItemX, cellItemY, 0);
+
+    }
+    private bool IsThisTileFromWay(int i, int di, int j, int dj)
+    {
+        // функция для лучшего понимания кода
+        return
+            (this.GetComponent<Map>().wayTile == this.GetComponent<Tilemap>().GetTile(new Vector3Int(i + di, j + dj, 0))) ||
+            (this.GetComponent<Map>().coinTile == this.GetComponent<Tilemap>().GetTile(new Vector3Int(i + di, j + dj, 0)));
+    }
 
     public class MapTiles
     {
@@ -268,7 +303,7 @@ public class Map : MonoBehaviour
             {
                 get
                 {
-                    return new Vector3(x + 0.5f, y + 0.5f, z - 1);
+                    return new Vector3(x, y, z+50);
                 }
             }
             public int id;

@@ -174,7 +174,8 @@ MonoBehaviour:
   ender: {fileID: 11400000, guid: b025b8bfd6574ab4691eea5224112269, type: 2}
   playerSpawner: {fileID: 11400000, guid: 8ce3f072c4be79742ad8c24bdfa93f67, type: 2}
   pusher: {fileID: 11400000, guid: 1e80c5338ed8da1498005841f7839e05, type: 2}
-  singleSideTraps: []
+  singleSideTraps:
+  - {fileID: 1473921943992487392, guid: 7153eaaa28813444583411da3a34ffc5, type: 3}
   multySideTraps:
   - {fileID: 6872569371202488903, guid: 218dea71b0b09f3419e45db706ff9c81, type: 3}
   - {fileID: 8320250045824788967, guid: 0e5c1ff6fd93a5548b5179ec45d905a7, type: 3}

@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     public UIController uIController;
     public Camera cameraController;
     public Camera spectrator;
-    public Tilemap tilemap;                                 // объект Map
+    public Map tilemap;                                 // объект Map
     public Animator animator;                               // аниматор игрока
     public GameObject pGrave;
     public GameObject pGraveCircle;
@@ -119,10 +119,9 @@ public class Player : MonoBehaviour
         // функция основного движения
         Debug.Log("11");
         mainDirection = direction;
-        end = GetLastTileInCoridor(
-            tilemap.WorldToCell(this.transform.position),
-            direction,
-            tilemap);           // точка, к которой летит игрок
+        end = tilemap.GetLastTileInCoridor(
+            tilemap.tilemap.WorldToCell(this.transform.position),
+            direction);           // точка, к которой летит игрок
         // на тот случай, если уже в нужной клетке стоим
         if (this.transform.position == end)
         {
@@ -178,10 +177,9 @@ public class Player : MonoBehaviour
         while (this.transform.position != end)
         {
             yield return new WaitForFixedUpdate();
-            end = GetLastTileInCoridor(
-                tilemap.WorldToCell(this.transform.position),
-                direction,
-                tilemap);
+            end = tilemap.GetLastTileInCoridor(
+                tilemap.tilemap.WorldToCell(this.transform.position),
+                direction);
             this.transform.position = Vector3.MoveTowards(this.transform.position, end, moveSpeed*Time.fixedDeltaTime);
         }
         this.transform.position = end;
@@ -364,39 +362,5 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Vector3Int GetLastTileInCoridor(Vector3 start, Direction direction, Tilemap tilemapScheme)
-    {
-        // вычисляем находим крайнюю точку движения по дороге
-        int cellItemX = (int)start.x;
-        int cellItemY = (int)start.y;
-        switch (direction)
-        {
-            case Direction.right:
-                while (IsThisTileFromWay(tilemapScheme, cellItemX, 1, cellItemY, 0))
-                    cellItemX++;
-                break;
-            case Direction.up:
-                while (IsThisTileFromWay(tilemapScheme, cellItemX, 0, cellItemY, 1))
-                    cellItemY++;
-                break;
-            case Direction.left:
-                while (IsThisTileFromWay(tilemapScheme, cellItemX, -1, cellItemY, 0))
-                    cellItemX--;
-                break;
-            case Direction.down:
-                while (IsThisTileFromWay(tilemapScheme, cellItemX, 0, cellItemY, -1))
-                    cellItemY--;
-                break;
-        }
 
-        return new Vector3Int(cellItemX, cellItemY, 0);
-
-    }
-    private bool IsThisTileFromWay(Tilemap tilemapScheme, int i, int di, int j, int dj)
-    {
-        // функция для лучшего понимания кода
-        return 
-            (gameController.tilemap.GetComponent<Map>().wayTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0))) || 
-            (gameController.tilemap.GetComponent<Map>().coinTile == tilemapScheme.GetTile(new Vector3Int(i + di, j + dj, 0)));
-    }
 }
